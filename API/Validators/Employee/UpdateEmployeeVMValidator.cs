@@ -1,0 +1,38 @@
+﻿using API.ViewModels.Employee;
+using Data.UnitOfWorks;
+using FluentValidation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace API.Validators.Employee
+{
+    public class UpdateEmployeeVMValidator : AbstractValidator<UpdateEmployeeVM>
+    {
+        public UpdateEmployeeVMValidator(IUnitOfWork unitOfWork)
+        {
+            RuleFor(x => x.ArabicName).NotEmpty().MinimumLength(3).MaximumLength(50);
+            RuleFor(x => x.EnglishName).NotEmpty().MinimumLength(3).MaximumLength(50);
+
+            RuleFor(x => x.Phone).NotEmpty().MinimumLength(10).MaximumLength(13);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Address).NotEmpty().MinimumLength(3).MaximumLength(100);
+            RuleFor(x => x.BirthDate).NotEmpty().LessThan(DateTime.Now);
+            RuleFor(x => x.BirthDateHijri).NotEmpty();
+            RuleFor(x => x.PlaceOfBirth).NotEmpty().MinimumLength(3).MaximumLength(25);
+
+            RuleFor(x => x.Gender).NotEmpty().IsInEnum();
+            RuleFor(x => x.Religion).NotEmpty().IsInEnum();
+            RuleFor(x => x.MarritalStatus).NotEmpty().IsInEnum();
+
+            RuleFor(x => x.NationalityId).NotEmpty()
+                                         .MustAsync(async (value, cancelToken) =>
+                                         {
+                                             return (await unitOfWork.Nationalities.IsValidIdAsync(value));
+                                         })
+                                         .WithMessage("Nationality Not Found!");
+        }
+    }
+}
