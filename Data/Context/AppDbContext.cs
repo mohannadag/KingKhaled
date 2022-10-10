@@ -15,9 +15,25 @@ namespace Data.Context
 
         }
 
+        // General
         public DbSet<Nationality> Nationalities { get; set; }
+
+        // Financial
         public DbSet<Bank> Banks { get; set; }
+
+        // Identifications
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
+
         public DbSet<Identity> Identities { get; set; }
+        public DbSet<Passport> Passports { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // Set EmployeeId and BankId as Principle Key[Index].
+            builder.Entity<EmployeeAccount>()
+            .HasIndex(x => new { x.EmployeeId, x.BankId })
+            .IsUnique(true);
+        }
     }
 }

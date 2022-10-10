@@ -1,21 +1,22 @@
-﻿using Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.ViewModels.Identity
+namespace API.ViewModels.Passport
 {
-    public class IdentityVM
+    public class PassportVM
     {
         public int Id { get; set; }
-        public string IdentityNumber { get; set; }
-        public string IdentityType { get; set; }
+        public string PassportNumber { get; set; }
         public string Issuer { get; set; }
+        public string Notes { get; set; }
+
         public DateTime IssueDate { get; set; }
+        public string IssueDateHijri { get; set; }
         public DateTime ExpireDate { get; set; }
-        public string JobVisa { get; set; }
+        public string ExpireDateHijri { get; set; }
 
         public int EmployeeId { get; set; }
         public int EmployeeNumber { get; set; }

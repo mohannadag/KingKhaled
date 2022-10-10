@@ -21,10 +21,21 @@ namespace Data.UnitOfWorks
 
         public INationalityRepository Nationalities => new NationalityRepository(
             _dbContext, new Logger<NationalityRepository>(new NullLoggerFactory()));
+
         public IIdentityRepository Identities => new IdentityRepository(
             _dbContext, new Logger<IdentityRepository>(new NullLoggerFactory()));
+
         public IEmployeeRepository Employees => new EmployeeRepository(
             _dbContext, new Logger<EmployeeRepository>(new NullLoggerFactory()));
+
+        public IPassportRepository Passports => new PassportRepository(
+            _dbContext, new Logger<PassportRepository>(new NullLoggerFactory()));
+
+        public IBankRepository Banks => new BankRepository(
+            _dbContext, new Logger<BankRepository>(new NullLoggerFactory()));
+
+        public IEmployeeAccountRepository EmployeeAccounts => new EmployeeAccountRepository(
+            _dbContext, new Logger<EmployeeAccountRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

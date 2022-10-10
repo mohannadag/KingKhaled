@@ -31,5 +31,7 @@ namespace Core.Models
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
+
+        public ICollection<EmployeeAccount> EmployeeAccounts { get; set; }
     }
 }

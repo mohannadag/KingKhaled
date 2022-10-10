@@ -1,4 +1,5 @@
-﻿using API.ViewModels.Nationality;
+﻿using API.ViewModels.Bank;
+using API.ViewModels.Nationality;
 using AutoMapper;
 using Core.Models;
 using System;
@@ -19,6 +20,14 @@ namespace API.Profiles
             CreateMap<Nationality, CreateNationalityVM>()
                 .ReverseMap();
             CreateMap<Nationality, UpdateNationalityVM>()
+                .ReverseMap();
+
+            // Banks
+            CreateMap<Bank, BankVM>()
+                .ReverseMap();
+            CreateMap<Bank, CreateBankVM>()
+                .ReverseMap();
+            CreateMap<Bank, UpdateBankVM>()
                 .ReverseMap();
         }
     }

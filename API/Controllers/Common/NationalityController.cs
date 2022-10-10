@@ -33,7 +33,7 @@ namespace API.Controllers.Common
             _linkGenerator = linkGenerator;
         }
 
-        [HttpGet("GetBy-Id/{nationalityId:int}")]
+        [HttpGet("GetById/{nationalityId:int}")]
         public async Task<ActionResult<NationalityVM>> GetById(int nationalityId)
         {
             var result = await _unitOfWork.Nationalities.GetByIdAsync(nationalityId);
@@ -90,7 +90,7 @@ namespace API.Controllers.Common
 
             if (await _unitOfWork.SaveAsync())
             {
-                var location = _linkGenerator.GetPathByAction("GetBy-Id", "Nationality", values: new { nationalityId = nationality.Id });
+                var location = _linkGenerator.GetPathByAction("GetById", "Nationality", values: new { nationalityId = nationality.Id });
 
                 return Created(location, _mapper.Map<NationalityVM>(nationality));
             }

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Models
+namespace API.ViewModels.Passport
 {
-    public class Passport
+    public class UpdatePassportVM
     {
-        public int Id { get; set; }
         public string PassportNumber { get; set; }
         public string Issuer { get; set; }
         public DateTime IssueDate { get; set; }
@@ -18,11 +17,5 @@ namespace Core.Models
         public string Notes { get; set; }
 
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
-        
-        public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime LastModified { get; set; }
-        public string ModifiedBy { get; set; }
     }
 }

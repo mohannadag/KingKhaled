@@ -12,6 +12,9 @@ namespace Data.UnitOfWorks
         public INationalityRepository Nationalities { get; }
         public IIdentityRepository Identities { get; }
         public IEmployeeRepository Employees { get; }
+        public IPassportRepository Passports { get; }
+        public IBankRepository Banks { get; }
+        public IEmployeeAccountRepository EmployeeAccounts { get; }
 
         Task<bool> SaveAsync();
     }

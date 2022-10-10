@@ -29,7 +29,8 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetByIdAsync for Identity was Called");
 
-                return await _dbContext.Identities.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -41,13 +42,14 @@ namespace Data.Repositories.Repository
         {
             try
             {
-                _logger.LogInformation("GetByNameAsync for Identity was Called");
+                _logger.LogInformation("GetByNumberAsync for Identity was Called");
 
-                return await _dbContext.Identities.FirstOrDefaultAsync(x => x.IdentityNumber == identityNumber);
+                return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .FirstOrDefaultAsync(x => x.IdentityNumber == identityNumber);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to GetByNameAsync for Identity: {ex.Message}");
+                _logger.LogError($"Faild to GetByNumberAsync for Identity: {ex.Message}");
                 return null;
             }
         }

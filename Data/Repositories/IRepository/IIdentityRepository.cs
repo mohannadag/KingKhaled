@@ -20,7 +20,6 @@ namespace Data.Repositories.IRepository
         Task<IEnumerable<Identity>> GetAllAsync();
         Task<IEnumerable<Identity>> GetAllExpiredAsync();
         Task<IEnumerable<Identity>> GetAllByTypeAsync(string identityType = "Iqama");
-        
 
         Task AddAsync(Identity identity);
         void Update(Identity identity);

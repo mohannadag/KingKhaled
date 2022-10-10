@@ -30,7 +30,7 @@ namespace API.Controllers.HR
             _linkGenerator = linkGenerator;
         }
 
-        [HttpGet("GetBy-Id/{employeeId:int}")]
+        [HttpGet("GetById/{employeeId:int}")]
         public async Task<ActionResult<EmployeeVM>> GetById(int employeeId)
         {
             var result = await _unitOfWork.Employees.GetByIdAsync(employeeId);
@@ -159,7 +159,7 @@ namespace API.Controllers.HR
 
             if (await _unitOfWork.SaveAsync())
             {
-                var location = _linkGenerator.GetPathByAction("GetBy-Id", "Employee", values: new { employeeId = employee.Id });
+                var location = _linkGenerator.GetPathByAction("GetById", "Employee", values: new { employeeId = employee.Id });
 
                 return Created(location, _mapper.Map<EmployeeVM>(employee));
             }
