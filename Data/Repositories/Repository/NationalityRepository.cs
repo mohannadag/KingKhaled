@@ -38,7 +38,7 @@ namespace Data.Repositories.Repository
                 return null;
             }
         }
-        public async Task<Nationality> GetByArNameAsync(string arabicName)
+        public async Task<Nationality> GetByArabicNameAsync(string arabicName)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Data.Repositories.Repository
                 return null;
             }
         }
-        public async Task<Nationality> GetByEnNameAsync(string englishName)
+        public async Task<Nationality> GetByEnglishNameAsync(string englishName)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Data.Repositories.Repository
                 return false;
             }
         }
-        public async Task<bool> AlreadyExistArAsync(string arabicName)
+        public async Task<bool> AlreadyExistArabicAsync(string arabicName)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace Data.Repositories.Repository
                 return true;
             }
         }
-        public async Task<bool> AlreadyExistEnAsync(string englishName)
+        public async Task<bool> AlreadyExistEnglishAsync(string englishName)
         {
             try
             {

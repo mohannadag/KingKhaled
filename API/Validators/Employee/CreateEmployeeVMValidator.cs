@@ -26,21 +26,11 @@ namespace API.Validators.Employee
 
             RuleFor(x => x.ArabicName).NotEmpty()
                                       .MinimumLength(3)
-                                      .MaximumLength(50)
-                                      .MustAsync(async (value, cancelToken) =>
-                                      {
-                                          return (!await unitOfWork.Nationalities.AlreadyExistArAsync(value));
-                                      })
-                                      .WithMessage("This Arabic Name Already Exist!");
+                                      .MaximumLength(50);
 
             RuleFor(x => x.EnglishName).NotEmpty()
                                        .MinimumLength(3)
-                                       .MaximumLength(50)
-                                       .MustAsync(async (value, cancelToken) =>
-                                       {
-                                           return (!await unitOfWork.Nationalities.AlreadyExistEnAsync(value));
-                                       })
-                                       .WithMessage("This English Name Already Exist!");
+                                       .MaximumLength(50);
 
             RuleFor(x => x.NationalityId).NotEmpty()
                                          .MustAsync(async (value, cancelToken) =>

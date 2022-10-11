@@ -15,8 +15,9 @@ namespace Data.Repositories.IRepository
         Task<Bank> GetByEnglishNameAsync(string englishName);
 
         Task<bool> IsValidIdAsync(int id);
-        Task<bool> AlreadyExistArAsync(string arabicName);
-        Task<bool> AlreadyExistEnAsync(string englishName);
+        Task<bool> AlreadyExistArabicAsync(string arabicName);
+        Task<bool> AlreadyExistEnglishAsync(string englishName);
+        Task<bool> AlreadyExistCodeAsync(string code);
 
         Task<IEnumerable<Bank>> GetAllAsync();
 

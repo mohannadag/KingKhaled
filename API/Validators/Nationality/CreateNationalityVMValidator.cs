@@ -18,7 +18,7 @@ namespace API.Validators.Nationality
                                       .MaximumLength(50)
                                       .MustAsync(async (value, cancelToken) =>
                                       {
-                                          return (!await unitOfWork.Nationalities.AlreadyExistArAsync(value));
+                                          return (!await unitOfWork.Nationalities.AlreadyExistArabicAsync(value));
                                       })
                                       .WithMessage("This Arabic Name Already Exist!");
 
@@ -27,7 +27,7 @@ namespace API.Validators.Nationality
                                        .MaximumLength(50)
                                        .MustAsync(async (value, cancelToken) =>
                                        {
-                                           return (!await unitOfWork.Nationalities.AlreadyExistEnAsync(value));
+                                           return (!await unitOfWork.Nationalities.AlreadyExistEnglishAsync(value));
                                        })
                                        .WithMessage("This English Name Already Exist!");
         }

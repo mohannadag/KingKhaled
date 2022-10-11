@@ -11,12 +11,12 @@ namespace Data.Repositories.IRepository
     public interface INationalityRepository
     {
         Task<Nationality> GetByIdAsync(int id);
-        Task<Nationality> GetByArNameAsync(string arabicName);
-        Task<Nationality> GetByEnNameAsync(string englishName);
+        Task<Nationality> GetByArabicNameAsync(string arabicName);
+        Task<Nationality> GetByEnglishNameAsync(string englishName);
 
         Task<bool> IsValidIdAsync(int id);
-        Task<bool> AlreadyExistArAsync(string arabicName);
-        Task<bool> AlreadyExistEnAsync(string englishName);
+        Task<bool> AlreadyExistArabicAsync(string arabicName);
+        Task<bool> AlreadyExistEnglishAsync(string englishName);
 
         Task<IEnumerable<Nationality>> GetAllAsync();
 

@@ -48,7 +48,7 @@ namespace API.Controllers.Common
         [HttpGet("GetBy-ArabicName/{arabicName}")]
         public async Task<ActionResult<NationalityVM>> GetByArabicName(string arabicName)
         {
-            var result = await _unitOfWork.Nationalities.GetByArNameAsync(arabicName);
+            var result = await _unitOfWork.Nationalities.GetByArabicNameAsync(arabicName);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Nationality Found!"));
@@ -60,7 +60,7 @@ namespace API.Controllers.Common
         [HttpGet("GetBy-EnglishName/{englishName}")]
         public async Task<ActionResult<NationalityVM>> GetByEnglishName(string englishName)
         {
-            var result = await _unitOfWork.Nationalities.GetByEnNameAsync(englishName);
+            var result = await _unitOfWork.Nationalities.GetByEnglishNameAsync(englishName);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Nationality Found!"));

@@ -15,6 +15,8 @@ namespace Data.UnitOfWorks
         public IPassportRepository Passports { get; }
         public IBankRepository Banks { get; }
         public IEmployeeAccountRepository EmployeeAccounts { get; }
+        public IJobRepository Jobs { get; }
+        public IJobGroupRepository JobGroups { get; }
 
         Task<bool> SaveAsync();
     }

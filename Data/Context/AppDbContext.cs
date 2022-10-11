@@ -20,6 +20,8 @@ namespace Data.Context
 
         // Financial
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<JobGroup> JobGroups { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
         // Identifications
         public DbSet<Employee> Employees { get; set; }

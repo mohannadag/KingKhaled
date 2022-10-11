@@ -93,7 +93,7 @@ namespace Data.Repositories.Repository
                 return false;
             }
         }
-        public async Task<bool> AlreadyExistArAsync(string arabicName)
+        public async Task<bool> AlreadyExistArabicAsync(string arabicName)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace Data.Repositories.Repository
             }
         }
 
-        public async Task<bool> AlreadyExistEnAsync(string englishName)
+        public async Task<bool> AlreadyExistEnglishAsync(string englishName)
         {
             try
             {
@@ -117,6 +117,20 @@ namespace Data.Repositories.Repository
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to AlreadyExistAsync for Bank: {ex.Message}");
+                return true;
+            }
+        }
+
+        public async Task<bool> AlreadyExistCodeAsync(string code)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyExistCodeAsync for Bank was Called");
+                return await _dbContext.Banks.AnyAsync(x => x.Code.ToLower().Trim() == code.ToLower().Trim());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyExistCodeAsync for Bank: {ex.Message}");
                 return true;
             }
         }

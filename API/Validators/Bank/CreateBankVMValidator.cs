@@ -18,7 +18,7 @@ namespace API.Validators.Bank
                                       .MaximumLength(50)
                                       .MustAsync(async (value, cancelToken) =>
                                       {
-                                          return (!await unitOfWork.Banks.AlreadyExistArAsync(value));
+                                          return (!await unitOfWork.Banks.AlreadyExistArabicAsync(value));
                                       })
                                       .WithMessage("This Arabic Name Already Exist!");
 
@@ -27,7 +27,7 @@ namespace API.Validators.Bank
                                        .MaximumLength(50)
                                        .MustAsync(async (value, cancelToken) =>
                                        {
-                                           return (!await unitOfWork.Banks.AlreadyExistEnAsync(value));
+                                           return (!await unitOfWork.Banks.AlreadyExistEnglishAsync(value));
                                        })
                                        .WithMessage("This English Name Already Exist!");
 
@@ -36,7 +36,7 @@ namespace API.Validators.Bank
                                 .MaximumLength(50)
                                 .MustAsync(async (value, cancelToken) =>
                                 {
-                                    return (!await unitOfWork.Banks.AlreadyExistEnAsync(value));
+                                    return (!await unitOfWork.Banks.AlreadyExistEnglishAsync(value));
                                 })
                                 .WithMessage("This Bank Code Already Exist!");
         }
