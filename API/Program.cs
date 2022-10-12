@@ -2,6 +2,7 @@ using API.Extensions;
 using API.Middleware;
 using API.ViewModels.Nationality;
 using Data.Context;
+using Data.DataSeed;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +14,7 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,26 @@ namespace API
 
             //================End Builder==========================
 
-            app.Run();
+            // Data Seed
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            try
+            {
+                var context = services.GetRequiredService<AppDbContext>();
+
+                await context.Database.MigrateAsync();
+
+                await Seed.SeedBanks(context);
+                
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "Error Occured During Migration");
+            }
+
+            await app.RunAsync();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Data.Repositories.IRepository
         Task<bool> AlreadyExistArabicAsync(string arabicName);
 
         Task<IEnumerable<Job>> GetAllAsync();
+        Task<IEnumerable<Job>> GetAllByJobGroupIdAsync(int jobGroupId);
+        Task<IEnumerable<Job>> GetAllByJobSubGroupIdAsync(int jobSubGroupId);
 
         Task AddAsync(Job job);
         void Update(Job job);

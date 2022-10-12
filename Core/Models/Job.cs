@@ -12,6 +12,13 @@ namespace Core.Models
         public string ArabicName { get; set; }
         public string Code { get; set; }
 
+        public int JobSubGroupId { get; set; }
+        public JobSubGroup JobSubGroup { get; set; }
+
+        public int MinRank { get; set; }
+        public int MaxRank { get; set; }
+        public double WorkNatureAllowance { get; set; }
+
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }

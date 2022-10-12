@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221012125735_JobSubGroup_Added")]
+    partial class JobSubGroup_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,27 +237,13 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JobSubGroupId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("MaxRank")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinRank")
-                        .HasColumnType("int");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("WorkNatureAllowance")
-                        .HasColumnType("float");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("JobSubGroupId");
 
                     b.ToTable("Jobs");
                 });
@@ -444,17 +432,6 @@ namespace Data.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Core.Models.Job", b =>
-                {
-                    b.HasOne("Core.Models.JobSubGroup", "JobSubGroup")
-                        .WithMany("Jobs")
-                        .HasForeignKey("JobSubGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobSubGroup");
-                });
-
             modelBuilder.Entity("Core.Models.JobSubGroup", b =>
                 {
                     b.HasOne("Core.Models.JobGroup", "JobGroup")
@@ -490,11 +467,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.JobGroup", b =>
                 {
                     b.Navigation("JobSubGroups");
-                });
-
-            modelBuilder.Entity("Core.Models.JobSubGroup", b =>
-                {
-                    b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618
         }

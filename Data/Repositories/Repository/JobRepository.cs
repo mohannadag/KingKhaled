@@ -107,6 +107,65 @@ namespace Data.Repositories.Repository
                 return null;
             }
         }
+        public async Task<IEnumerable<Job>> GetAllByAllowanceStatusAsync(bool haveWorkNatureAllowance)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllAsync for Job was Called");
+
+                if (haveWorkNatureAllowance)
+                {
+                    return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                                .ThenInclude(x => x.JobGroup)
+                                                .Where(x => x.WorkNatureAllowance > 0)
+                                                .ToListAsync();
+                }
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Where(x => x.WorkNatureAllowance == 0)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Job>> GetAllByJobGroupIdAsync(int jobGroupId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByJobGroupIdAsync for Job was Called");
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Where(x => x.JobSubGroup.JobGroupId == jobGroupId)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByJobGroupIdAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Job>> GetAllByJobSubGroupIdAsync(int jobSubGroupId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByJobSubGroupIdAsync for Job was Called");
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Where(x => x.JobSubGroupId == jobSubGroupId)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByJobSubGroupIdAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
 
         public async Task AddAsync(Job job)
         {
