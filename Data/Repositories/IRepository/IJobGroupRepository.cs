@@ -11,6 +11,7 @@ namespace Data.Repositories.IRepository
     {
         Task<JobGroup> GetByIdAsync(int id);
         Task<JobGroup> GetByArabicNameAsync(string arabicName);
+        Task<JobGroup> GetByJobSubGroupIdAsync(int jobSubGroupId);
 
         Task<bool> IsValidIdAsync(int id);
         Task<bool> AlreadyExistArabicAsync(string arabicName);

@@ -11,16 +11,15 @@ namespace Data.Repositories.IRepository
     {
         Task<JobSubGroup> GetByIdAsync(int id);
         Task<JobSubGroup> GetByArabicNameAsync(string arabicName);
-        Task<JobSubGroup> GetByCodeAsync(string code);
 
         Task<bool> IsValidIdAsync(int id);
         Task<bool> AlreadyExistArabicAsync(string arabicName);
 
         Task<IEnumerable<JobSubGroup>> GetAllAsync();
-        Task<IEnumerable<JobSubGroup>> GetAllByJobGroupIdAsync();
+        Task<IEnumerable<JobSubGroup>> GetAllByJobGroupIdAsync(int jobGroupId);
 
-        Task AddAsync(JobSubGroup job);
-        void Update(JobSubGroup job);
-        void Delete(JobSubGroup job);
+        Task AddAsync(JobSubGroup jobSubGroup);
+        void Update(JobSubGroup jobSubGroup);
+        void Delete(JobSubGroup jobSubGroup);
     }
 }

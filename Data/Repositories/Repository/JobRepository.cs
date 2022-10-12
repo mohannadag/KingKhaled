@@ -161,7 +161,5 @@ namespace Data.Repositories.Repository
                 _logger.LogError($"Faild to Delete for Jobs: {ex.Message}");
             }
         }
-
-        
     }
 }

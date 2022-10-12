@@ -52,6 +52,18 @@ namespace API.Controllers.Common
             return _mapper.Map<JobGroupVM>(result);
         }
 
+        [HttpGet("GetBy-JobSubGroupId/{jobSubGroupId:int}")]
+        public async Task<ActionResult<JobGroupVM>> GetByJobSubGroupId(int jobSubGroupId)
+        {
+            var result = await _unitOfWork.JobGroups.GetByJobSubGroupIdAsync(jobSubGroupId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Job Group Found!"));
+            }
+
+            return _mapper.Map<JobGroupVM>(result);
+        }
+
         [HttpGet("GetAll")]
         public async Task<ActionResult<JobGroupVM[]>> GetAll()
         {

@@ -28,7 +28,8 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetByIdAsync for JobGroup was Called");
 
-                return await _dbContext.JobGroups.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.JobGroups.Include(x => x.JobSubGroups)
+                                                 .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -42,11 +43,28 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetByNameAsync for JobGroup was Called");
 
-                return await _dbContext.JobGroups.FirstOrDefaultAsync(x => x.ArabicName == arabicName);
+                return await _dbContext.JobGroups.Include(x => x.JobSubGroups)
+                                                 .FirstOrDefaultAsync(x => x.ArabicName == arabicName);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetByNameAsync for JobGroup: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<JobGroup> GetByJobSubGroupIdAsync(int jobSubGroupId)
+        {
+            try
+            {
+                _logger.LogInformation("GetByJobSubGroupIdAsync for JobGroup was Called");
+
+                return await _dbContext.JobGroups.Include(x => x.JobSubGroups)
+                                                 .Where(x => x.JobSubGroups.Any(x => x.Id == jobSubGroupId))
+                                                 .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetByJobSubGroupIdAsync for JobGroup: {ex.Message}");
                 return null;
             }
         }
@@ -84,7 +102,8 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetAllAsync for JobGroup was Called");
 
-                return await _dbContext.JobGroups.ToListAsync();
+                return await _dbContext.JobGroups.Include(x => x.JobSubGroups)
+                                                 .ToListAsync();
             }
             catch (Exception ex)
             {

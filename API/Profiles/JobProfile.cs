@@ -20,6 +20,14 @@ namespace API.Profiles
                 .ReverseMap();
             CreateMap<JobGroup, UpdateJobGroupVM>()
                 .ReverseMap();
+
+            // JobSubGroup
+            CreateMap<JobSubGroup, JobSubGroupVM>()
+                .ReverseMap();
+            CreateMap<JobSubGroup, CreateJobSubGroupVM>()
+                .ReverseMap();
+            CreateMap<JobSubGroup, UpdateJobSubGroupVM>()
+                .ReverseMap();
         }
     }
 }

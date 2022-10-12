@@ -43,6 +43,9 @@ namespace Data.UnitOfWorks
         public IJobRepository Jobs => new JobRepository(
             _dbContext, new Logger<JobRepository>(new NullLoggerFactory()));
 
+        public IJobSubGroupRepository JobSubGroups => new JobSubGroupRepository(
+            _dbContext, new Logger<JobSubGroupRepository>(new NullLoggerFactory()));
+
         public void Dispose()
         {
             _dbContext.Dispose();

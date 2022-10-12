@@ -17,6 +17,7 @@ namespace Data.UnitOfWorks
         public IEmployeeAccountRepository EmployeeAccounts { get; }
         public IJobRepository Jobs { get; }
         public IJobGroupRepository JobGroups { get; }
+        public IJobSubGroupRepository JobSubGroups { get; }
 
         Task<bool> SaveAsync();
     }
