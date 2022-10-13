@@ -13,6 +13,18 @@ namespace API.Profiles
     {
         public JobProfile()
         {
+            // Job
+            CreateMap<Job, JobVM>()
+                .ForMember(viewModel => viewModel.MinGradeName, model => model.MapFrom(x => x.MinGrade.Name))
+                .ForMember(viewModel => viewModel.MaxGradeName, model => model.MapFrom(x => x.MaxGrade.Name))
+                .ForMember(viewModel => viewModel.JobSubGroup, model => model.MapFrom(x => x.JobSubGroup.ArabicName))
+                .ForMember(viewModel => viewModel.JobGroup, model => model.MapFrom(x => x.JobSubGroup.JobGroup.ArabicName))
+                .ReverseMap();
+            CreateMap<Job, CreateJobVM>()
+                .ReverseMap();
+            CreateMap<Job, UpdateJobVM>()
+                .ReverseMap();
+
             // JobGroup
             CreateMap<JobGroup, JobGroupVM>()
                 .ReverseMap();
@@ -27,6 +39,22 @@ namespace API.Profiles
             CreateMap<JobSubGroup, CreateJobSubGroupVM>()
                 .ReverseMap();
             CreateMap<JobSubGroup, UpdateJobSubGroupVM>()
+                .ReverseMap();
+
+            // Grade
+            CreateMap<Grade, GradeVM>()
+                .ReverseMap();
+            CreateMap<Grade, CreateGradeVM>()
+                .ReverseMap();
+            CreateMap<Grade, UpdateGradeVM>()
+                .ReverseMap();
+
+            // Level
+            CreateMap<Level, LevelVM>()
+                .ReverseMap();
+            CreateMap<Level, CreateLevelVM>()
+                .ReverseMap();
+            CreateMap<Level, UpdateLevelVM>()
                 .ReverseMap();
         }
     }

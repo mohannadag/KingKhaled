@@ -15,10 +15,14 @@ namespace Data.Repositories.IRepository
 
         Task<bool> IsValidIdAsync(int id);
         Task<bool> AlreadyExistArabicAsync(string arabicName);
+        Task<bool> AlreadyExistCodeAsync(string code);
 
         Task<IEnumerable<Job>> GetAllAsync();
         Task<IEnumerable<Job>> GetAllByJobGroupIdAsync(int jobGroupId);
         Task<IEnumerable<Job>> GetAllByJobSubGroupIdAsync(int jobSubGroupId);
+        Task<IEnumerable<Job>> GetAllByMinGradeIdAsync(int minGradeId);
+        Task<IEnumerable<Job>> GetAllByMaxGradeIdAsync(int maxGradeId);
+        Task<IEnumerable<Job>> GetAllByWorkNatureAllowanceAsync(bool? haveWorkNatureAllowance = true);
 
         Task AddAsync(Job job);
         void Update(Job job);

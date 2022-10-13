@@ -17,26 +17,63 @@ namespace Data.Context
 
         // General
         public DbSet<Nationality> Nationalities { get; set; }
+        public DbSet<Bank> Banks { get; set; }
 
         // Financial
-        public DbSet<Bank> Banks { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobGroup> JobGroups { get; set; }
         public DbSet<JobSubGroup> JobSubGroups { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
 
         // Identifications
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
-
         public DbSet<Identity> Identities { get; set; }
         public DbSet<Passport> Passports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // ManyToMany [Full-Configurations] between Grade and Level [Salary]
+            builder.Entity<Grade>()
+                   .HasMany(x => x.Levels)
+                   .WithMany(x => x.Grades)
+                   .UsingEntity<Salary>(
+                       j => j
+                                .HasOne(x => x.Level)
+                                .WithMany(x => x.Salaries)
+                                .HasForeignKey(x => x.LevelId),
+                        j => j
+                                .HasOne(x => x.Grade)
+                                .WithMany(x => x.Salaries)
+                                .HasForeignKey(x => x.GradeId),
+                        j =>
+                        {
+                            j.Property(x => x.CreatedDate).HasDefaultValueSql("GETDATE()");
+                            j.HasKey(x => new { x.LevelId, x.GradeId });
+                            j.Property(x => x.Id).ValueGeneratedOnAdd();
+                        }
+                    );
+
             // Set EmployeeId and BankId as Principle Key[Index].
             builder.Entity<EmployeeAccount>()
             .HasIndex(x => new { x.EmployeeId, x.BankId })
             .IsUnique(true);
+
+            // OneToMany between MinGrade and Job.
+            builder.Entity<Job>()
+            .HasOne(s => s.MinGrade)
+            .WithMany(g => g.MinGradeJobs)
+            .HasForeignKey(s => s.MinGradeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            // OneToMany between MaxGrade and Job.
+            builder.Entity<Job>()
+            .HasOne(s => s.MaxGrade)
+            .WithMany(g => g.MaxGradeJobs)
+            .HasForeignKey(s => s.MaxGradeId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

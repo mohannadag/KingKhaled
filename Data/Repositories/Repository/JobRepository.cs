@@ -28,7 +28,11 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetByIdAsync for Job was Called");
 
-                return await _dbContext.Jobs.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -42,7 +46,11 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetByNameAsync for Job was Called");
 
-                return await _dbContext.Jobs.FirstOrDefaultAsync(x => x.ArabicName == arabicName);
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .FirstOrDefaultAsync(x => x.ArabicName == arabicName);
             }
             catch (Exception ex)
             {
@@ -54,13 +62,17 @@ namespace Data.Repositories.Repository
         {
             try
             {
-                _logger.LogInformation("GetByNameAsync for Job was Called");
+                _logger.LogInformation("GetByCodeAsync for Job was Called");
 
-                return await _dbContext.Jobs.FirstOrDefaultAsync(x => x.Code.ToLower() == code.ToLower());
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .FirstOrDefaultAsync(x => x.Code.ToLower() == code.ToLower());
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to GetByNameAsync for Job: {ex.Message}");
+                _logger.LogError($"Faild to GetByCodeAsync for Job: {ex.Message}");
                 return null;
             }
         }
@@ -79,6 +91,19 @@ namespace Data.Repositories.Repository
             }
         }
 
+        public async Task<bool> AlreadyExistCodeAsync(string code)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyExistCodeAsync for Job was Called");
+                return await _dbContext.Jobs.AnyAsync(x => x.Code == code);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyExistCodeAsync for Job: {ex.Message}");
+                return true;
+            }
+        }
         public async Task<bool> AlreadyExistArabicAsync(string arabicName)
         {
             try
@@ -99,7 +124,11 @@ namespace Data.Repositories.Repository
             {
                 _logger.LogInformation("GetAllAsync for Job was Called");
 
-                return await _dbContext.Jobs.ToListAsync();
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -117,12 +146,16 @@ namespace Data.Repositories.Repository
                 {
                     return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                 .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.MaxGrade)
+                                                .Include(x => x.MinGrade)
                                                 .Where(x => x.WorkNatureAllowance > 0)
                                                 .ToListAsync();
                 }
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
                                             .Where(x => x.WorkNatureAllowance == 0)
                                             .ToListAsync();
             }
@@ -140,6 +173,8 @@ namespace Data.Repositories.Repository
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
                                             .Where(x => x.JobSubGroup.JobGroupId == jobGroupId)
                                             .ToListAsync();
             }
@@ -157,6 +192,8 @@ namespace Data.Repositories.Repository
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
                                             .Where(x => x.JobSubGroupId == jobSubGroupId)
                                             .ToListAsync();
             }
@@ -166,6 +203,80 @@ namespace Data.Repositories.Repository
                 return null;
             }
         }
+        public async Task<IEnumerable<Job>> GetAllByMinGradeIdAsync(int minGradeId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByMinGradeIdAsync for Job was Called");
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .Where(x => x.MinGradeId == minGradeId)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByMinGradeIdAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Job>> GetAllByMaxGradeIdAsync(int maxGradeId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByMaxGradeIdAsync for Job was Called");
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .Where(x => x.MaxGradeId == maxGradeId)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByMaxGradeIdAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Job>> GetAllByWorkNatureAllowanceAsync(bool? haveWorkNatureAllowance = true)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByWorkNatureAllowanceAsync for Job was Called");
+                if (haveWorkNatureAllowance.HasValue)
+                {
+                    if (haveWorkNatureAllowance == true)
+                    {
+                        return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                                    .ThenInclude(x => x.JobGroup)
+                                                    .Include(x => x.MaxGrade)
+                                                    .Include(x => x.MinGrade)
+                                                    .Where(x => x.WorkNatureAllowance > 0)
+                                                    .ToListAsync();
+                    }
+                    return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                                .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.MaxGrade)
+                                                .Include(x => x.MinGrade)
+                                                .Where(x => x.WorkNatureAllowance <= 0)
+                                                .ToListAsync();
+                }
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByWorkNatureAllowanceAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
+
 
         public async Task AddAsync(Job job)
         {
@@ -220,5 +331,7 @@ namespace Data.Repositories.Repository
                 _logger.LogError($"Faild to Delete for Jobs: {ex.Message}");
             }
         }
+
+        
     }
 }

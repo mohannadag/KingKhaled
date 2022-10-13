@@ -18,6 +18,9 @@ namespace Data.UnitOfWorks
         public IJobRepository Jobs { get; }
         public IJobGroupRepository JobGroups { get; }
         public IJobSubGroupRepository JobSubGroups { get; }
+        public IGradeRepository Grades { get; }
+        public ILevelRepository Levels { get; }
+        public ISalaryRepository Salaries { get; }
 
         Task<bool> SaveAsync();
     }

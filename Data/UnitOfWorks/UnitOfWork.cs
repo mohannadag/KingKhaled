@@ -46,6 +46,15 @@ namespace Data.UnitOfWorks
         public IJobSubGroupRepository JobSubGroups => new JobSubGroupRepository(
             _dbContext, new Logger<JobSubGroupRepository>(new NullLoggerFactory()));
 
+        public IGradeRepository Grades => new GradeRepository(
+            _dbContext, new Logger<GradeRepository>(new NullLoggerFactory()));
+
+        public ILevelRepository Levels => new LevelRepository(
+            _dbContext, new Logger<LevelRepository>(new NullLoggerFactory()));
+
+        public ISalaryRepository Salaries => new SalaryRepository(
+            _dbContext, new Logger<SalaryRepository>(new NullLoggerFactory()));
+
         public void Dispose()
         {
             _dbContext.Dispose();
