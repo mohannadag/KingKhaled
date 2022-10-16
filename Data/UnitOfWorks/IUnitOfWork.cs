@@ -1,4 +1,7 @@
-﻿using Data.Repositories.IRepository;
+﻿using Data.Repositories.IRepository.IEmployeesInfo;
+using Data.Repositories.IRepository.IFinancials;
+using Data.Repositories.IRepository.IGenerals;
+using Data.Repositories.IRepository.IJobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

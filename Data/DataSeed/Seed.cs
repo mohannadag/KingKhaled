@@ -1,4 +1,4 @@
-﻿using Core.Models;
+﻿using Core.Models.General;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

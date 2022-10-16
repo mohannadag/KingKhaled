@@ -1,4 +1,7 @@
-﻿using Core.Models;
+﻿using Core.Models.EmployeesInfo;
+using Core.Models.Financial;
+using Core.Models.General;
+using Core.Models.Jobs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using API.ViewModels.Bank;
 using API.ViewModels.Nationality;
 using AutoMapper;
-using Core.Models;
+using Core.Models.General;
 using Data.UnitOfWorks;
 using Microsoft.AspNetCore.Mvc;
 using System;

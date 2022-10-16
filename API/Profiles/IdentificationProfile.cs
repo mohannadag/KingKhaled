@@ -1,7 +1,7 @@
 ﻿using API.ViewModels.Identity;
 using API.ViewModels.Passport;
 using AutoMapper;
-using Core.Models;
+using Core.Models.EmployeesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;

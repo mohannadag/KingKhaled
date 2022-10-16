@@ -1,5 +1,4 @@
 ﻿using Data.Context;
-using Data.Repositories.IRepository;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data.Repositories.Repository;
+using Data.Repositories.IRepository.IGenerals;
+using Data.Repositories.IRepository.IJobs;
+using Data.Repositories.IRepository.IEmployeesInfo;
+using Data.Repositories.IRepository.IFinancials;
+using Data.Repositories.Repository.EmployeesInfo;
+using Data.Repositories.Repository.General;
+using Data.Repositories.Repository.Jobs;
+using Data.Repositories.Repository.Financials;
 
 namespace Data.UnitOfWorks
 {

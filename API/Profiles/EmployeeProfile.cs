@@ -1,7 +1,7 @@
 ﻿using API.ViewModels.Employee;
 using API.ViewModels.EmployeeAccount;
 using AutoMapper;
-using Core.Models;
+using Core.Models.EmployeesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;

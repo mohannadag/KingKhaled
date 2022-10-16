@@ -1,7 +1,8 @@
 ﻿using API.ViewModels.JobGroup;
 using API.ViewModels.Qualification;
 using AutoMapper;
-using Core.Models;
+using Core.Models.Financial;
+using Core.Models.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
