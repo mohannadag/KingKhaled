@@ -29,9 +29,9 @@ namespace API.Controllers.Common
         }
 
         [HttpGet("GetById/{gradeId:int}")]
-        public async Task<ActionResult<GradeVM>> GetById(int bankId)
+        public async Task<ActionResult<GradeVM>> GetById(int gradeId)
         {
-            var result = await _unitOfWork.Grades.GetByIdAsync(bankId);
+            var result = await _unitOfWork.Grades.GetByIdAsync(gradeId);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Grade Found!"));

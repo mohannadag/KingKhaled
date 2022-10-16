@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Models
+namespace API.ViewModels.Branch
 {
-    public class Department
+    public class BranchVM
     {
         public int Id { get; set; }
         public string ArabicName { get; set; }
@@ -14,11 +14,7 @@ namespace Core.Models
         public string EnglishName { get; set; }
         public string ShortEnName { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime LastModified { get; set; }
-        public string ModifiedBy { get; set; }
-
-        public ICollection<Branch> Branches { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
     }
 }

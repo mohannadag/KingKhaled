@@ -64,6 +64,20 @@ namespace Data.Repositories.Repository
                 return false;
             }
         }
+        public async Task<bool> IsValidLevelIdForGradeAsync(int gradeId, int levelId)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidLevelIdForGradeAsync for Grade was Called");
+                return await _dbContext.Grades.AnyAsync(x => x.Id == gradeId && x.Levels.Any(x => x.Id == levelId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidLevelIdForGradeAsync for Grade: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<bool> AlreadyExistArabicAsync(string arabicName)
         {
             try
@@ -146,5 +160,7 @@ namespace Data.Repositories.Repository
                 _logger.LogError($"Faild to Delete for Grade: {ex.Message}");
             }
         }
+
+        
     }
 }

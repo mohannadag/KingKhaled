@@ -21,6 +21,9 @@ namespace Data.UnitOfWorks
         public IGradeRepository Grades { get; }
         public ILevelRepository Levels { get; }
         public ISalaryRepository Salaries { get; }
+        public IDepartmentRepository Departments { get; }
+        public IBranchRepository Branches { get; }
+        public IQualificationRepository Qualifications { get; }
 
         Task<bool> SaveAsync();
     }

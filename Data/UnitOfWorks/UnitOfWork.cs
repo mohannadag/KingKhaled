@@ -55,6 +55,15 @@ namespace Data.UnitOfWorks
         public ISalaryRepository Salaries => new SalaryRepository(
             _dbContext, new Logger<SalaryRepository>(new NullLoggerFactory()));
 
+        public IDepartmentRepository Departments => new DepartmentRepository(
+            _dbContext, new Logger<DepartmentRepository>(new NullLoggerFactory()));
+
+        public IBranchRepository Branches => new BranchRepository(
+            _dbContext, new Logger<BranchRepository>(new NullLoggerFactory()));
+
+        public IQualificationRepository Qualifications => new QualificationRepository(
+            _dbContext, new Logger<QualificationRepository>(new NullLoggerFactory()));
+
         public void Dispose()
         {
             _dbContext.Dispose();

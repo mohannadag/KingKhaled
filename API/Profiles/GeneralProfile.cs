@@ -1,5 +1,8 @@
 ﻿using API.ViewModels.Bank;
+using API.ViewModels.Branch;
+using API.ViewModels.Department;
 using API.ViewModels.Nationality;
+using API.ViewModels.Salary;
 using AutoMapper;
 using Core.Models;
 using System;
@@ -28,6 +31,33 @@ namespace API.Profiles
             CreateMap<Bank, CreateBankVM>()
                 .ReverseMap();
             CreateMap<Bank, UpdateBankVM>()
+                .ReverseMap();
+
+            // Department
+            CreateMap<Department, DepartmentVM>()
+                .ReverseMap();
+            CreateMap<Department, CreateDepartmentVM>()
+                .ReverseMap();
+            CreateMap<Department, UpdateDepartmentVM>()
+                .ReverseMap();
+
+            // Branch
+            CreateMap<Branch, BranchVM>()
+                .ForMember(viewModel => viewModel.DepartmentName, model => model.MapFrom(x => x.Department.ArabicName))
+                .ReverseMap();
+            CreateMap<Branch, CreateBranchVM>()
+                .ReverseMap();
+            CreateMap<Branch, UpdateBranchVM>()
+                .ReverseMap();
+
+            // Salary
+            CreateMap<Salary, SalaryVM>()
+                .ForMember(viewModel => viewModel.GradeName, model => model.MapFrom(x => x.Grade.Name))
+                .ForMember(viewModel => viewModel.LevelName, model => model.MapFrom(x => x.Level.Name))
+                .ReverseMap();
+            CreateMap<Salary, CreateSalaryVM>()
+                .ReverseMap();
+            CreateMap<Salary, UpdateSalaryVM>()
                 .ReverseMap();
         }
     }

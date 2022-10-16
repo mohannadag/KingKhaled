@@ -18,8 +18,10 @@ namespace Data.Context
         // General
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
-
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Branch> Branches { get; set; }
         // Financial
+        public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobGroup> JobGroups { get; set; }
         public DbSet<JobSubGroup> JobSubGroups { get; set; }

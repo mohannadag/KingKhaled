@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221014082631_Department_Added")]
+    partial class Department_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,48 +56,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Banks");
-                });
-
-            modelBuilder.Entity("Core.Models.Branch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ArabicName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EnglishName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortArName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortEnName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("Core.Models.Department", b =>
@@ -580,17 +540,6 @@ namespace Data.Migrations
                     b.ToTable("Salaries");
                 });
 
-            modelBuilder.Entity("Core.Models.Branch", b =>
-                {
-                    b.HasOne("Core.Models.Department", "Department")
-                        .WithMany("Branches")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("Core.Models.Employee", b =>
                 {
                     b.HasOne("Core.Models.Nationality", "Nationality")
@@ -703,11 +652,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Bank", b =>
                 {
                     b.Navigation("EmployeeAccounts");
-                });
-
-            modelBuilder.Entity("Core.Models.Department", b =>
-                {
-                    b.Navigation("Branches");
                 });
 
             modelBuilder.Entity("Core.Models.Employee", b =>

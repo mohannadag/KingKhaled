@@ -13,6 +13,7 @@ namespace Data.Repositories.IRepository
         Task<Grade> GetByArabicNameAsync(string arabicName);
 
         Task<bool> IsValidIdAsync(int id);
+        Task<bool> IsValidLevelIdForGradeAsync(int gradeId, int levelId);
         Task<bool> AlreadyExistArabicAsync(string arabicName);
 
         Task<IEnumerable<Grade>> GetAllAsync();

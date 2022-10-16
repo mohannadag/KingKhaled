@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Core.Models
 {
-    public class Branche
+    public class Branch
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string ArabicName { get; set; }
+        public string ShortArName { get; set; }
+        public string EnglishName { get; set; }
+        public string ShortEnName { get; set; }
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }

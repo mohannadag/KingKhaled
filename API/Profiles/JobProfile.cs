@@ -1,4 +1,5 @@
 ﻿using API.ViewModels.JobGroup;
+using API.ViewModels.Qualification;
 using AutoMapper;
 using Core.Models;
 using System;
@@ -35,6 +36,7 @@ namespace API.Profiles
 
             // JobSubGroup
             CreateMap<JobSubGroup, JobSubGroupVM>()
+                .ForMember(viewModel => viewModel.JobGroupName, model => model.MapFrom(x => x.JobGroup.ArabicName))
                 .ReverseMap();
             CreateMap<JobSubGroup, CreateJobSubGroupVM>()
                 .ReverseMap();
@@ -55,6 +57,14 @@ namespace API.Profiles
             CreateMap<Level, CreateLevelVM>()
                 .ReverseMap();
             CreateMap<Level, UpdateLevelVM>()
+                .ReverseMap();
+
+            // Qualification
+            CreateMap<Qualification, QualificationVM>()
+                .ReverseMap();
+            CreateMap<Qualification, CreateQualificationVM>()
+                .ReverseMap();
+            CreateMap<Qualification, UpdateQualificationVM>()
                 .ReverseMap();
         }
     }
