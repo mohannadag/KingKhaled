@@ -70,6 +70,9 @@ namespace Data.UnitOfWorks
         public IQualificationRepository Qualifications => new QualificationRepository(
             _dbContext, new Logger<QualificationRepository>(new NullLoggerFactory()));
 
+        public IJobVisaRepository JobVisa => new JobVisaRepository(
+            _dbContext, new Logger<JobVisaRepository>(new NullLoggerFactory()));
+
         public void Dispose()
         {
             _dbContext.Dispose();

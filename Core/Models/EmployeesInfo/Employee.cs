@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Models.Financial;
+using Core.Models.General;
+using Core.Models.Jobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +29,21 @@ namespace Core.Models.EmployeesInfo
 
         public int NationalityId { get; set; }
         public Nationality Nationality { get; set; }
+
+        public int QualificationId { get; set; }
+        public Qualification Qualification { get; set; }
+
+        public int BranchId { get; set; }
+        public Branch Branch { get; set; }
+
+        public int JobId { get; set; }
+        public Job Job { get; set; }
+
+        public int GradeId { get; set; }
+        public Grade Grade { get; set; }
+
+        public int LevelId { get; set; }
+        public Level Level { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }

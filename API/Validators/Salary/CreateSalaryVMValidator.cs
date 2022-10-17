@@ -34,9 +34,9 @@ namespace API.Validators.Salary
                 {
                     RuleFor(x => x).MustAsync(async (value, canselToken) =>
                     {
-                        return await unitOfWork.Grades.IsValidLevelIdForGradeAsync(value.GradeId, value.LevelId);
+                        return (!await unitOfWork.Salaries.AlreadyExistAsync(value.GradeId, value.LevelId));
                     })
-                    .WithMessage("This Level are Not Valid for this Grade!");
+                    .WithMessage("This Salary with this Grade and Level Already Exist!");
                 });
         }
     }

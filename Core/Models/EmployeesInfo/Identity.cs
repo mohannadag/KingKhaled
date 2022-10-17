@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models.Jobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,9 @@ namespace Core.Models.EmployeesInfo
         public string Issuer { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public string JobVisa { get; set; }
+        
+        public int JobVisaId { get; set; }
+        public JobVisa JobVisa { get; set; }
 
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }

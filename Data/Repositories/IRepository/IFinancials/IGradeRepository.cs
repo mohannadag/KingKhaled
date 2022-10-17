@@ -15,6 +15,7 @@ namespace Data.Repositories.IRepository.IFinancials
         Task<bool> IsValidIdAsync(int id);
         Task<bool> IsValidLevelIdForGradeAsync(int gradeId, int levelId);
         Task<bool> AlreadyExistArabicAsync(string arabicName);
+        Task<bool> AlreadyExistNumberAsync(int gradeNumber);
 
         Task<IEnumerable<Grade>> GetAllAsync();
 

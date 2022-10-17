@@ -102,5 +102,24 @@ namespace API.Controllers.HR.Jobs
 
             return BadRequest(new ApiResponse(400, "Failed to Update QualificationVM!"));
         }
+
+        [HttpDelete("{qualificationId:int}")]
+        public async Task<ActionResult> Delete(int qualificationId)
+        {
+            var qualification = await _unitOfWork.Qualifications.GetByIdAsync(qualificationId);
+            if (qualification == null)
+            {
+                return BadRequest(new ApiResponse(400, "Qualification Not Found!"));
+            }
+
+            _unitOfWork.Qualifications.Delete(qualification);
+
+            if (await _unitOfWork.SaveAsync())
+            {
+                return Ok("Deleted Successfully.");
+            }
+
+            return BadRequest(new ApiResponse(400, "Failed to Delete Qualification!"));
+        }
     }
 }

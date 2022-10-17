@@ -19,6 +19,7 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
 
         Task<IEnumerable<Identity>> GetAllAsync();
         Task<IEnumerable<Identity>> GetAllExpiredAsync();
+        Task<IEnumerable<Identity>> GetAllByJobVisaIdAsync(int jobVisaId);
         Task<IEnumerable<Identity>> GetAllByTypeAsync(string identityType = "Iqama");
 
         Task AddAsync(Identity identity);

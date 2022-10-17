@@ -29,7 +29,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetByIdAsync for Level was Called");
 
-                return await _dbContext.Levels.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.Levels.Include(x => x.Grades)
+                                              .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -43,7 +44,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetByNameAsync for Level was Called");
 
-                return await _dbContext.Levels.FirstOrDefaultAsync(x => x.Name == arabicName);
+                return await _dbContext.Levels.Include(x => x.Grades)
+                                              .FirstOrDefaultAsync(x => x.Name == arabicName);
             }
             catch (Exception ex)
             {
@@ -63,6 +65,20 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogError($"Faild to IsValidIdAsync for Level: {ex.Message}");
                 return false;
+            }
+        }
+
+        public async Task<bool> AlreadyExistNumberAsync(int levelNumber)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyExistNumberAsync for Level was Called");
+                return await _dbContext.Levels.AnyAsync(x => x.LevelNumber == levelNumber);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyExistNumberAsync for Level: {ex.Message}");
+                return true;
             }
         }
         public async Task<bool> AlreadyExistArabicAsync(string arabicName)
@@ -85,7 +101,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetAllAsync for Level was Called");
 
-                return await _dbContext.Levels.ToListAsync();
+                return await _dbContext.Levels.Include(x => x.Grades)
+                                              .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -147,5 +164,7 @@ namespace Data.Repositories.Repository.Financials
                 _logger.LogError($"Faild to Delete for Level: {ex.Message}");
             }
         }
+
+        
     }
 }

@@ -14,7 +14,6 @@ namespace API.Validators.Identity
         public CreateIdentityVMValidator(IUnitOfWork unitOfWork)
         {
             RuleFor(x => x.Issuer).NotEmpty().MinimumLength(3).MaximumLength(50);
-            RuleFor(x => x.JobVisa).NotEmpty().MinimumLength(3).MaximumLength(50);
             RuleFor(x => x.IssueDate).NotEmpty().LessThanOrEqualTo(DateTime.Now.AddDays(1));
             RuleFor(x => x.ExpireDate).NotEmpty().GreaterThanOrEqualTo(DateTime.Now);
 
@@ -26,6 +25,13 @@ namespace API.Validators.Identity
                                           return (await unitOfWork.Employees.IsValidIdAsync(value));
                                       })
                                       .WithMessage("Employee Not Found!");
+
+            RuleFor(x => x.JobVisaId).NotEmpty()
+                                     .MustAsync(async (value, cancelToken) =>
+                                     {
+                                         return (await unitOfWork.JobVisa.IsValidIdAsync(value));
+                                     })
+                                     .WithMessage("Job Visa Not Found!");
 
             RuleFor(x => x.IdentityNumber).NotEmpty()
                                           .MinimumLength(3)

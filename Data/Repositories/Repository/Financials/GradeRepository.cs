@@ -28,7 +28,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetByIdAsync for Grade was Called");
 
-                return await _dbContext.Grades.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.Grades.Include(x => x.Levels)
+                                              .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -42,7 +43,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetByNameAsync for Grade was Called");
 
-                return await _dbContext.Grades.FirstOrDefaultAsync(x => x.Name == arabicName);
+                return await _dbContext.Grades.Include(x => x.Levels)
+                                              .FirstOrDefaultAsync(x => x.Name == arabicName);
             }
             catch (Exception ex)
             {
@@ -78,6 +80,19 @@ namespace Data.Repositories.Repository.Financials
             }
         }
 
+        public async Task<bool> AlreadyExistNumberAsync(int gradeNumber)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyExistNumberAsync for Grade was Called");
+                return await _dbContext.Grades.AnyAsync(x => x.GradeNumber == gradeNumber);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyExistNumberAsync for Grade: {ex.Message}");
+                return true;
+            }
+        }
         public async Task<bool> AlreadyExistArabicAsync(string arabicName)
         {
             try
@@ -98,7 +113,8 @@ namespace Data.Repositories.Repository.Financials
             {
                 _logger.LogInformation("GetAllAsync for Grade was Called");
 
-                return await _dbContext.Grades.ToListAsync();
+                return await _dbContext.Grades.Include(x => x.Levels)
+                                              .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -161,6 +177,6 @@ namespace Data.Repositories.Repository.Financials
             }
         }
 
-
+        
     }
 }

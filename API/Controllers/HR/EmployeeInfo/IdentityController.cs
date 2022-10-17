@@ -115,6 +115,18 @@ namespace API.Controllers.HR.EmployeeInfo
             return _mapper.Map<IdentityVM[]>(result);
         }
 
+        [HttpGet("GetAllBy-JobVisaId/{jobVisaId:int}")]
+        public async Task<ActionResult<IdentityVM[]>> GetAllByQualificationId(int jobVisaId)
+        {
+            var result = await _unitOfWork.Identities.GetAllByJobVisaIdAsync(jobVisaId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Identity Found!"));
+            }
+
+            return _mapper.Map<IdentityVM[]>(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<IdentityVM>> Post(CreateIdentityVM createIdentityVM)
         {

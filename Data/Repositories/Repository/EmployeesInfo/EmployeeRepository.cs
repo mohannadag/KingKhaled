@@ -1,5 +1,6 @@
 ﻿using Core.Enums;
 using Core.Models.EmployeesInfo;
+using Core.Models.Financial;
 using Data.Context;
 using Data.Repositories.IRepository.IEmployeesInfo;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByIdAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
@@ -46,6 +51,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByEmployeeNumberAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.EmployeeNumber == employeeNumber);
             }
             catch (Exception ex)
@@ -61,6 +70,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByGeneralNumberAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.GeneralNumber == generalNumber);
             }
             catch (Exception ex)
@@ -76,6 +89,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByArabicNameAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.ArabicName.ToLower() == arabicName.ToLower());
             }
             catch (Exception ex)
@@ -91,6 +108,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByEnglishNameAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.EnglishName.ToLower() == englishName.ToLower());
             }
             catch (Exception ex)
@@ -113,7 +134,6 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 return false;
             }
         }
-
         public async Task<bool> AlreadyExistAsync(int employeeNumber)
         {
             try
@@ -148,11 +168,94 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .ToListAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetAllAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByJobIdAsync(int jobId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByGradeIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
+                                                 .Where(x => x.JobId == jobId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByGradeIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByGradeIdAsync(int gradeId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByGradeIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Where(x => x.GradeId == gradeId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByGradeIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByLevelIdAsync(int levelId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByLevelIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
+                                                 .Where(x => x.LevelId == levelId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByLevelIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByGradeIdAndLevelIdAsync(int gradeId, int levelId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByGradeIdAndLevelIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
+                                                 .Where(x => x.GradeId == gradeId && x.LevelId == levelId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByGradeIdAndLevelIdAsync for Employee: {ex.Message}");
                 return null;
             }
         }
@@ -163,12 +266,56 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllByNationalityIdAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .Where(x => x.NationalityId == nationalityId)
                                                  .ToListAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetAllByNationalityIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByBranchIdAsync(int branchId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByBranchIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
+                                                 .Where(x => x.BranchId == branchId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByBranchIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Employee>> GetAllByQualificationIdAsync(int qualificationId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByQualificationIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
+                                                 .Where(x => x.QualificationId == qualificationId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByQualificationIdAsync for Employee: {ex.Message}");
                 return null;
             }
         }
@@ -179,6 +326,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllByGenderAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .Where(x => x.Gender.ToLower() == gender.ToLower())
                                                  .ToListAsync();
             }
@@ -195,6 +346,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllByReligionAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .Where(x => x.Religion.ToLower() == religion.ToLower())
                                                  .ToListAsync();
             }
@@ -211,6 +366,10 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllByMarritalStatusAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.Job)
                                                  .Where(x => x.MarritalStatus.ToLower() == marritalStatus.ToLower())
                                                  .ToListAsync();
             }

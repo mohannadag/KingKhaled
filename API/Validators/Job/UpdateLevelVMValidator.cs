@@ -15,6 +15,8 @@ namespace API.Validators.Job
             RuleFor(x => x.Name).NotEmpty()
                                 .MinimumLength(3)
                                 .MaximumLength(50);
+
+            RuleFor(x => x.LevelNumber).NotEmpty();
         }
     }
 }

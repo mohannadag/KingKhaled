@@ -14,8 +14,10 @@ namespace API.ViewModels.Salary
 
         public int GradeId { get; set; }
         public string GradeName { get; set; }
+        public int GradeNumber { get; set; }
 
         public int LevelId { get; set; }
         public string LevelName { get; set; }
+        public int LevelNumber { get; set; }
     }
 }

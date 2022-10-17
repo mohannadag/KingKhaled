@@ -21,6 +21,13 @@ namespace API.Validators.Job
                                     return (!await unitOfWork.Levels.AlreadyExistArabicAsync(value));
                                 })
                                 .WithMessage("This Level Already Exist!");
+
+            RuleFor(x => x.LevelNumber).NotEmpty()
+                                       .MustAsync(async (value, cancelToken) =>
+                                       {
+                                           return (!await unitOfWork.Levels.AlreadyExistNumberAsync(value));
+                                       })
+                                       .WithMessage("This Level Number Already Exist!");
         }
     }
 }

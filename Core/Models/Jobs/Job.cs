@@ -23,6 +23,8 @@ namespace Core.Models.Jobs
         public Grade MaxGrade { get; set; }
 
         public double WorkNatureAllowance { get; set; }
+        public double AllowancePercentage { get; set; }
+        public double AllowanceAmount { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }

@@ -277,7 +277,6 @@ namespace Data.Repositories.Repository.Jobs
             }
         }
 
-
         public async Task AddAsync(Job job)
         {
             try
@@ -286,6 +285,14 @@ namespace Data.Repositories.Repository.Jobs
 
                 if (job != null)
                 {
+                    //if (job.WorkNatureAllowance > 0)
+                    //{
+                    //    if (job.WorkNatureAllowance > 0 && job.WorkNatureAllowance <= 30)
+                    //    {
+                    //        job.
+                    //    }
+                    //}
+
                     job.CreatedBy = "Anonymous";
                     job.CreatedDate = DateTime.Now;
 
@@ -332,6 +339,9 @@ namespace Data.Repositories.Repository.Jobs
             }
         }
 
-
+        public double CalculateWorkNatureAllowance(double workNatureAllowance)
+        {
+            return workNatureAllowance;
+        }
     }
 }

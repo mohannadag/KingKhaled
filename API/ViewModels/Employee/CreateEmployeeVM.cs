@@ -23,5 +23,10 @@ namespace API.ViewModels.Employee
         public MaritalStatus MarritalStatus { get; set; }
 
         public int NationalityId { get; set; }
+        public int BranchId { get; set; }
+        public int QualificationId { get; set; }
+        public int GradeId { get; set; }
+        public int LevelId { get; set; }
+        public int JobId { get; set; }
     }
 }

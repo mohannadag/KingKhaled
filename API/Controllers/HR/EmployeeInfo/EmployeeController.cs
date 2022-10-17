@@ -138,10 +138,82 @@ namespace API.Controllers.HR.EmployeeInfo
             return _mapper.Map<EmployeeVM[]>(result);
         }
 
+        [HttpGet("GetAllBy-GradeId/{gradeId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByGradeId(int gradeId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByGradeIdAsync(gradeId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
+        [HttpGet("GetAllBy-LevelId/{levelId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByLevelId(int levelId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByLevelIdAsync(levelId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
+        [HttpGet("GetAllBy-GradeId-and-LevelId/{gradeId:int}/{levelId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByGradeIdAndLevelId(int gradeId, int levelId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByGradeIdAndLevelIdAsync(gradeId, levelId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
+        [HttpGet("GetAllBy-BranchId/{branchId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByBranchId(int branchId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByBranchIdAsync(branchId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
+        [HttpGet("GetAllBy-JobId/{jobId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByJobId(int jobId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByJobIdAsync(jobId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
         [HttpGet("GetAllBy-NationalityId/{nationalityId:int}")]
         public async Task<ActionResult<EmployeeVM[]>> GetAllByNationalityId(int nationalityId)
         {
             var result = await _unitOfWork.Employees.GetAllByNationalityIdAsync(nationalityId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM[]>(result);
+        }
+
+        [HttpGet("GetAllBy-QualificationId/{qualificationId:int}")]
+        public async Task<ActionResult<EmployeeVM[]>> GetAllByQualificationId(int qualificationId)
+        {
+            var result = await _unitOfWork.Employees.GetAllByQualificationIdAsync(qualificationId);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Employees Found!"));

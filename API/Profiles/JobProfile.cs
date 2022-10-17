@@ -67,6 +67,14 @@ namespace API.Profiles
                 .ReverseMap();
             CreateMap<Qualification, UpdateQualificationVM>()
                 .ReverseMap();
+
+            // JobVisa
+            CreateMap<JobVisa, JobVisaVM>()
+                .ReverseMap();
+            CreateMap<JobVisa, CreateJobVisaVM>()
+                .ReverseMap();
+            CreateMap<JobVisa, UpdateJobVisaVM>()
+                .ReverseMap();
         }
     }
 }

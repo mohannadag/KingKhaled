@@ -27,6 +27,7 @@ namespace Data.UnitOfWorks
         public IDepartmentRepository Departments { get; }
         public IBranchRepository Branches { get; }
         public IQualificationRepository Qualifications { get; }
+        public IJobVisaRepository JobVisa { get; }
 
         Task<bool> SaveAsync();
     }

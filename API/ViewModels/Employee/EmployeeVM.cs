@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models.Jobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace API.ViewModels.Employee
         public string Gender { get; set; }
         public string Religion { get; set; }
         public string MarritalStatus { get; set; }
+
+        public int JobId { get; set; }
+        public string JobName { get; set; }
+
+        public int BranchId { get; set; }
+        public string BranchName { get; set; }
+
+        public int QualificationId { get; set; }
+        public string QualificationName { get; set; }
+
+        public int GradeId { get; set; }
+        public string GradeName { get; set; }
+        public int GradeNumber { get; set; }
+
+        public int LevelId { get; set; }
+        public string LevelName { get; set; }
+        public int LevelNumber { get; set; }
 
         public int NationalityId { get; set; }
         public string NationalityAr { get; set; }

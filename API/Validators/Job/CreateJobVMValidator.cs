@@ -33,14 +33,14 @@ namespace API.Validators.Job
                                       })
                                       .WithMessage("This Job Name Already Exist!");
 
-            RuleFor(x => x.MinGradeId).NotEmpty()
+            RuleFor(x => x.MinGradeId).NotEmpty().LessThan(x => x.MaxGradeId)
                                       .MustAsync(async (value, cancelToken) =>
                                       {
                                           return (await unitOfWork.Grades.IsValidIdAsync(value));
                                       })
                                       .WithMessage("Min Grade Not Found!");
 
-            RuleFor(x => x.MaxGradeId).NotEmpty()
+            RuleFor(x => x.MaxGradeId).NotEmpty().GreaterThan(x => x.MinGradeId)
                                       .MustAsync(async (value, cancelToken) =>
                                       {
                                           return (await unitOfWork.Grades.IsValidIdAsync(value));

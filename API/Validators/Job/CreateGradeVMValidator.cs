@@ -21,6 +21,13 @@ namespace API.Validators.Job
                                     return (!await unitOfWork.Grades.AlreadyExistArabicAsync(value));
                                 })
                                 .WithMessage("This Grade Already Exist!");
+
+            RuleFor(x => x.GradeNumber).NotEmpty()
+                                       .MustAsync(async (value, cancelToken) =>
+                                       {
+                                           return (!await unitOfWork.Grades.AlreadyExistNumberAsync(value));
+                                       })
+                                       .WithMessage("This Grade Number Already Exist!");
         }
     }
 }

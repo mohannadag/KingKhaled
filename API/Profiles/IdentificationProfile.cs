@@ -19,6 +19,7 @@ namespace Data.Repositories.Repository
                 .ForMember(viewModel => viewModel.ArabicName, model => model.MapFrom(x => x.Employee.ArabicName))
                 .ForMember(viewModel => viewModel.EnglishName, model => model.MapFrom(x => x.Employee.EnglishName))
                 .ForMember(viewModel => viewModel.EmployeeNumber, model => model.MapFrom(x => x.Employee.EmployeeNumber))
+                .ForMember(viewModel => viewModel.JobVisa, model => model.MapFrom(x => x.JobVisa.Name))
                 .ReverseMap();
             CreateMap<Identity, CreateIdentityVM>()
                 .ForMember(viewModel => viewModel.IdentityType, model => model.MapFrom(x => x.IdentityType))

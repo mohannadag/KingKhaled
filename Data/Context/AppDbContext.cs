@@ -25,6 +25,7 @@ namespace Data.Context
         public DbSet<Branch> Branches { get; set; }
         // Financial
         public DbSet<Qualification> Qualifications { get; set; }
+        public DbSet<JobVisa> JobVisas { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobGroup> JobGroups { get; set; }
         public DbSet<JobSubGroup> JobSubGroups { get; set; }
@@ -60,6 +61,16 @@ namespace Data.Context
                             j.Property(x => x.Id).ValueGeneratedOnAdd();
                         }
                     );
+
+            // Set GradeNumber as Principle Key[Index].
+            builder.Entity<Grade>()
+            .HasIndex(x => new { x.GradeNumber })
+            .IsUnique(true);
+
+            // Set LevelNumber as Principle Key[Index].
+            builder.Entity<Level>()
+            .HasIndex(x => new { x.LevelNumber })
+            .IsUnique(true);
 
             // Set EmployeeId and BankId as Principle Key[Index].
             builder.Entity<EmployeeAccount>()

@@ -9,5 +9,6 @@ namespace API.ViewModels.JobGroup
     public class UpdateLevelVM
     {
         public string Name { get; set; }
+        public int LevelNumber { get; set; }
     }
 }

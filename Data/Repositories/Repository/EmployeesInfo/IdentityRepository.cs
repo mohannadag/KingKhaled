@@ -30,6 +30,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByIdAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
@@ -45,6 +46,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByNumberAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .FirstOrDefaultAsync(x => x.IdentityNumber == identityNumber);
             }
             catch (Exception ex)
@@ -60,6 +62,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByEmployeeIdAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
             }
             catch (Exception ex)
@@ -75,6 +78,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByEmployeeNumberAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .FirstOrDefaultAsync(x => x.Employee.EmployeeNumber == employeeNumber);
             }
             catch (Exception ex)
@@ -118,6 +122,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .ToListAsync();
             }
             catch (Exception ex)
@@ -133,6 +138,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllByExpireAsync for Identity was Called");
 
                 return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
                                                   .Where(x => x.ExpireDate <= DateTime.Now)
                                                   .ToListAsync();
             }
@@ -151,6 +157,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 if (!string.IsNullOrEmpty(identityType))
                 {
                     return await _dbContext.Identities.Include(x => x.Employee)
+                                                      .Include(x => x.JobVisa)
                                                       .Where(x => x.IdentityType.ToLower() == identityType.ToLower())
                                                       .ToListAsync();
                 }
@@ -160,6 +167,23 @@ namespace Data.Repositories.Repository.EmployeesInfo
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetAllAsync for Identity: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Identity>> GetAllByJobVisaIdAsync(int jobVisaId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByJobVisaIdAsync for Identity was Called");
+
+                return await _dbContext.Identities.Include(x => x.Employee)
+                                                  .Include(x => x.JobVisa)
+                                                  .Where(x => x.JobVisaId == jobVisaId)
+                                                  .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByJobVisaIdAsync for Identity: {ex.Message}");
                 return null;
             }
         }

@@ -55,7 +55,9 @@ namespace API.Profiles
             // Salary
             CreateMap<Salary, SalaryVM>()
                 .ForMember(viewModel => viewModel.GradeName, model => model.MapFrom(x => x.Grade.Name))
+                .ForMember(viewModel => viewModel.GradeNumber, model => model.MapFrom(x => x.Grade.GradeNumber))
                 .ForMember(viewModel => viewModel.LevelName, model => model.MapFrom(x => x.Level.Name))
+                .ForMember(viewModel => viewModel.LevelNumber, model => model.MapFrom(x => x.Level.LevelNumber))
                 .ReverseMap();
             CreateMap<Salary, CreateSalaryVM>()
                 .ReverseMap();
