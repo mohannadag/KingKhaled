@@ -27,6 +27,6 @@ namespace API.ViewModels.Employee
         public int QualificationId { get; set; }
         public int GradeId { get; set; }
         public int LevelId { get; set; }
-        public int JobId { get; set; }
+        public int JobVacancyId { get; set; }
     }
 }

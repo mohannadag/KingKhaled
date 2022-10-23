@@ -11,6 +11,8 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
     {
         Task<Employee> GetByIdAsync(int id);
         Task<Employee> GetByEmployeeNumberAsync(int employeeNumber);
+        Task<Employee> GetByJobVacancyIdAsync(int jobVacancyId);
+        Task<Employee> GetByVacantNumberAsync(int vacantNumber);
         Task<Employee> GetByGeneralNumberAsync(string generalNumber);
         Task<Employee> GetByArabicNameAsync(string arabicName);
         Task<Employee> GetByEnglishNameAsync(string englishName);
@@ -18,6 +20,8 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
         Task<bool> IsValidIdAsync(int id);
         Task<bool> AlreadyExistAsync(int employeeNumber);
         Task<bool> AlreadyExistAsync(string generalNumber);
+        Task<bool> AlreadyInUseJobVacancyIdAsync(int jobVacancyId);
+        Task<bool> AlreadyInUseVacantNumberAsync(int vacantNumber);
 
         Task<IEnumerable<Employee>> GetAllAsync();
         Task<IEnumerable<Employee>> GetAllByNationalityIdAsync(int nationalityId);

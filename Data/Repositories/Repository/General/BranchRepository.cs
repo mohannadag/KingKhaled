@@ -108,6 +108,20 @@ namespace Data.Repositories.Repository.General
                 return false;
             }
         }
+        public async Task<bool> IsAllowedToAddVacanyAsync(int id)
+        {
+            try
+            {
+                _logger.LogInformation("IsAllowedToAddVacanyAsync for Branch was Called");
+                return await _dbContext.Branches.Include(x => x.JobVacancies)
+                                                .AnyAsync(x => x.Id == id && x.JobVacancies.Count < x.NumberOfVacant);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsAllowedToAddVacanyAsync for Branch: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<bool> AlreadyExistArabicNameAsync(string arabicName)
         {

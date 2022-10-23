@@ -68,6 +68,20 @@ namespace Data.Repositories.Repository.Financials
                 return false;
             }
         }
+        public async Task<bool> IsValidSalaryAsync(int gradeId, int levelId)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidSalaryAsync for Salary was Called");
+                return await _dbContext.Salaries.AnyAsync(x => x.GradeId == gradeId && x.LevelId == levelId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidSalaryAsync for Salary: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<bool> AlreadyExistAsync(int gradeId, int levelId)
         {
             try
@@ -187,5 +201,7 @@ namespace Data.Repositories.Repository.Financials
                 _logger.LogError($"Faild to Delete for Salary: {ex.Message}");
             }
         }
+
+        
     }
 }

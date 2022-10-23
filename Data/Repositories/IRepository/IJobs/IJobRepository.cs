@@ -14,6 +14,8 @@ namespace Data.Repositories.IRepository.IJobs
         Task<Job> GetByCodeAsync(string code);
 
         Task<bool> IsValidIdAsync(int id);
+        
+        Task<bool> IsValidJoIdForGradeAsync(int jobId, int gradeId);
         Task<bool> AlreadyExistArabicAsync(string arabicName);
         Task<bool> AlreadyExistCodeAsync(string code);
 
@@ -27,5 +29,7 @@ namespace Data.Repositories.IRepository.IJobs
         Task AddAsync(Job job);
         void Update(Job job);
         void Delete(Job job);
+
+        
     }
 }

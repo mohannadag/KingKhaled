@@ -75,6 +75,16 @@ namespace API.Profiles
                 .ReverseMap();
             CreateMap<JobVisa, UpdateJobVisaVM>()
                 .ReverseMap();
+
+            // JobVacancy
+            CreateMap<JobVacancy, JobVacancyVM>()
+                .ForMember(viewModel => viewModel.DepartmentName, model => model.MapFrom(x => x.Branch.Department.ArabicName))
+                .ForMember(viewModel => viewModel.BranchName, model => model.MapFrom(x => x.Branch.ArabicName))
+                .ReverseMap();
+            CreateMap<JobVacancy, CreateJobVacancyVM>()
+                .ReverseMap();
+            CreateMap<JobVacancy, UpdateJobVacancyVM>()
+                .ReverseMap();
         }
     }
 }

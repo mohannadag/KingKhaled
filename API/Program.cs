@@ -8,6 +8,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace API
@@ -67,6 +68,16 @@ namespace API
                 await context.Database.MigrateAsync();
 
                 await Seed.SeedBanks(context);
+                await Seed.SeedNationality(context);
+
+                await Seed.SeedGrades(context);
+                await Seed.SeedLevels(context);
+
+                await Seed.SeedQualifications(context);
+                await Seed.SeedJobVisa(context);
+
+                await Seed.SeedJobGroupAndSubGroups(context);
+                await Seed.SeedDepartmentAndBranchs(context);
                 
             }
             catch (Exception ex)

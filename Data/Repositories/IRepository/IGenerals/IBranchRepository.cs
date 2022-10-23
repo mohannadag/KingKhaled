@@ -16,6 +16,8 @@ namespace Data.Repositories.IRepository.IGenerals
         Task<Branch> GetByShortEnNameAsync(string shortEnName);
 
         Task<bool> IsValidIdAsync(int id);
+        Task<bool> IsAllowedToAddVacanyAsync(int id);
+
         Task<bool> AlreadyExistArabicNameAsync(string arabicName);
         Task<bool> AlreadyExistEnglishNameAsync(string englishName);
         Task<bool> AlreadyExistShortArNameAsync(string shortArName);

@@ -33,11 +33,8 @@ namespace Core.Models.EmployeesInfo
         public int QualificationId { get; set; }
         public Qualification Qualification { get; set; }
 
-        public int BranchId { get; set; }
-        public Branch Branch { get; set; }
-
-        public int JobId { get; set; }
-        public Job Job { get; set; }
+        public int JobVacancyId { get; set; }
+        public JobVacancy JobVacancy { get; set; }
 
         public int GradeId { get; set; }
         public Grade Grade { get; set; }

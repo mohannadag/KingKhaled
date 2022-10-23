@@ -67,6 +67,21 @@ namespace Data.Repositories.Repository.Financials
                 return false;
             }
         }
+        public async Task<bool> IsValidSalaryAsync(int levelId, int gradeId)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidSalaryAsync for Level was Called");
+                return await _dbContext.Levels.Include(x => x.Grades)
+                                              .AnyAsync(x => x.Id == levelId && 
+                                                             x.Grades.Any(x => x.Id == gradeId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidSalaryAsync for Level: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<bool> AlreadyExistNumberAsync(int levelNumber)
         {

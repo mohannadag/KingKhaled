@@ -186,16 +186,28 @@ namespace API.Controllers.HR.EmployeeInfo
             return _mapper.Map<EmployeeVM[]>(result);
         }
 
-        [HttpGet("GetAllBy-JobId/{jobId:int}")]
-        public async Task<ActionResult<EmployeeVM[]>> GetAllByJobId(int jobId)
+        [HttpGet("GetBy-JobVacancyId/{jobVacancyId:int}")]
+        public async Task<ActionResult<EmployeeVM>> GetByJobVacancyId(int jobVacancyId)
         {
-            var result = await _unitOfWork.Employees.GetAllByJobIdAsync(jobId);
+            var result = await _unitOfWork.Employees.GetByJobVacancyIdAsync(jobVacancyId);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Employees Found!"));
             }
 
-            return _mapper.Map<EmployeeVM[]>(result);
+            return _mapper.Map<EmployeeVM>(result);
+        }
+
+        [HttpGet("GetBy-VacantNumber/{vacantNumber:int}")]
+        public async Task<ActionResult<EmployeeVM>> GetByVacantNumber(int vacantNumber)
+        {
+            var result = await _unitOfWork.Employees.GetByVacantNumberAsync(vacantNumber);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Employees Found!"));
+            }
+
+            return _mapper.Map<EmployeeVM>(result);
         }
 
         [HttpGet("GetAllBy-NationalityId/{nationalityId:int}")]
@@ -279,4 +291,6 @@ namespace API.Controllers.HR.EmployeeInfo
             return BadRequest(new ApiResponse(400, "Failed to Delete Employee!"));
         }
     }
+
+ 
 }

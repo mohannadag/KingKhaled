@@ -99,6 +99,17 @@ namespace API.Controllers.Common
 
             return _mapper.Map<BranchVM[]>(result);
         }
+        [HttpGet("GetAll-by-DepartmentId/{departmentId:int}")]
+        public async Task<ActionResult<BranchVM[]>> GetAllByDepartmentId(int departmentId)
+        {
+            var result = await _unitOfWork.Branches.GetAllByDepartmentIdAsync(departmentId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Branch Found!"));
+            }
+
+            return _mapper.Map<BranchVM[]>(result);
+        }
 
         [HttpPost]
         public async Task<ActionResult<BranchVM>> Post(CreateBranchVM createBranchVM)

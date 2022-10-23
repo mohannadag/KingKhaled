@@ -14,6 +14,8 @@ using Data.Repositories.Repository.EmployeesInfo;
 using Data.Repositories.Repository.General;
 using Data.Repositories.Repository.Jobs;
 using Data.Repositories.Repository.Financials;
+using Data.Repositories.IRepository.IAllowances;
+using Data.Repositories.Repository.Allowances;
 
 namespace Data.UnitOfWorks
 {
@@ -72,6 +74,12 @@ namespace Data.UnitOfWorks
 
         public IJobVisaRepository JobVisa => new JobVisaRepository(
             _dbContext, new Logger<JobVisaRepository>(new NullLoggerFactory()));
+
+        public IJobVacancyRepository JobVacancy => new JobVacancyRepository(
+            _dbContext, new Logger<JobVacancyRepository>(new NullLoggerFactory()));
+
+        public IAllowanceTypeRepository AllowanceTypes => new AllowanceTypeRepository(
+            _dbContext, new Logger<AllowanceTypeRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

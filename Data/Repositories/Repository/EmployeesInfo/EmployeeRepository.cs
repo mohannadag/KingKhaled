@@ -35,7 +35,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
@@ -54,12 +54,50 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.EmployeeNumber == employeeNumber);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetByEmployeeNumberAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<Employee> GetByJobVacancyIdAsync(int jobVacancyId)
+        {
+            try
+            {
+                _logger.LogInformation("GetByJobVacancyIdAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.JobVacancy)
+                                                 .FirstOrDefaultAsync(x => x.JobVacancyId == jobVacancyId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetByJobVacancyIdAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<Employee> GetByVacantNumberAsync(int vacantNumber)
+        {
+            try
+            {
+                _logger.LogInformation("GetByVacantNumberAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                                                 .Include(x => x.JobVacancy)
+                                                 .FirstOrDefaultAsync(x => x.JobVacancy.VacantNumber == vacantNumber);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetByVacantNumberAsync for Employee: {ex.Message}");
                 return null;
             }
         }
@@ -73,7 +111,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.GeneralNumber == generalNumber);
             }
             catch (Exception ex)
@@ -92,7 +130,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.ArabicName.ToLower() == arabicName.ToLower());
             }
             catch (Exception ex)
@@ -111,7 +149,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .FirstOrDefaultAsync(x => x.EnglishName.ToLower() == englishName.ToLower());
             }
             catch (Exception ex)
@@ -160,6 +198,32 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 return true;
             }
         }
+        public async Task<bool> AlreadyInUseVacantNumberAsync(int vacantNumber)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyInUseVacantNumberAsync for Employee was Called");
+                return await _dbContext.Employees.AnyAsync(x => x.JobVacancy.VacantNumber == vacantNumber);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyInUseVacantNumberAsync for Employee: {ex.Message}");
+                return true;
+            }
+        }
+        public async Task<bool> AlreadyInUseJobVacancyIdAsync(int jobVacancyId)
+        {
+            try
+            {
+                _logger.LogInformation("AlreadyInUseJobVacancyIdAsync for Employee was Called");
+                return await _dbContext.Employees.AnyAsync(x => x.JobVacancyId == jobVacancyId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AlreadyInUseJobVacancyIdAsync for Employee: {ex.Message}");
+                return true;
+            }
+        }
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
         {
@@ -171,7 +235,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .ToListAsync();
             }
             catch (Exception ex)
@@ -184,19 +248,20 @@ namespace Data.Repositories.Repository.EmployeesInfo
         {
             try
             {
-                _logger.LogInformation("GetAllByGradeIdAsync for Employee was Called");
+                _logger.LogInformation("GetAllByJobIdAsync for Employee was Called");
 
                 return await _dbContext.Employees.Include(x => x.Nationality)
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
-                                                 .Where(x => x.JobId == jobId)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Job)
+                                                 .Where(x => x.JobVacancy.JobId == jobId)
                                                  .ToListAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to GetAllByGradeIdAsync for Employee: {ex.Message}");
+                _logger.LogError($"Faild to GetAllByJobIdAsync for Employee: {ex.Message}");
                 return null;
             }
         }
@@ -229,7 +294,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.LevelId == levelId)
                                                  .ToListAsync();
             }
@@ -249,7 +314,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.GradeId == gradeId && x.LevelId == levelId)
                                                  .ToListAsync();
             }
@@ -269,7 +334,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.NationalityId == nationalityId)
                                                  .ToListAsync();
             }
@@ -289,8 +354,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
-                                                 .Where(x => x.BranchId == branchId)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .Where(x => x.JobVacancy.BranchId == branchId)
                                                  .ToListAsync();
             }
             catch (Exception ex)
@@ -309,7 +375,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.QualificationId == qualificationId)
                                                  .ToListAsync();
             }
@@ -329,7 +395,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.Gender.ToLower() == gender.ToLower())
                                                  .ToListAsync();
             }
@@ -349,7 +415,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.Religion.ToLower() == religion.ToLower())
                                                  .ToListAsync();
             }
@@ -369,7 +435,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 .Include(x => x.Job)
+                                                 //.Include(x => x.Job)
                                                  .Where(x => x.MarritalStatus.ToLower() == marritalStatus.ToLower())
                                                  .ToListAsync();
             }

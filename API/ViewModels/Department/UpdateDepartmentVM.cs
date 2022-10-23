@@ -8,6 +8,7 @@ namespace API.ViewModels.Department
 {
     public class UpdateDepartmentVM
     {
+        //public int NumberOfVacant { get; set; }
         public string ArabicName { get; set; }
         public string ShortArName { get; set; }
         public string EnglishName { get; set; }

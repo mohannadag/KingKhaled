@@ -122,7 +122,6 @@ namespace Data.Repositories.Repository.General
                 return true;
             }
         }
-
         public async Task<bool> AlreadyExistEnglishNameAsync(string englishName)
         {
             try
@@ -136,7 +135,6 @@ namespace Data.Repositories.Repository.General
                 return true;
             }
         }
-
         public async Task<bool> AlreadyExistShortArNameAsync(string shortArName)
         {
             try
@@ -150,7 +148,6 @@ namespace Data.Repositories.Repository.General
                 return true;
             }
         }
-
         public async Task<bool> AlreadyExistShortEnNameAsync(string shortEnName)
         {
             try
@@ -233,5 +230,7 @@ namespace Data.Repositories.Repository.General
                 _logger.LogError($"Faild to Delete for Department: {ex.Message}");
             }
         }
+
+        
     }
 }

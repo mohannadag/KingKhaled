@@ -79,6 +79,23 @@ namespace Data.Repositories.Repository.Financials
                 return false;
             }
         }
+        public async Task<bool> IsValidMinGradeIdForMaxGradeIdAsync(int minGradeId, int maxGradeId)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidMinGradeIdForMaxGradeIdAsync for Grade was Called");
+
+                var minGrade = await _dbContext.Grades.FirstOrDefaultAsync(x => x.Id == minGradeId);
+                var maxGrade = await _dbContext.Grades.FirstOrDefaultAsync(x => x.Id == maxGradeId);
+
+                return minGrade.GradeNumber <= maxGrade.GradeNumber;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidMinGradeIdForMaxGradeIdAsync for Grade: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<bool> AlreadyExistNumberAsync(int gradeNumber)
         {

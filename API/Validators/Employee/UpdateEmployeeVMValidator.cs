@@ -16,7 +16,7 @@ namespace API.Validators.Employee
             RuleFor(x => x.ArabicName).NotEmpty().MinimumLength(3).MaximumLength(50);
             RuleFor(x => x.EnglishName).NotEmpty().MinimumLength(3).MaximumLength(50);
 
-            RuleFor(x => x.Phone).NotEmpty().MinimumLength(10).MaximumLength(13);
+            RuleFor(x => x.Phone).NotEmpty().MinimumLength(10).MaximumLength(14);
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Address).NotEmpty().MinimumLength(3).MaximumLength(100);
             RuleFor(x => x.BirthDate).NotEmpty().LessThan(DateTime.Now);
@@ -27,12 +27,12 @@ namespace API.Validators.Employee
             RuleFor(x => x.Religion).NotEmpty().IsInEnum();
             RuleFor(x => x.MarritalStatus).NotEmpty().IsInEnum();
 
-            RuleFor(x => x.JobId).NotEmpty()
-                                 .MustAsync(async (value, cancelToken) =>
-                                 {
-                                     return (await unitOfWork.Jobs.IsValidIdAsync(value));
-                                 })
-                                 .WithMessage("Job Not Found!");
+            RuleFor(x => x.JobVacancyId).NotEmpty()
+                                        .MustAsync(async (value, cancelToken) =>
+                                        {
+                                            return (await unitOfWork.JobVacancy.IsValidIdAsync(value));
+                                        })
+                                        .WithMessage("Job Not Found!");
 
             RuleFor(x => x.GradeId).NotEmpty()
                                    .MustAsync(async (value, cancelToken) =>
@@ -68,6 +68,26 @@ namespace API.Validators.Employee
                                                return (await unitOfWork.Qualifications.IsValidIdAsync(value));
                                            })
                                            .WithMessage("Qualification Not Found!");
+
+            When(x => (x.LevelId > 0 && x.GradeId > 0),
+                () =>
+                {
+                    RuleFor(x => x).MustAsync(async (value, canselToken) =>
+                    {
+                        return await unitOfWork.Salaries.IsValidSalaryAsync(value.LevelId, value.GradeId);
+                    })
+                    .WithMessage("There is No Salary for this Grade and Level!");
+                });
+
+            When(x => (x.JobVacancyId > 0 && x.GradeId > 0),
+                () =>
+                {
+                    RuleFor(x => x).MustAsync(async (value, canselToken) =>
+                    {
+                        return await unitOfWork.JobVacancy.IsValidJobVacancyIdForGradeAsync(value.JobVacancyId, value.GradeId);
+                    })
+                    .WithMessage("This JobVacancy is Not Suitable for this Employee Depend on Grade and Level!");
+                });
         }
     }
 }

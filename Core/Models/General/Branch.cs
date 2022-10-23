@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models.Jobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Core.Models.General
     public class Branch
     {
         public int Id { get; set; }
+        public int NumberOfVacant { get; set; }
         public string ArabicName { get; set; }
         public string ShortArName { get; set; }
         public string EnglishName { get; set; }
@@ -21,5 +23,7 @@ namespace Core.Models.General
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
+
+        public ICollection<JobVacancy> JobVacancies { get; set; }
     }
 }

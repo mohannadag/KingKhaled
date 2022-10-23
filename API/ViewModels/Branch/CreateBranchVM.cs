@@ -8,6 +8,7 @@ namespace API.ViewModels.Branch
 {
     public class CreateBranchVM
     {
+        public int NumberOfVacant { get; set; }
         public string ArabicName { get; set; }
         public string ShortArName { get; set; }
         public string EnglishName { get; set; }

@@ -1,4 +1,5 @@
-﻿using Data.Repositories.IRepository.IEmployeesInfo;
+﻿using Data.Repositories.IRepository.IAllowances;
+using Data.Repositories.IRepository.IEmployeesInfo;
 using Data.Repositories.IRepository.IFinancials;
 using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
@@ -28,7 +29,8 @@ namespace Data.UnitOfWorks
         public IBranchRepository Branches { get; }
         public IQualificationRepository Qualifications { get; }
         public IJobVisaRepository JobVisa { get; }
-
+        public IJobVacancyRepository JobVacancy { get; }
+        public IAllowanceTypeRepository AllowanceTypes { get; }
         Task<bool> SaveAsync();
     }
 }

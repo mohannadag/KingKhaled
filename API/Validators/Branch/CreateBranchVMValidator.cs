@@ -13,9 +13,11 @@ namespace API.Validators.Branch
     {
         public CreateBranchVMValidator(IUnitOfWork unitOfWork)
         {
+            RuleFor(x => x.NumberOfVacant).NotEmpty().GreaterThanOrEqualTo(1);
+
             RuleFor(x => x.ArabicName).NotEmpty()
                                       .MinimumLength(3)
-                                      .MaximumLength(10)
+                                      .MaximumLength(100)
                                       .MustAsync(async (value, cancelToken) =>
                                       {
                                           return (!await unitOfWork.Branches.AlreadyExistArabicNameAsync(value));
@@ -24,7 +26,7 @@ namespace API.Validators.Branch
 
             RuleFor(x => x.EnglishName).NotEmpty()
                                        .MinimumLength(3)
-                                       .MaximumLength(10)
+                                       .MaximumLength(100)
                                        .MustAsync(async (value, cancelToken) =>
                                        {
                                            return (!await unitOfWork.Branches.AlreadyExistEnglishNameAsync(value));
@@ -33,7 +35,7 @@ namespace API.Validators.Branch
 
             RuleFor(x => x.ShortArName).NotEmpty()
                                        .MinimumLength(3)
-                                       .MaximumLength(10)
+                                       .MaximumLength(100)
                                        .MustAsync(async (value, cancelToken) =>
                                        {
                                            return (!await unitOfWork.Branches.AlreadyExistShortArNameAsync(value));
@@ -42,7 +44,7 @@ namespace API.Validators.Branch
 
             RuleFor(x => x.ShortEnName).NotEmpty()
                                        .MinimumLength(3)
-                                       .MaximumLength(10)
+                                       .MaximumLength(100)
                                        .MustAsync(async (value, cancelToken) =>
                                        {
                                            return (!await unitOfWork.Branches.AlreadyExistShortEnNameAsync(value));

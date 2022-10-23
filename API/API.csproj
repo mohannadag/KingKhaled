@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\HR\Financial\Allowances\" />
     <Folder Include="Controllers\HR\Financial\Deductions\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Core.Models.EmployeesInfo;
+﻿using Core.Models.Allowance;
+using Core.Models.EmployeesInfo;
 using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
@@ -17,12 +18,15 @@ namespace Data.Context
         {
 
         }
+        // Allowances
+        public DbSet<AllowanceType> AllowanceTypes { get; set; }
 
         // General
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<JobVacancy> JobVacancies { get; set; }
         // Financial
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<JobVisa> JobVisas { get; set; }
@@ -57,10 +61,16 @@ namespace Data.Context
                         j =>
                         {
                             j.Property(x => x.CreatedDate).HasDefaultValueSql("GETDATE()");
-                            j.HasKey(x => new { x.LevelId, x.GradeId });
+                            //j.HasKey(x => new { x.LevelId, x.GradeId });
+                            j.HasKey(x => new { x.Id });
                             j.Property(x => x.Id).ValueGeneratedOnAdd();
                         }
                     );
+
+            // Set VacantNumber as Principle Key[Index].
+            builder.Entity<JobVacancy>()
+            .HasIndex(x => new { x.VacantNumber })
+            .IsUnique(true);
 
             // Set GradeNumber as Principle Key[Index].
             builder.Entity<Grade>()
@@ -90,6 +100,12 @@ namespace Data.Context
             .WithMany(g => g.MaxGradeJobs)
             .HasForeignKey(s => s.MaxGradeId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            // OneToOne between JobVacancy and Employee.
+            builder.Entity<JobVacancy>()
+            .HasOne(x => x.Employee)
+            .WithOne(x => x.JobVacancy)
+            .HasForeignKey<Employee>(x => x.JobVacancyId);
         }
     }
 }

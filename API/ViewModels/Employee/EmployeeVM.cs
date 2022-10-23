@@ -25,8 +25,8 @@ namespace API.ViewModels.Employee
         public string Religion { get; set; }
         public string MarritalStatus { get; set; }
 
-        public int JobId { get; set; }
-        public string JobName { get; set; }
+        public int JobVacancyId { get; set; }
+        public string VacantNumber { get; set; }
 
         public int BranchId { get; set; }
         public string BranchName { get; set; }

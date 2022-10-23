@@ -1,7 +1,9 @@
-﻿using Core.Models.Jobs;
+﻿using Core.Models.Financial;
+using Core.Models.Jobs;
 using Data.Context;
 using Data.Repositories.IRepository.IJobs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -87,6 +89,23 @@ namespace Data.Repositories.Repository.Jobs
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to IsValidIdAsync for Job: {ex.Message}");
+                return false;
+            }
+        }
+        public async Task<bool> IsValidJoIdForGradeAsync(int jobId, int gradeId)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidJoIdForGradeAsync for Job was Called");
+                return await _dbContext.Jobs.Include(x => x.MinGrade)
+                                            .Include(x => x.MaxGrade)
+                                            .AnyAsync(x => x.Id == jobId && 
+                                                           x.MinGrade.GradeNumber <= gradeId && 
+                                                           x.MaxGrade.GradeNumber >= gradeId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidJoIdForGradeAsync for Job: {ex.Message}");
                 return false;
             }
         }
@@ -289,7 +308,11 @@ namespace Data.Repositories.Repository.Jobs
                     //{
                     //    if (job.WorkNatureAllowance > 0 && job.WorkNatureAllowance <= 30)
                     //    {
-                    //        job.
+                    //        job.AllowanceAmount = job.WorkNatureAllowance * 100000;
+                    //    }
+                    //    if (job.WorkNatureAllowance > 30)
+                    //    {
+                    //        job.AllowanceAmount = job.WorkNatureAllowance;
                     //    }
                     //}
 
@@ -339,9 +362,24 @@ namespace Data.Repositories.Repository.Jobs
             }
         }
 
-        public double CalculateWorkNatureAllowance(double workNatureAllowance)
+        public double CalculateWorkNatureAllowance(Job job, Salary salary)
         {
-            return workNatureAllowance;
+
+            //return workNatureAllowance;
+            return 100;
+        }
+
+        public double CalculateWorkNatureAllowance(double allowance, int gradeNumber, int levelNumber = 1)
+        {
+            if (allowance < 0 && allowance <= 30)
+            {
+
+            }
+            if (allowance > 30)
+            {
+                return allowance;
+            }
+            return 0;
         }
     }
 }

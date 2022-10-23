@@ -13,6 +13,7 @@ namespace Data.Repositories.IRepository.IFinancials
         Task<Salary> GetByGradeIdAndLevelIdAsync(int gradeId, int levelId);
 
         Task<bool> IsValidIdAsync(int id);
+        Task<bool> IsValidSalaryAsync(int gradeId, int levelId);
         Task<bool> AlreadyExistAsync(int gradeId, int levelId);
 
         Task<IEnumerable<Salary>> GetAllAsync();
