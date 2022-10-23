@@ -37,6 +37,16 @@ namespace API.Validators.Job
                                              return (await unitOfWork.JobSubGroups.IsValidIdAsync(value));
                                          })
                                          .WithMessage("Job Sub Group Not Found!");
+
+            When(x => (x.MinGradeId > 0 && x.MaxGradeId > 0),
+                () =>
+                {
+                    RuleFor(x => x).MustAsync(async (value, canselToken) =>
+                    {
+                        return await unitOfWork.Grades.IsValidMinGradeIdForMaxGradeIdAsync(value.MinGradeId, value.MaxGradeId);
+                    })
+                    .WithMessage("Min Grade Number Must be Less than or Equal to Max Grade Number!");
+                });
         }
     }
 }

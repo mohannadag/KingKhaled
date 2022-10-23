@@ -23,5 +23,8 @@ namespace Core.Models.Financial
 
         public ICollection<Job> MinGradeJobs { get; set; }
         public ICollection<Job> MaxGradeJobs { get; set; }
+
+        public ICollection<Job> Jobs { get; set; } = new List<Job>();
+        public ICollection<JobGrade> JobGrades { get; set; }
     }
 }

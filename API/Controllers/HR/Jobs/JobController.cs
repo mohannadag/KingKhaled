@@ -165,7 +165,9 @@ namespace API.Controllers.HR.Jobs
 
             _mapper.Map(updateJobVM, job);
 
-            _unitOfWork.Jobs.Update(job);
+            //await _unitOfWork.Jobs.UpdateJobGradesAsync(job);
+
+            await _unitOfWork.Jobs.UpdateAsync(job);
 
             if (await _unitOfWork.SaveAsync())
             {

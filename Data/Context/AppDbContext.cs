@@ -1,4 +1,5 @@
-﻿using Core.Models.Allowance;
+﻿using Core.Enums;
+using Core.Models.Allowance;
 using Core.Models.EmployeesInfo;
 using Core.Models.Financial;
 using Core.Models.General;
@@ -67,6 +68,42 @@ namespace Data.Context
                         }
                     );
 
+            // ManyToMany [Full-Configurations] between Job and Grade [JobGrade]
+            builder.Entity<Job>()
+                   .HasMany(x => x.Grades)
+                   .WithMany(x => x.Jobs)
+                   .UsingEntity<JobGrade>(
+                       j => j
+                                .HasOne(x => x.Grade)
+                                .WithMany(x => x.JobGrades)
+                                .HasForeignKey(x => x.GradeId),
+                        j => j
+                                .HasOne(x => x.Job)
+                                .WithMany(x => x.JobGrades)
+                                .HasForeignKey(x => x.JobId),
+                        j =>
+                        {
+                            j.Property(x => x.AddedDate).HasDefaultValueSql("GETDATE()");
+                            j.HasKey(x => new { x.JobId, x.GradeId });
+                            j.Property(x => x.Id).ValueGeneratedOnAdd();
+                        }
+                    );
+
+            //// ManyToMany in EF5 between Job and Grade with [JobGrade]
+            //builder.Entity<Job>()
+            //       .HasMany(x => x.Grades)
+            //       .WithMany(x => x.Jobs)
+            //       .UsingEntity<JobGrade>(
+            //           x => x.HasOne<Grade>().WithMany().HasForeignKey(x => x.GradeId),
+            //           x => x.HasOne<Job>().WithMany().HasForeignKey(x => x.JobId))
+            //       .Property(x => x.AddedDate)
+            //       .HasDefaultValueSql("GETDATE()");
+
+            //// Set Id as Principle Key[Index].
+            //builder.Entity<JobGrade>()
+            //.HasIndex(x => new { x.Id })
+            //.IsUnique(true);
+
             // Set VacantNumber as Principle Key[Index].
             builder.Entity<JobVacancy>()
             .HasIndex(x => new { x.VacantNumber })
@@ -106,6 +143,8 @@ namespace Data.Context
             .HasOne(x => x.Employee)
             .WithOne(x => x.JobVacancy)
             .HasForeignKey<Employee>(x => x.JobVacancyId);
+
+            
         }
     }
 }

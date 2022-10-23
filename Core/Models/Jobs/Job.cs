@@ -12,6 +12,7 @@ namespace Core.Models.Jobs
         public int Id { get; set; }
         public string ArabicName { get; set; }
         public string Code { get; set; }
+        public double WorkNatureAllowance { get; set; }
 
         public int JobSubGroupId { get; set; }
         public JobSubGroup JobSubGroup { get; set; }
@@ -22,15 +23,14 @@ namespace Core.Models.Jobs
         public int MaxGradeId { get; set; }
         public Grade MaxGrade { get; set; }
 
-        public double WorkNatureAllowance { get; set; }
-        public double AllowancePercentage { get; set; }
-        public double AllowanceAmount { get; set; }
-
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
 
         public ICollection<JobVacancy> JobVacancies { get; set; }
+
+        public ICollection<Grade> Grades { get; set; } = new List<Grade>();
+        public ICollection<JobGrade> JobGrades { get; set; } = new List<JobGrade>();
     }
 }

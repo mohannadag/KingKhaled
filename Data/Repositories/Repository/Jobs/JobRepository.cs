@@ -30,8 +30,10 @@ namespace Data.Repositories.Repository.Jobs
             {
                 _logger.LogInformation("GetByIdAsync for Job was Called");
 
-                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                return await _dbContext.Jobs//.AsNoTracking()
+                                            .Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .FirstOrDefaultAsync(x => x.Id == id);
@@ -50,6 +52,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .FirstOrDefaultAsync(x => x.ArabicName == arabicName);
@@ -68,6 +71,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .FirstOrDefaultAsync(x => x.Code.ToLower() == code.ToLower());
@@ -109,6 +113,34 @@ namespace Data.Repositories.Repository.Jobs
                 return false;
             }
         }
+        public async Task<bool> IsThereValidSalaryForGradeRangeAsync(int minGradeId, int maxGradeId)
+        {
+            try
+            {
+                _logger.LogInformation("IsThereValidSalaryForGradeRangeAsync for Salary was Called");
+
+                var minGrade = await _dbContext.Grades.SingleOrDefaultAsync(x => x.Id <= minGradeId);
+                var maxGrade = await _dbContext.Grades.SingleOrDefaultAsync(x => x.Id <= maxGradeId);
+
+                var level = await _dbContext.Levels.FirstOrDefaultAsync(x => x.LevelNumber == 1);
+                var grades = await _dbContext.Grades.Where(x => x.GradeNumber >= minGrade.GradeNumber &&
+                                                                x.GradeNumber <= maxGrade.GradeNumber)
+                                                    .ToListAsync();
+                foreach (var grade in grades)
+                {
+                    if (!await _dbContext.Salaries.AnyAsync(x => x.GradeId == grade.Id && x.LevelId == level.Id))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsThereValidSalaryForGradeRangeAsync for Salary: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<bool> AlreadyExistCodeAsync(string code)
         {
@@ -145,6 +177,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .ToListAsync();
@@ -165,6 +198,7 @@ namespace Data.Repositories.Repository.Jobs
                 {
                     return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                 .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.JobGrades)
                                                 .Include(x => x.MaxGrade)
                                                 .Include(x => x.MinGrade)
                                                 .Where(x => x.WorkNatureAllowance > 0)
@@ -173,6 +207,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .Where(x => x.WorkNatureAllowance == 0)
@@ -192,6 +227,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .Where(x => x.JobSubGroup.JobGroupId == jobGroupId)
@@ -211,6 +247,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .Where(x => x.JobSubGroupId == jobSubGroupId)
@@ -230,6 +267,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .Where(x => x.MinGradeId == minGradeId)
@@ -249,6 +287,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .Where(x => x.MaxGradeId == maxGradeId)
@@ -271,6 +310,7 @@ namespace Data.Repositories.Repository.Jobs
                     {
                         return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                     .ThenInclude(x => x.JobGroup)
+                                                    .Include(x => x.JobGrades)
                                                     .Include(x => x.MaxGrade)
                                                     .Include(x => x.MinGrade)
                                                     .Where(x => x.WorkNatureAllowance > 0)
@@ -278,6 +318,7 @@ namespace Data.Repositories.Repository.Jobs
                     }
                     return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                 .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.JobGrades)
                                                 .Include(x => x.MaxGrade)
                                                 .Include(x => x.MinGrade)
                                                 .Where(x => x.WorkNatureAllowance <= 0)
@@ -285,6 +326,7 @@ namespace Data.Repositories.Repository.Jobs
                 }
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
                                             .ToListAsync();
@@ -304,21 +346,10 @@ namespace Data.Repositories.Repository.Jobs
 
                 if (job != null)
                 {
-                    //if (job.WorkNatureAllowance > 0)
-                    //{
-                    //    if (job.WorkNatureAllowance > 0 && job.WorkNatureAllowance <= 30)
-                    //    {
-                    //        job.AllowanceAmount = job.WorkNatureAllowance * 100000;
-                    //    }
-                    //    if (job.WorkNatureAllowance > 30)
-                    //    {
-                    //        job.AllowanceAmount = job.WorkNatureAllowance;
-                    //    }
-                    //}
-
                     job.CreatedBy = "Anonymous";
                     job.CreatedDate = DateTime.Now;
 
+                    await UpdateJobGradesAsync(job);
                     await _dbContext.Jobs.AddAsync(job);
                 }
             }
@@ -327,7 +358,7 @@ namespace Data.Repositories.Repository.Jobs
                 _logger.LogError($"Faild to AddAsync for Job: {ex.Message}");
             }
         }
-        public void Update(Job job)
+        public async Task UpdateAsync(Job job)
         {
             try
             {
@@ -337,6 +368,7 @@ namespace Data.Repositories.Repository.Jobs
                     job.ModifiedBy = "Anonymous";
                     job.LastModified = DateTime.Now;
 
+                    await UpdateJobGradesAsync(job);
                     _dbContext.Entry(job).State = EntityState.Modified;
                 }
             }
@@ -362,24 +394,65 @@ namespace Data.Repositories.Repository.Jobs
             }
         }
 
-        public double CalculateWorkNatureAllowance(Job job, Salary salary)
+        public async Task UpdateJobGradesAsync(Job job)
         {
-
-            //return workNatureAllowance;
-            return 100;
-        }
-
-        public double CalculateWorkNatureAllowance(double allowance, int gradeNumber, int levelNumber = 1)
-        {
-            if (allowance < 0 && allowance <= 30)
+            try
             {
+                _logger.LogInformation("UpdateJobGradesAsync for Job was Called");
 
+                if (job != null)
+                {
+                    job.JobGrades.Clear();
+                    var grades = await _dbContext.Grades.Where(x => x.GradeNumber >= job.MinGrade.GradeNumber && 
+                                                                    x.GradeNumber <= job.MaxGrade.GradeNumber)
+                                                        .ToListAsync();
+                    foreach (var grade in grades)
+                    {
+                        if (job.WorkNatureAllowance > 0 && job.WorkNatureAllowance <= 30)
+                        {
+                            var level = await _dbContext.Levels.FirstOrDefaultAsync(x => x.LevelNumber == 1);
+                            if (level == null)
+                            {
+                                return;
+                            }
+                            var salary = await _dbContext.Salaries.FirstOrDefaultAsync(x => x.GradeId == grade.Id && x.LevelId == level.Id);
+                            if (salary == null || level == null)
+                            {
+                                return;
+                            }
+
+                            job.JobGrades.Add(new JobGrade()
+                            {
+                                Job = job,
+                                Grade = grade,
+                                WorkAllowanceAmount = (salary.BasicSalary * job.WorkNatureAllowance) / 100
+                            });
+                        }
+                        else if (job.WorkNatureAllowance > 30)
+                        {
+                            job.JobGrades.Add(new JobGrade()
+                            {
+                                Job = job,
+                                Grade = grade,
+                                WorkAllowanceAmount = job.WorkNatureAllowance
+                            });
+                        }
+                        else
+                        {
+                            job.JobGrades.Add(new JobGrade()
+                            {
+                                Job = job,
+                                Grade = grade,
+                                WorkAllowanceAmount = 0
+                            });
+                        }
+                    }
+                }
             }
-            if (allowance > 30)
+            catch (Exception ex)
             {
-                return allowance;
+                _logger.LogError($"Faild to Update JobGrade: {ex.Message}");
             }
-            return 0;
         }
     }
 }

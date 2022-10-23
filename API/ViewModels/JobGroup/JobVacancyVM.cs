@@ -12,9 +12,13 @@ namespace API.ViewModels.JobGroup
         public int VacantNumber { get; set; }
         public string Notes { get; set; }
 
+        public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
 
         public int BranchId { get; set; }
         public string BranchName { get; set; }
+
+        public int JobId { get; set; }
+        public string JobName { get; set; }
     }
 }

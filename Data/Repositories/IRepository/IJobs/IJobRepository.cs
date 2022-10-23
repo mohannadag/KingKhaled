@@ -16,6 +16,8 @@ namespace Data.Repositories.IRepository.IJobs
         Task<bool> IsValidIdAsync(int id);
         
         Task<bool> IsValidJoIdForGradeAsync(int jobId, int gradeId);
+        Task<bool> IsThereValidSalaryForGradeRangeAsync(int minGradeId, int maxGradeId);
+
         Task<bool> AlreadyExistArabicAsync(string arabicName);
         Task<bool> AlreadyExistCodeAsync(string code);
 
@@ -27,9 +29,9 @@ namespace Data.Repositories.IRepository.IJobs
         Task<IEnumerable<Job>> GetAllByWorkNatureAllowanceAsync(bool? haveWorkNatureAllowance = true);
 
         Task AddAsync(Job job);
-        void Update(Job job);
+        Task UpdateAsync(Job job);
         void Delete(Job job);
 
-        
+        public Task UpdateJobGradesAsync(Job job);
     }
 }

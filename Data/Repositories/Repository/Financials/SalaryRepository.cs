@@ -1,4 +1,5 @@
 ﻿using Core.Models.Financial;
+using Core.Models.Jobs;
 using Data.Context;
 using Data.Repositories.IRepository.IFinancials;
 using Microsoft.EntityFrameworkCore;
@@ -201,7 +202,5 @@ namespace Data.Repositories.Repository.Financials
                 _logger.LogError($"Faild to Delete for Salary: {ex.Message}");
             }
         }
-
-        
     }
 }

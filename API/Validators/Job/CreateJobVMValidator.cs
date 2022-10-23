@@ -64,6 +64,16 @@ namespace API.Validators.Job
                     .WithMessage("Min Grade Number Must be Less than or Equal to Max Grade Number!");
                 });
 
+            //When(x => (x.MinGradeId > 0 && x.MaxGradeId > 0),
+            //    () =>
+            //    {
+            //        RuleFor(x => x).MustAsync(async (value, canselToken) =>
+            //        {
+            //            return await unitOfWork.Jobs.IsThereValidSalaryForGradeRangeAsync(value.MinGradeId, value.MaxGradeId);
+            //        })
+            //        .WithMessage("One or More Grade with Level Does Not have Salary!");
+            //    });
+
         }
     }
 }

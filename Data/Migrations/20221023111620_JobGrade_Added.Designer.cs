@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221023111620_JobGrade_Added")]
+    partial class JobGrade_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -546,6 +548,12 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<double>("AllowanceAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AllowancePercentage")
+                        .HasColumnType("float");
+
                     b.Property<string>("ArabicName")
                         .HasColumnType("nvarchar(max)");
 
@@ -589,10 +597,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Jobs.JobGrade", b =>
                 {
-                    b.Property<int>("JobId")
+                    b.Property<int>("GradeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GradeId")
+                    b.Property<int>("JobId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("AddedDate")
@@ -600,18 +608,9 @@ namespace Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasKey("GradeId", "JobId");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<double>("WorkAllowanceAmount")
-                        .HasColumnType("float");
-
-                    b.HasKey("JobId", "GradeId");
-
-                    b.HasIndex("GradeId");
+                    b.HasIndex("JobId");
 
                     b.ToTable("JobGrade");
                 });
@@ -928,21 +927,17 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Jobs.JobGrade", b =>
                 {
-                    b.HasOne("Core.Models.Financial.Grade", "Grade")
-                        .WithMany("JobGrades")
+                    b.HasOne("Core.Models.Financial.Grade", null)
+                        .WithMany()
                         .HasForeignKey("GradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Models.Jobs.Job", "Job")
-                        .WithMany("JobGrades")
+                    b.HasOne("Core.Models.Jobs.Job", null)
+                        .WithMany()
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Grade");
-
-                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>
@@ -982,8 +977,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>
                 {
-                    b.Navigation("JobGrades");
-
                     b.Navigation("MaxGradeJobs");
 
                     b.Navigation("MinGradeJobs");
@@ -1013,8 +1006,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Jobs.Job", b =>
                 {
-                    b.Navigation("JobGrades");
-
                     b.Navigation("JobVacancies");
                 });
 

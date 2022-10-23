@@ -78,8 +78,10 @@ namespace API.Profiles
 
             // JobVacancy
             CreateMap<JobVacancy, JobVacancyVM>()
+                .ForMember(viewModel => viewModel.DepartmentId, model => model.MapFrom(x => x.Branch.Department.Id))
                 .ForMember(viewModel => viewModel.DepartmentName, model => model.MapFrom(x => x.Branch.Department.ArabicName))
                 .ForMember(viewModel => viewModel.BranchName, model => model.MapFrom(x => x.Branch.ArabicName))
+                .ForMember(viewModel => viewModel.JobName, model => model.MapFrom(x => x.Job.ArabicName))
                 .ReverseMap();
             CreateMap<JobVacancy, CreateJobVacancyVM>()
                 .ReverseMap();

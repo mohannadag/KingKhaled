@@ -90,13 +90,16 @@ namespace Data.Repositories.Repository.General
             try
             {
                 _logger.LogInformation("IsValidJobVacancyIdForGradeAsync for JobVacancy was Called");
+
+                var grade = await _dbContext.Grades.FirstOrDefaultAsync(x => x.Id == gradeId);
+
                 return await _dbContext.JobVacancies.Include(x => x.Job)
                                                     .ThenInclude(x => x.MinGrade)
                                                     .Include(x => x.Job)
                                                     .ThenInclude(x => x.MaxGrade)
                                                     .AnyAsync(x => x.Id == jobVacancyId &&
-                                                                   x.Job.MinGrade.GradeNumber <= gradeId &&
-                                                                   x.Job.MaxGrade.GradeNumber >= gradeId);
+                                                                   x.Job.MinGrade.GradeNumber <= grade.GradeNumber &&
+                                                                   x.Job.MaxGrade.GradeNumber >= grade.GradeNumber);
             }
             catch (Exception ex)
             {
