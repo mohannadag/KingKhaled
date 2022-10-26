@@ -1,0 +1,507 @@
+﻿@{
+    ViewData["Title"] = "إضافة موظف";
+    Layout = "~/Views/Shared/_ControlPanelLayout.cshtml";
+}
+
+<link href="~/assets/css/rtl/global.css" rel="stylesheet" type="text/css" />
+
+<div class="layout-px-spacing">
+    <div class="layout-top-spacing mb-2">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="container p-0">
+                    <div class="row layout-top-spacing">
+                        <div class="col-lg-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>إضافة موظف جديد</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="card multiple-form-one px-0 pb-0 mb-3">
+                                                <h5 class="text-center"><strong>معلومات الموظف</strong></h5>
+                                                <p class="text-center">   </p>
+                                                <div class="row">
+                                                    <div class="col-md-12 mx-0">
+                                                        <form id="msform">
+                                                            <ul id="progressbar">
+                                                                <li class="active" id="account"><strong>معلومات</strong></li>
+                                                                <li id="personal"><strong>وظيفة</strong></li>
+                                                                @*<li id="payment"><strong>معلومات البنك</strong></li>*@
+                                                                <li id="confirm"><strong>انتهاء</strong></li>
+                                                            </ul>
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h5 class="fs-title mb-4">بيانات الموظف</h5>
+                                                                    <div class="widget-content widget-content-area">
+                                                                        <div class="w-100">
+                                                                            <div class="form-group row">
+                                                                                <div class="col-lg-4">
+                                                                                    <label>رقم الموظف:</label>
+                                                                                    <input type="number" name="employeeNumber" id="employeeNumber" class="form-control" placeholder="رقم الموظف">
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <label>اسم الموظف:</label>
+                                                                                    <input type="text" name="arabicName" id="arabicName" class="form-control" placeholder="اسم الموظف">
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <label>الديانة:</label>
+                                                                                    <select class="form-control" id="religion">
+                                                                                        <option value="Islam">مسلم</option>
+                                                                                        <option value="Christian">مسيحي</option>
+                                                                                        <option value="Bozithest">بوذي</option>
+                                                                                              <option value="Hendos">هندوس</option>
+                                                                                        <option value="Jueish">يهودي</option>
+                                                                                    </select>
+                                                                                 
+                                                                                </div>
+                                                                                <div class="col-lg-4">
+                                                                                    <label>تاريخ الميلاد:</label>
+                                                                                    <input type="date" name="birthDate" id="birthDate" class="form-control" placeholder="birthDate ">
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <label>Name:</label>
+                                                                                    <input type="text" name="englishName" id="englisName" class="form-control" placeholder="Name ">
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <label>الجنس:</label>
+                                                                                    <select class="form-control" id="gender">
+                                                                                        <option value="Male">ذكر</option>
+                                                                                        <option value="Female">انثى</option>
+                                                                                    </select>
+                                                                                    @*<input type="text" name="gender" class="form-control" placeholder="الجنس ">*@
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-lg-4">
+                                                                                    <label>تاريخ هجري:</label>
+                                                                                    <input type="date" name="birthDateHijri" id="birthDateHijri" class="form-control" placeholder="birthDateHijri ">
+                                                                                </div>
+                                                                                <div class="col-lg-4">
+                                                                                    <label>مكان الولادة:</label>
+                                                                                    <input type="text" name="placeOfBirth" id="placeOfBirth" class="form-control" placeholder="مكان الولادة ">
+                                                                                </div>
+
+                                                                                <div class="col-lg-2">
+                                                                                    <label>الحالة الزوجية:</label>
+                                                                                    <select class="form-control" id="marritalStatus">
+                                                                                        <option value="Single">اعذب</option>
+                                                                                        <option value="Married">متزوج</option>
+                                                                                    </select> 
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-lg-4">
+                                                                                    <label>الإيميل:</label>
+                                                                                    <input type="email" name="email" id="email" class="form-control" placeholder="الإيميل">
+                                                                                </div>
+                                                                                <div class="col-lg-4">
+                                                                                    <label>الجوال:</label>
+                                                                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="الجوال">
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <label>الجنسية:</label>
+                                                                                    <select class="form-control" id="nationalityId" name="nationalityId">
+                                                                                        <option value="1">سعودي</option>
+                                                                                        <option value="2">غير سعودي</option>
+                                                                                    </select> 
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-lg-12">
+                                                                                    <label>العنوان:</label>
+                                                                                    <input type="text" id="address" class="form-control" placeholder="العنوان">
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="button" name="next" class="next action-button btn btn-primary" value="التالي" />
+                                                            </fieldset>
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h5 class="fs-title mb-4">معلومات الوظيفة</h5>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-12">
+                                                                            <label>المؤهل الدراسي:</label>
+                                                                            <select class="form-control" id="qualificationId" name="qualificationId">
+                                                                            
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-4">
+                                                                            <label>القسم:</label>
+                                                                            <select class="form-control" id="departmentID" onclick="GetAllbyDepartmentId(this.value)">
+                                                                               <option value="null">تحديد القسم</option>
+                                                                           </select>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <label>الفرع:</label>
+                                                                            <select class="form-control" id="branchId">
+                                                                                <option value="null">تحديد الفرع</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <label>وظيفة:</label>
+                                                                            <select class="form-control" id="jobId">
+                                                                                <option value="null">تحديد الوظيفة</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-4">
+                                                                            <label>الرتبة:</label>
+                                                                            <select class="form-control" id="gradeId">
+                                                                                <option value="null">تحديد الرتبة</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <label>الدرجة:</label>
+                                                                            <select class="form-control" id="levelId">
+                                                                                <option value="null">تحديد الدرجة</option>
+                                                                            </select>
+                                                                        </div>
+                                                                     
+                                                                            <div class="col-lg-4">
+                                                                                <label>رقم الميزانية:</label>
+                                                                            <select class="form-control" id="jobVacancyId">
+                                                                                <option value="null">رقم الميزانية</option>
+                                                                            </select>
+                                                                            </div>
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                                <input type="button" name="previous" class="previous action-button-previous btn btn-outline-primary" value="السابق" />
+                                                                <input type="button" name="next" class="next action-button btn btn-primary" onclick="save()" value="حفظ" />
+                                                            </fieldset>
+                                              @*              <fieldset>
+                                                                <div class="form-card">
+                                                                    <h5 class="fs-title mb-4">Account Information</h5>
+                                                                    <div class="radio-group">
+                                                                        <div class='radio' data-value="credit">
+                                                                            <img src="assets/img/form-card-img.png">
+                                                                        </div>
+                                                                        <div class='radio' data-value="paypal">
+                                                                            <img src="assets/img/form-pg-img.png">
+                                                                        </div>
+                                                                        <br>
+                                                                    </div>
+                                                                    <label class="pay">Card Holder Name*</label>
+                                                                    <input type="text" name="holdername" placeholder="" class="form-control mb-3" />
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <label class="pay">Card Number*</label>
+                                                                            <input type="text" name="cardno" placeholder="" class="form-control mb-3" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label class="pay">CVC*</label>
+                                                                            <input type="password" name="cvcpwd" placeholder="***" class="form-control mb-3" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-2 align-center d-flex">
+                                                                            <label class="pay mb-0">Expiry Date*</label>
+                                                                        </div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="list-dt" id="month" name="expmonth">
+                                                                                <option selected>Month</option>
+                                                                                <option>January</option>
+                                                                                <option>February</option>
+                                                                                <option>March</option>
+                                                                                <option>April</option>
+                                                                                <option>May</option>
+                                                                                <option>June</option>
+                                                                                <option>July</option>
+                                                                                <option>August</option>
+                                                                                <option>September</option>
+                                                                                <option>October</option>
+                                                                                <option>November</option>
+                                                                                <option>December</option>
+                                                                            </select>
+                                                                            <select class="list-dt" id="year" name="expyear">
+                                                                                <option selected>Year</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="button" name="previous" class="previous action-button-previous btn btn-outline-primary" value="Previous" />
+                                                                <input type="button" name="make_payment" class="next action-button btn btn-primary" value="Confirm" />
+                                                            </fieldset>*@
+                                                            <fieldset>
+                                                                <div class="form-card">
+                                                                    <h5 class="fs-title mb-4 text-center">Congrats !</h5><br>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-3">
+                                                                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                                                                        </div>
+                                                                    </div> <br><br>
+                                                                    <div class="row justify-content-center">
+                                                                        <div class="col-md-7 text-center">
+                                                                            <p>تم اضافة موظف </p>
+                                                                        </div>
+                                                                        <div class="col-md-7 text-center">
+                                                                            <button class="btn btn-primary" >اضافة موظف جديد</button>
+                                                                            <button class="btn btn-info">التوجه الى قائمة الموظفين</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/libs/jquery-3.1.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        GetAllNationality();
+        GetAllDepartment();
+        GetAllJobs();
+         GetAllGrade();
+        GetAllLevel();
+        GetAllJobVacancy();
+        GetAllqualification();
+    });
+
+    function GetAllqualification()
+    {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Qualification/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الوظيفة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("qualificationId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+    function GetAllNationality() {
+        $.ajax({
+            type: 'GET',
+            async: false, 
+            url: 'http://192.168.100.154:8080/API/Nationality/GetAll',
+            success: function (msg) {
+                var s = '';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+
+
+                document.getElementById("nationalityId").innerHTML = s;
+            },
+            error: function (data) {
+
+            }
+        });
+    }
+    function GetAllDepartment() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            //contentType: "application/json",
+
+            //data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/Department/GetAll',
+            success: function (msg) {
+                var s = '';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+                document.getElementById("departmentID").innerHTML = s;
+            },
+            error: function (data) {
+
+            }
+        });
+        
+    }
+    function GetAllbyDepartmentId(departmentID) {
+
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Branch/GetAll-by-DepartmentId/' + departmentID,
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الفرع  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+                document.getElementById("branchId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+    function GetAllJobs()
+    {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Job/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الوظيفة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+                document.getElementById("jobId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+    function GetAllGrade() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Grade/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الرتبة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("gradeId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+    function GetAllLevel() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Level/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الدرجة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("levelId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+    function GetAllJobVacancy()
+    {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/JobVacancy/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الدرجة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].vacantNumber + '</option>';
+                }
+                document.getElementById("jobVacancyId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+    function save() {
+     
+
+        var SendInfo = { 
+            
+            "arabicName":  $("#arabicName").val(),
+            "englishName": $("#englisName").val(),
+            "birthDate":  $("#birthDate").val() ,
+            "birthDateHijri": $("#birthDateHijri").val(),
+            "placeOfBirth": $("#placeOfBirth").val(),
+            "phone":  $("#phone").val(),
+            "email": $("#email").val(),
+            "address": $("#address").val(),
+            "gender":$("#gender").val(),
+            "religion": $("#religion").val(),
+            "marritalStatus": $("#marritalStatus").val(),
+            "jobVacancyId": $("#jobVacancyId").val(), 
+          
+            "branchId": $("#branchId").val(),
+         
+            "qualificationId":$("#qualificationId").val(),
+          
+            "gradeId": $("#gradeId").val(),
+         
+            "levelId": $("#levelId").val(),
+           
+            "nationalityId": $("#nationalityId").val(),
+        }
+        console.log("empinfo" + JSON.stringify(SendInfo));
+        $.ajax({
+            type: 'POST',
+            async: false,
+            contentType: "application/json",
+
+            data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/Employee',
+            success: function (msg) {
+                Swal.fire(
+                    'تم الحفظ!',
+                    '',
+                    'success',
+                ).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    window.location.reload();
+                })
+            },
+            error: function (data) {
+                Swal.fire(
+                    'لم يتم الحفظ!',
+                    data.responseText,
+                    'error'
+                )
+            }
+        });
+    }
+    
+</script>
