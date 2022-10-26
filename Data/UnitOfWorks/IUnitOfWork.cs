@@ -1,4 +1,6 @@
-﻿using Data.Repositories.IRepository.IAllowances;
+﻿using Core.Models.EmployeesInfo;
+using Core.Models.EmploymentApplications;
+using Data.Repositories.IRepository.IAllowances;
 using Data.Repositories.IRepository.IEmployeesInfo;
 using Data.Repositories.IRepository.IFinancials;
 using Data.Repositories.IRepository.IGenerals;
@@ -32,6 +34,8 @@ namespace Data.UnitOfWorks
         public IJobVisaRepository JobVisa { get; }
         public IJobVacancyRepository JobVacancy { get; }
         public IAllowanceTypeRepository AllowanceTypes { get; }
+        public IEmploymentApplications EmploymentApplications { get; }
+        public IEntryCardRepository EntryCards { get; }
         Task<bool> SaveAsync();
     }
 }
