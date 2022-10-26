@@ -5,8 +5,10 @@ using Data.Context;
 using Data.DataSeed;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
@@ -42,6 +44,8 @@ namespace API
 
             var app = builder.Build();
 
+            //builder.ConfigureWebHostDefaults(b => b.Configure(app => { }));
+
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
@@ -56,6 +60,21 @@ namespace API
             app.MapControllers();
 
             //================End Builder==========================
+
+            //var hostUrl = builder.Configuration["HostUrl"]; // add this line
+            //if (string.IsNullOrEmpty(hostUrl)) // add this line
+            //    hostUrl = "http://0.0.0.0:5001"; // add this line
+
+            //var host = new WebHostBuilder()
+            //.UseKestrel()
+            //.UseUrls(hostUrl)   // // add this line
+            //.UseContentRoot(Directory.GetCurrentDirectory())
+            //.UseIISIntegration()
+            //.UseStartup<Program>()
+            //.UseConfiguration(builder.Configuration)
+            //.Build();
+
+            //host.Run();
 
             // Data Seed
             using var scope = app.Services.CreateScope();

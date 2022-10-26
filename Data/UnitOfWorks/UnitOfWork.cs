@@ -16,6 +16,8 @@ using Data.Repositories.Repository.Jobs;
 using Data.Repositories.Repository.Financials;
 using Data.Repositories.IRepository.IAllowances;
 using Data.Repositories.Repository.Allowances;
+using Data.Repositories.IRepository.IRequests;
+using Data.Repositories.Repository.Requests;
 
 namespace Data.UnitOfWorks
 {
@@ -80,6 +82,12 @@ namespace Data.UnitOfWorks
 
         public IAllowanceTypeRepository AllowanceTypes => new AllowanceTypeRepository(
             _dbContext, new Logger<AllowanceTypeRepository>(new NullLoggerFactory()));
+
+        public IEntryCardRepository EntryCards => new EntryCardRepository(
+            _dbContext, new Logger<EntryCardRepository>(new NullLoggerFactory()));
+
+        public IRequestTypeRepository RequestTypes => new RequestTypeRepository(
+            _dbContext, new Logger<RequestTypeRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

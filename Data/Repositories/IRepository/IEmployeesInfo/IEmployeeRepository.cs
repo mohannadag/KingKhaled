@@ -31,6 +31,8 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
         Task<IEnumerable<Employee>> GetAllByLevelIdAsync(int levelId);
         Task<IEnumerable<Employee>> GetAllByGradeIdAndLevelIdAsync(int gradeId, int levelId);
         Task<IEnumerable<Employee>> GetAllByQualificationIdAsync(int qualificationId);
+
+        Task<IEnumerable<Employee>> GetAllByWorkType(string workType);
         Task<IEnumerable<Employee>> GetAllByGenderAsync(string gender);
         Task<IEnumerable<Employee>> GetAllByReligionAsync(string religion);
         Task<IEnumerable<Employee>> GetAllByMarritalStatusAsync(string marritalStatus);

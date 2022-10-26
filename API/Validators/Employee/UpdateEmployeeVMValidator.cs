@@ -23,6 +23,7 @@ namespace API.Validators.Employee
             RuleFor(x => x.BirthDateHijri).NotEmpty();
             RuleFor(x => x.PlaceOfBirth).NotEmpty().MinimumLength(3).MaximumLength(25);
 
+            RuleFor(x => x.WorkType).NotEmpty().IsInEnum();
             RuleFor(x => x.Gender).NotEmpty().IsInEnum();
             RuleFor(x => x.Religion).NotEmpty().IsInEnum();
             RuleFor(x => x.MarritalStatus).NotEmpty().IsInEnum();

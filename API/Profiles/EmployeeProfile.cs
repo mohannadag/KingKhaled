@@ -1,5 +1,6 @@
 ﻿using API.ViewModels.Employee;
 using API.ViewModels.EmployeeAccount;
+using API.ViewModels.EntryCard;
 using AutoMapper;
 using Core.Models.EmployeesInfo;
 using System;
@@ -42,6 +43,15 @@ namespace API.Profiles
             CreateMap<EmployeeAccount, CreateEmployeeAccountVM>()
                 .ReverseMap();
             CreateMap<EmployeeAccount, UpdateEmployeeAccountVM>()
+                .ReverseMap();
+
+            // EntryCard
+            CreateMap<EntryCard, EntryCardVM>()
+                .ForMember(viewModel => viewModel.EmployeeName, model => model.MapFrom(x => x.Employee.ArabicName))
+                .ReverseMap();
+            CreateMap<EntryCard, CreateEmployeeVM>()
+                .ReverseMap();
+            CreateMap<EntryCard, UpdateEntryCardVM>()
                 .ReverseMap();
         }
     }

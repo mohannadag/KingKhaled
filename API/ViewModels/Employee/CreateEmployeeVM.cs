@@ -18,6 +18,7 @@ namespace API.ViewModels.Employee
         public string Email { get; set; }
         public string Address { get; set; }
 
+        public WorkType WorkType { get; set; }
         public Gender Gender { get; set; }
         public Religion Religion { get; set; }
         public MaritalStatus MarritalStatus { get; set; }

@@ -4,6 +4,7 @@ using Core.Models.EmployeesInfo;
 using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
+using Core.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Data.Context
         public DbSet<AllowanceType> AllowanceTypes { get; set; }
 
         // General
+        public DbSet<RequestType> RequestTypes { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -40,6 +42,7 @@ namespace Data.Context
 
         // Identifications
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EntryCard> EntryCards { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<Identity> Identities { get; set; }
         public DbSet<Passport> Passports { get; set; }
@@ -144,7 +147,11 @@ namespace Data.Context
             .WithOne(x => x.JobVacancy)
             .HasForeignKey<Employee>(x => x.JobVacancyId);
 
-            
+            // OneToOne between EntryCard and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.EntryCard)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<EntryCard>(x => x.EmployeeId);
         }
     }
 }

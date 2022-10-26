@@ -3,6 +3,7 @@ using Data.Repositories.IRepository.IEmployeesInfo;
 using Data.Repositories.IRepository.IFinancials;
 using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
+using Data.Repositories.IRepository.IRequests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,9 @@ namespace Data.UnitOfWorks
         public IJobVisaRepository JobVisa { get; }
         public IJobVacancyRepository JobVacancy { get; }
         public IAllowanceTypeRepository AllowanceTypes { get; }
+        public IEntryCardRepository EntryCards { get; }
+        public IRequestTypeRepository RequestTypes { get; }
+
         Task<bool> SaveAsync();
     }
 }

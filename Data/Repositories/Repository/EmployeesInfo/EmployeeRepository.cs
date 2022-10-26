@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -385,6 +386,27 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 return null;
             }
         }
+
+        public async Task<IEnumerable<Employee>> GetAllByWorkType(string workType)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByGenderAsync for Employee was Called");
+
+                return await _dbContext.Employees.Include(x => x.Nationality)
+                                                 .Include(x => x.Qualification)
+                                                 .Include(x => x.Grade)
+                                                 .Include(x => x.Level)
+                //.Include(x => x.Job)
+                                                 .Where(x => x.WorkType.ToLower() == workType.ToLower())
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByGenderAsync for Employee: {ex.Message}");
+                return null;
+            }
+        }
         public async Task<IEnumerable<Employee>> GetAllByGenderAsync(string gender)
         {
             try
@@ -495,5 +517,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogError($"Faild to Delete for Employee: {ex.Message}");
             }
         }
+
+        
     }
 }

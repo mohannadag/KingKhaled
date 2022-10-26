@@ -23,9 +23,12 @@ namespace Core.Models.EmployeesInfo
         public string Email { get; set; }
         public string Address { get; set; }
 
+        public string WorkType { get; set; }
         public string Gender { get; set; }
         public string Religion { get; set; }
         public string MarritalStatus { get; set; }
+
+        public EntryCard EntryCard { get; set; }
 
         public int NationalityId { get; set; }
         public Nationality Nationality { get; set; }
