@@ -1,9 +1,11 @@
 ﻿using Core.Enums;
 using Core.Models.Allowance;
 using Core.Models.EmployeesInfo;
+using Core.Models.EmploymentApplications;
 using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,7 +46,10 @@ namespace Data.Context
         public DbSet<Identity> Identities { get; set; }
         public DbSet<Passport> Passports { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        //Employment Applications
+        public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
+
+    protected override void OnModelCreating(ModelBuilder builder)
         {
             // ManyToMany [Full-Configurations] between Grade and Level [Salary]
             builder.Entity<Grade>()
@@ -143,6 +148,8 @@ namespace Data.Context
             .HasOne(x => x.Employee)
             .WithOne(x => x.JobVacancy)
             .HasForeignKey<Employee>(x => x.JobVacancyId);
+
+            
 
             
         }

@@ -31,6 +31,7 @@ namespace Data.UnitOfWorks
         public IJobVisaRepository JobVisa { get; }
         public IJobVacancyRepository JobVacancy { get; }
         public IAllowanceTypeRepository AllowanceTypes { get; }
+        public IEmploymentApplications EmploymentApplications { get; }
         Task<bool> SaveAsync();
     }
 }

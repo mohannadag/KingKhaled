@@ -1,10 +1,12 @@
 ﻿using API.ViewModels.Bank;
 using API.ViewModels.Branch;
 using API.ViewModels.Department;
+using API.ViewModels.EmploymentApplications;
 using API.ViewModels.Nationality;
 using API.ViewModels.Salary;
 using AutoMapper;
 using Core.Models.EmployeesInfo;
+using Core.Models.EmploymentApplications;
 using Core.Models.Financial;
 using Core.Models.General;
 using System;
@@ -62,6 +64,9 @@ namespace API.Profiles
             CreateMap<Salary, CreateSalaryVM>()
                 .ReverseMap();
             CreateMap<Salary, UpdateSalaryVM>()
+                .ReverseMap();
+            // Employment Applications
+            CreateMap<EmploymentApplications, EmploymentApplicationsVM>()
                 .ReverseMap();
         }
     }

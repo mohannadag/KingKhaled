@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025102744_applicationjob")]
+    partial class applicationjob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,11 +345,8 @@ namespace Data.Migrations
                     b.Property<bool>("HospitalExam")
                         .HasColumnType("bit");
 
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobVisaID")
-                        .HasColumnType("int");
+                    b.Property<string>("JobId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("MilitaryExam")
                         .HasColumnType("bit");
@@ -364,11 +363,14 @@ namespace Data.Migrations
                     b.Property<string>("Recommended")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Religion")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReligionID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ResidenceEndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ResidenceJobID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResidenceNumber")
                         .HasColumnType("nvarchar(max)");
@@ -385,18 +387,10 @@ namespace Data.Migrations
                     b.Property<int>("TelPhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("YearsExperience")
+                    b.Property<int>("yearsExperience")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("JobVisaID");
-
-                    b.HasIndex("NationalityID");
-
-                    b.HasIndex("QualificationID");
 
                     b.ToTable("EmploymentApplications");
                 });
@@ -954,41 +948,6 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
-                {
-                    b.HasOne("Core.Models.Jobs.Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Jobs.JobVisa", "JobVisa")
-                        .WithMany()
-                        .HasForeignKey("JobVisaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.EmployeesInfo.Nationality", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Jobs.Qualification", "Qualification")
-                        .WithMany()
-                        .HasForeignKey("QualificationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-
-                    b.Navigation("JobVisa");
-
-                    b.Navigation("Nationality");
-
-                    b.Navigation("Qualification");
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Salary", b =>

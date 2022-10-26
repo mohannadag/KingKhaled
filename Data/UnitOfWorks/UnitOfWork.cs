@@ -81,6 +81,9 @@ namespace Data.UnitOfWorks
         public IAllowanceTypeRepository AllowanceTypes => new AllowanceTypeRepository(
             _dbContext, new Logger<AllowanceTypeRepository>(new NullLoggerFactory()));
 
+        public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
+            _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+
         public void Dispose()
         {
             _dbContext.Dispose();

@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025150639_updateEmploymentApplicatoin")]
+    partial class updateEmploymentApplicatoin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -364,8 +366,8 @@ namespace Data.Migrations
                     b.Property<string>("Recommended")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Religion")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReligionID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ResidenceEndDate")
                         .HasColumnType("datetime2");
@@ -393,8 +395,6 @@ namespace Data.Migrations
                     b.HasIndex("JobId");
 
                     b.HasIndex("JobVisaID");
-
-                    b.HasIndex("NationalityID");
 
                     b.HasIndex("QualificationID");
 
@@ -970,12 +970,6 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Models.EmployeesInfo.Nationality", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.Jobs.Qualification", "Qualification")
                         .WithMany()
                         .HasForeignKey("QualificationID")
@@ -985,8 +979,6 @@ namespace Data.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("JobVisa");
-
-                    b.Navigation("Nationality");
 
                     b.Navigation("Qualification");
                 });
