@@ -78,6 +78,7 @@ namespace API.Controllers.HR.EmployeeInfo
             return _mapper.Map<EntryCardVM[]>(result);
         }
 
+        [HttpPost]
         public async Task<ActionResult<EntryCardVM>> Post(CreateEntryCardVM createEntryCardVM)
         {
             var entryCard = _mapper.Map<EntryCard>(createEntryCardVM);
