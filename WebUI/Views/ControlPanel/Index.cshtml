@@ -1,0 +1,1130 @@
+﻿@model IEnumerable<WebUI.Models.EmployeeModel>
+@{
+    ViewData["Title"] = "الرئيسية";
+    Layout = "~/Views/Shared/_ControlPanelLayout.cshtml";
+}
+<!-- Page Level Plugin/Style Starts -->
+
+<link href="assets/css/forms/form-widgets.css" rel="stylesheet" type="text/css">
+
+<link href="assets/css/forms/radio-theme.css" rel="stylesheet" type="text/css">
+<!-- Datatable single column searching -->
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <h4 class="table-header">الموظفين</h4>
+        <a class="btn btn-success btn-rounded  btn-lg" style="float:left" asp-controller="ControlPanel" asp-action="AddNewEmployee">اضافة موظف</a>
+        <div class="table-responsive mb-4">
+            <table id="single-column-search" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>رقم الموظف</th>
+                        <th>الإسم</th>
+                        <th>القسم</th>
+                        <th>الفرع</th>
+
+                        <th> الوظيفة</th>
+                        <th>الهاتف</th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr href="#">
+                            <td>@item.employeeNumber</td>
+                            <td>@item.arabicName</td>
+                            <td>@item.qualificationName</td>
+                            <td>@item.branchName</td>
+                            <td>@item.jobName</td>
+                            <td>@item.phone</td>
+                            
+                            <td>
+                                <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#ViewEmpInfo">معلومات</button>
+                                <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target=".bd-example-modal-xl">تعديل</button>
+                                <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#OtherActive">اخرى</button>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>رقم الموظف</th>
+                        <th>الإسم</th>
+                        <th>القسم</th>
+                        <th>الفرع</th>
+
+                        <th> الوظيفة</th>
+                        <th>الهاتف</th>
+                        <th>  </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="ViewEmpInfo" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات الموظف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>رقم الموظيفي:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الوظيفي">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>رمز مستوى الوظيفة:</label>
+                                    <input type="number" class="form-control" placeholder="رمز مستوى الوظيفة">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>رمز القسم:</label>
+                                    <input type="number" class="form-control" placeholder="رمز القسم">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>رقم الميزانية:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الميزانية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>القسم:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>مستوى الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="مستوى الوظيفة">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>رمز الجنسية:</label>
+                                    <input type="number" class="form-control" placeholder="رمز الجنسية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>الجنسية:</label>
+                                    <input type="text" class="form-control" placeholder="الجنسية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رمز الديانة:</label>
+                                    <input type="number" class="form-control" placeholder="رمز الديانة">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>الديانة:</label>
+                                    <input type="text" class="form-control" placeholder="الديانة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الميلاد هجري:</label>
+                                    <input type="date" id="hijri-date-input" class="form-control" placeholder="تاريخ الميلاد هجري">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ الميلاد ميلادي:</label>
+                                    <input type="date" class="form-control" placeholder="الجنسية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>مكان:</label>
+                                    <input type="text" class="form-control" placeholder="مكان">
+
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم الاقامة/الحفيظة:</label>
+                                    <input type="text" class="form-control" placeholder="رقم الاقامة">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>مكان الاصدار:</label>
+                                    <input type="text" class="form-control" placeholder="مكان الاصدار">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الاصدار:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ الاصدار">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ الانتهاء:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ الانتهاء">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم السجل المدني:</label>
+                                    <input type="text" class="form-control" placeholder="رقم السجل المدني">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>مكان الاصدار:</label>
+                                    <input type="text" class="form-control" placeholder="مكان الاصدار">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الاصدار:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ الاصدار">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ الانتهاء:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ الانتهاء">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رمز الفرع:</label>
+                                    <input type="number" class="form-control" placeholder="رمز الفرع">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الفرع:</label>
+                                    <input type="text" class="form-control" placeholder="الفرع">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>رمز الجنسية:</label>
+                                    <input type="number" class="form-control" placeholder="رمز الجنسية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الجنسية:</label>
+                                    <input type="text" class="form-control" placeholder="الجنسية">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رمز وظيفة التأشيرة:</label>
+                                    <input type="number" class="form-control" placeholder="رمز وظيفة التأشيرة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>مسمى الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="مسمى الوظيفة">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>رمز المؤهل الدراسي:</label>
+                                    <input type="number" class="form-control" placeholder="رمز المؤهل الدراسي">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>المؤهل الدراسي:</label>
+                                    <input type="text" class="form-control" placeholder="المؤهل الدراسي">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>الجنس:</label>
+                                    <input type="text" class="form-control" placeholder="الجنس">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+
+                                <div class="col-lg-1">
+                                    <label>الدرجة:</label>
+
+                                    <input type="text" class="form-control" placeholder="الدرجة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-1">
+                                    <label>المرتبة:</label>
+
+                                    <input type="text" class="form-control" placeholder="المرتبة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-1">
+                                    <label>رمز  العقد:</label>
+                                    <input type="text" class="form-control" placeholder="رمز   العقد">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label> نوع العقد:</label>
+                                    <input type="text" class="form-control" placeholder="نوع العقد">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ بداية العقد:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ  ">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ نهاية العقد:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ  ">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-lg-2">
+                                    <label>الاجازة السنوية:</label>
+
+                                    <input type="number" class="form-control" placeholder="الاجازة السنوية">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>الاجازة الطارئة:</label>
+
+                                    <input type="number" class="form-control" placeholder="الاجازة الطارئة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>الراتب:</label>
+
+                                    <input type="number" class="form-control" placeholder="الراتب">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>زيادة سنوية:</label>
+
+                                    <input type="number" class="form-control" placeholder="زيادة سنوية">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>ملاحظة:</label>
+
+                                    <input type="number" class="form-control" placeholder="ملاحظة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    @*<button type="button" class="btn btn-primary">Save</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="OtherActive" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات الموظف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#Residence_Data">بيانات الاقامة</button>
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#PassporInfo">بيانات جواز السفر</button>
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#Card_renewal">تجديد بيانات البطاقات</button>
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#Assigning_employee">تكليف الموظف</button>
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewContract">تجديد عقد</button>
+                    <button class="btn btn-primary btn-lg btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#Dismissal_employee">فصل موظف</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    @*<button type="button" class="btn btn-primary">Save</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="NewContract" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">تجديد العقد</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-1">
+                                    <label>الدرجة:</label>
+
+                                    <input type="text" class="form-control" placeholder="الدرجة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-1">
+                                    <label>المرتبة:</label>
+
+                                    <input type="text" class="form-control" placeholder="المرتبة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الراتب:</label>
+                                    <input type="number" class="form-control" placeholder="">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>بداية العقد:</label>
+                                    <input type="date" class="form-control" placeholder=" ">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>نهاية العقد:</label>
+                                    <input type="date" class="form-control" placeholder=" ">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ اخر عقد:</label>
+                                    <input type="date" class="form-control" placeholder="">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-lg-3">
+                                    <label>القسم:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الفرع:</label>
+                                    <input type="text" class="form-control" placeholder="الفرع">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>تاريخ التعديل:</label>
+                                    <input type="date" class="form-control" placeholder="القسم">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>بداية العقد:</label>
+                                    <input type="date" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>نهاية العقد:</label>
+                                    <input type="date" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-3">
+
+
+
+                                    <label class="col-form-label text-right col-lg-3 col-sm-12">النوع</label>
+                                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                        <select class="selectpicker w-10">
+
+                                            <option>تجديد عقد</option>
+                                            <option>تجديد عقد</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-9">
+                                    <label>ملاحظة:</label>
+                                    <input type="text" class="form-control" placeholder="ملاحظة">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>ادخل بواسطة:</label>
+                                    <input type="text" class="form-control" placeholder="ادخل بواسطة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الادخال:</label>
+                                    <input type="date" class="form-control" placeholder="تاريخ الادخال">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-3">
+                                    <label>عمل بواسطة:</label>
+
+                                    <input type="text" class="form-control" placeholder="عمل بواسطة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ التعديل:</label>
+
+                                    <input type="date" class="form-control" placeholder="">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="PassporInfo" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات جواز السفر</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>القسم:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>رقم جزاز السفر:</label>
+                                    <input type="number" class="form-control" placeholder="رقم جزاز السفر">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <label>مكان الاصدار:</label>
+                                    <input type="text" class="form-control" placeholder="مكان الاصدار">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الاصدار:</label>
+                                    <input type="date" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ الانتهاء:</label>
+                                    <input type="date" class="form-control" placeholder="">
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <label>ملاحظة:</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Card_renewal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات البطاقات</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-3">
+                                    <label>القسم:</label>
+
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الوظيفة:</label>
+
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم بطاقة الاستخبارات:</label>
+                                    <input type="text" class="form-control" placeholder="رقم بطاقة الاستخبارات">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <label> تاريخ الاصدار ميلادي:</label>
+                                    <input type="date" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-2">
+                                    <label>تاريخ الانتهاء ميلادي:</label>
+
+                                    <input type="date" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label> تاريخ الاصدار هجري:</label>
+                                    <input type="date" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-2">
+                                    <label>تاريخ الانتهاء هجري:</label>
+
+                                    <input type="date" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم بطاقة الادارة:</label>
+                                    <input type="text" class="form-control" placeholder="رقم بطاقة الاستخبارات">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+
+                                <div class="col-lg-2">
+                                    <label>تاريخ الانتهاء  :</label>
+
+                                    <input type="date" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+
+                                <div class="col-lg-2">
+                                    <label>تاريخ الانتهاء هجري:</label>
+
+                                    <input type="date" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Residence_Data" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات الاقامة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>القسم:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>رقم الاقامة / الحفيظة:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الاقامة">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>مكان الاصدار:</label>
+                                    <input type="text" class="form-control" placeholder="مكان الاصدار">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ الاصدار:</label>
+                                    <input type="date" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>تاريخ الانتهاء:</label>
+                                    <input type="date" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>وظيفة الاقامة:</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-lg-8">
+                                    <label>ملاحظة:</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Assigning_employee" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">تكليف الموظف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>القسم:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>الوظيفة:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>حالة التكليف:</label>
+                                    <div class="ripple-checkbox-primary">
+                                        <input class="inp-cbx" id="cbx" type="checkbox" style="display: none">
+                                        <label class="cbx" for="cbx">
+                                            <span>
+                                                <svg width="12px" height="10px" viewBox="0 0 12 10">
+                                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                </svg>
+                                            </span>
+
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-content widget-content-area">
+                    <div class="w-100">
+                        <div class="form-group row">
+                            <div class="col-lg-5">
+                                <label>القسم المكلف به:</label>
+                                <input type="number" class="form-control" placeholder="اسم القسم">
+                                @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                            </div>
+
+                            <div class="col-lg-5">
+                                <label>الفرع المكلف به:</label>
+                                <input type="text" class="form-control" placeholder="اسم الفرع">
+                                @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <div class="col-lg-5">
+                                <label>تاريخ التكليف:</label>
+                                <input type="date" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-lg-5">
+                                <label>تاريخ نهاية التكليف:</label>
+                                <input type="date" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-lg-6">
+
+
+
+                                <label class="col-form-label text-right col-lg-3 col-sm-12">نوعه</label>
+                                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                                    <select class="selectpicker w-150">
+
+                                        <option>داخلي</option>
+                                        <option>خارجي</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-lg-5">
+                                <label>مكانه:</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-lg-5">
+                                <label>الوظيفة المكلف بها:</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                <button type="button" class="btn btn-primary">حفظ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Dismissal_employee" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">فصل موظف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>رقم الموظيف:</label>
+                                    <input type="number" class="form-control" placeholder="رقم الموظيف">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label>الاسم:</label>
+                                    <input type="text" class="form-control" placeholder="الاسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Name:</label>
+
+                                    <input type="text" class="form-control" placeholder="Name">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>تاريخ الفصل:</label>
+                                    <input type="date" class="form-control" placeholder=" ">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label>تاريخ نهاية الخدمة:</label>
+                                    <input type="date" class="form-control" placeholder=" ">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>نهاية اجازة مستحقة:</label>
+                                    <input type="date" class="form-control" placeholder=" ">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>الايام المستحقة:</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-lg-3">
+                                    <label>رقم قرار التعيين:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>ملاحظات:</label>
+                                    <input type="text" class="form-control" placeholder="الوظيفة">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group mb-4">
+                                    @*<label>Square Style</label>*@
+                                    <div class="radio-inline">
+                                        <label class="radio radio-square">
+                                            <input type="radio" name="radios13_1">
+                                            <span></span>سعودي استقالة
+                                        </label>
+                                        <label class="radio radio-square">
+                                            <input type="radio" name="radios13_1">
+                                            <span></span>غير السعوديين نهاية العقد
+                                        </label>
+                                        <label class="radio radio-square">
+                                            <input type="radio" name="radios13_1">
+                                            <span></span>غير سعودي استقالة
+                                        </label>
+                                        <label class="radio radio-square">
+                                            <input type="radio" name="radios13_1">
+                                            <span></span>غير سعودي استقالة
+                                        </label>
+                                    </div>
+                                    @*<span class="form-text text-muted">Some help text goes here</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label>تاريخ ادخال الفصل:</label>
+                                    <input type="date" class="form-control" placeholder="الوظيفة">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>مدخل الفصل:</label>
+                                    <input type="text" class="form-control" placeholder="القسم">
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/libs/jquery-3.1.1.min.js"></script>
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+
+
+
+        $('#min, #max').keyup(function () { table.draw(); });
+
+        // Add text input to the footer
+        $('#single-column-search tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control" placeholder="بحث ' + title + '" />');
+        });
+        // Generate Datatable
+        var table = $('#single-column-search').DataTable({
+            dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-primary' },
+                    { extend: 'csv', className: 'btn btn-primary' },
+                    { extend: 'excel', className: 'btn btn-primary' },
+                    { extend: 'pdf', className: 'btn btn-primary' },
+                    { extend: 'print', className: 'btn btn-primary' }
+                ]
+            },
+            "language": {
+                "paginate": {
+                    "previous": "<i class='las la-angle-left'></i>",
+                    "next": "<i class='las la-angle-right'></i>"
+                }
+            },
+            "lengthMenu": [5, 10, 15, 20],
+            "pageLength": 5
+        });
+        // Search
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
+    });
+</script>

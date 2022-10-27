@@ -1,0 +1,526 @@
+﻿@model IEnumerable<WebUI.Models.JobModel>
+
+@{
+    ViewData["Title"] = "الوظائف";
+    Layout = "~/Views/Shared/_ControlPanelLayout.cshtml";
+}
+
+<!-- Datatable single column searching -->
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <h4 class="table-header">الوظائف</h4>
+        <a class="btn btn-success btn-rounded  btn-lg" style="float:left" data-toggle="modal" data-target="#AddJob">الوظائف </a>
+        <div class="table-responsive mb-4">
+            <table id="single-column-search" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>الرمز</th>
+                        <th>الإسم</th>
+                        <th>مجموعة الوظائف</th>
+                        <th>مجموعة النوعية</th>
+                        <th>الدرجة العلية</th>
+                        <th>الدرجة الدنيا</th>
+                        <th>نسبة بدل طبيعة العمل</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr href="#">
+                            <td>@item.code</td>
+                            <td>@item.arabicName</td>
+                            <td>@item.jobGroup</td>
+                            <td>@item.jobSubGroup</td>
+                            <td>@item.maxGradeName</td>
+                            <td>@item.minGradeName</td>
+                            <td>@item.workNatureAllowance</td>
+                            <td>
+                                <button type="button" class="btn btn-info mb-2 mr-2" data-toggle="modal" onclick="getJopByID(@item.id)" data-target="#UpJob">تعديل</button>
+                                <button type="button" class="btn btn-trach mb-2 mr-2" onclick="DeleteGroup(@item.id)">حذف</button>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>الرمز</th>
+                        <th>الإسم</th>
+                        <th>مجموعة الوظائف</th>
+                        <th>مجموعة النوعية</th>
+                        <th>الدرجة العلية</th>
+                        <th>الدرجة الدنيا</th>
+                        <th>نسبة بدل طبيعة العمل</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="AddJob" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">إضافة وظيفة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                          
+                                <div class="col-lg-4">
+                                    <label>اسم الوظيفة:</label>
+                                    <input type="text" id="arabicName" class="form-control" placeholder="اسم الوظيفة">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الكود:</label>
+                                    <input type="text" id="Code" class="form-control" placeholder="الكود">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>نسبة بدل طبيعة العمل:</label>
+                                    <input type="text" id="workNatureAllowance_ID" class="form-control" placeholder="نسبة بدل طبيعة العمل">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label>اسم مجموعة الوظائف</label>
+
+                                    <select class="form-control" id="JobGroup_ID"  onchange="GetJobKindBayJobGroup(this.value)">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>اسم المجموعة النوعية</label>
+                                    <select class="form-control" id="JobGroupKind_ID" >
+
+
+                                        <option>تحديد</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label>الدرجة العليا</label>
+                                    <select class="form-control" id="MaxGrid_ID"  >
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>الدرجة الدنيا</label>
+                                    <select class="form-control" id="Minirid_ID"  >
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="saveJob()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="UpJob" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">تعديل الوظيفة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div style="display:none">
+
+                                    <input type="text" class="form-control" id="ID" />
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>اسم الوظيفة:</label>
+                                    <input type="text" id="EarabicName" class="form-control" placeholder="اسم الوظيفة" />
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الكود:</label>
+                                    <input type="text" id="ECode" class="form-control" placeholder="الكود" />
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>نسبة بدل طبيعة العمل:</label>
+                                    <input type="text" id="EworkNatureAllowance_ID" class="form-control" placeholder="نسبة بدل طبيعة العمل" />
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label>اسم مجموعة الوظائف</label>
+
+                                    <select class="form-control" id="EJobGroup_ID" onchange="GetJobKindBayJobGroup(this.value)">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>اسم المجموعة النوعية</label>
+                                    <select class="form-control" id="EJobGroupKind_ID">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label>الدرجة العليا</label>
+                                    <select class="form-control" id="EMaxGrid_ID">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>الدرجة الدنيا</label>
+                                    <select class="form-control" id="EMinirid_ID">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="UpdateGroupByID()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/libs/jquery-3.1.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#min, #max').keyup(function () { table.draw(); });
+
+        // Add text input to the footer
+        $('#single-column-search tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control" placeholder="بحث ' + title + '" />');
+        });
+        // Generate Datatable
+        var table = $('#single-column-search').DataTable({
+            dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-primary' },
+                    { extend: 'csv', className: 'btn btn-primary' },
+                    { extend: 'excel', className: 'btn btn-primary' },
+                    { extend: 'pdf', className: 'btn btn-primary' },
+                    { extend: 'print', className: 'btn btn-primary' }
+                ]
+            },
+            "language": {
+                "paginate": {
+                    "previous": "<i class='las la-angle-left'></i>",
+                    "next": "<i class='las la-angle-right'></i>"
+                }
+            },
+            "lengthMenu": [5, 10, 15, 20],
+            "pageLength": 5
+        });
+        // Search
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        GetAllJob();
+        GetMaxAndMiniGrad();
+    });
+
+    function GetAllJob() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            //contentType: "application/json",
+
+            //data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/JobGroup/GetAll',
+            success: function (msg) {
+                var s = '  <option> تحديد  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+
+
+                document.getElementById("EJobGroup_ID").innerHTML = s;
+                document.getElementById("JobGroup_ID").innerHTML = s;
+            },
+            error: function (data) {
+
+            }
+        });
+    }
+    function GetMaxAndMiniGrad() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Grade/GetAll',
+            success: function (msg) {
+
+
+                var s = '  <option> تحديد المرتبة</option>';
+                for (i = 0; i < msg.length; i++) {
+                    //console.log("max mini" + msg[i].name);
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("MaxGrid_ID").innerHTML = s;
+                document.getElementById("Minirid_ID").innerHTML = s;
+                document.getElementById("EMaxGrid_ID").innerHTML = s;
+                document.getElementById("EMinirid_ID").innerHTML = s;
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function saveJob() {
+
+ 
+ 
+        var SendInfo = {
+            "arabicName": $("#arabicName").val(),
+            "code": $("#Code").val(),
+            "jobSubGroupId":  $("#JobGroupKind_ID").val(),
+            "minGradeId": $("#Minirid_ID").val(),
+            "maxGradeId": $("#MaxGrid_ID").val() ,
+            "workNatureAllowance": $("#workNatureAllowance_ID").val()
+        }
+ console.log(SendInfo);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            contentType: "application/json",
+
+            data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/Job',
+            success: function (msg) {
+                Swal.fire(
+                    'تم الحفظ!',
+                    '',
+                    'success',
+                ).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    window.location.reload();
+                })
+            },
+            error: function (data) {
+                Swal.fire(
+                    'لم يتم الحفظ!',
+                    data.responseText,
+                    'error'
+                )
+            }
+        });
+    }
+
+    function DeleteGroup(ID) {
+        Swal.fire({
+            title: 'هل انت متاكد من الحذف?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    async: false,
+                    url: 'http://192.168.100.154:8080/API/Job/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم الحذف?',
+                            icon: 'error',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم الحذف!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+
+
+    }
+
+    function getJopByID(ID) {
+
+        document.getElementById("ID").value = ID;
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Job/GetById/' + ID,
+            success: function (msg) { 
+ 
+                document.getElementById("EarabicName").value = msg.arabicName;
+                document.getElementById("ECode").value = msg.code;
+                document.getElementById("EJobGroup_ID").value = msg.jobGroupId;
+                document.getElementById("EJobGroupKind_ID").value = msg.jobSubGroupId;
+                document.getElementById("EMaxGrid_ID").value = msg.maxGradeId;
+                document.getElementById("EMinirid_ID").value = msg.minGradeId;
+                document.getElementById("EworkNatureAllowance_ID").value = msg.workNatureAllowance;
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function UpdateGroupByID() {
+      
+        var ID = $("#ID").val();
+        var SendInfo = {
+            "arabicName": $("#EarabicName").val(),
+            "code": $("#ECode").val(),
+            "jobSubGroupId": $("#EJobGroupKind_ID").val(),
+            "minGradeId": $("#EMinirid_ID").val(),
+            "maxGradeId": $("#EMaxGrid_ID").val(),
+            "workNatureAllowance": $("#EworkNatureAllowance_ID").val()
+        }
+     
+        Swal.fire({
+            title: 'هل انت متاكد من تعديل?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'PUT',
+                    async: false,
+                    contentType: "application/json",
+
+                    data: JSON.stringify(SendInfo),
+                    url: 'http://192.168.100.154:8080/API/Job/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم التعديل?',
+                            icon: 'info',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        Swal.fire(
+                            'لم يتم التعديل!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        });
+    }
+
+    function GetJobKindBayJobGroup(GroupID) {
+
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/JobSubGroup/GetAllBy-JobGroupId/' + GroupID,
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].arabicName + '</option>';
+                }
+
+
+                document.getElementById("JobGroupKind_ID").innerHTML = s;
+                document.getElementById("EJobGroupKind_ID").innerHTML = s;
+                
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+</script>

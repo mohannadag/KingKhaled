@@ -1,0 +1,425 @@
+﻿@model IEnumerable<WebUI.Models.SalaryModel>
+
+@{
+    ViewData["Title"] = "الرواتب";
+    Layout = "~/Views/Shared/_ControlPanelLayout.cshtml";
+}
+
+
+
+<!-- Datatable single column searching -->
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <h4 class="table-header">الرواتب</h4>
+        <a class="btn btn-success btn-rounded  btn-lg" style="float:left" data-toggle="modal" data-target="#AddModel">الرواتب </a>
+        <div class="table-responsive mb-4">
+            <table id="single-column-search" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>الرمز</th>
+                        <th>الراتب الاساسي</th>
+                        <th>الرتبة</th>
+                        <th>رمز الرتبة</th>
+                        <th>اسم الدرجة</th>
+                        <th>رمز الرتبة</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr href="#">
+                            <td>@item.id</td>
+                            <td>@item.basicSalary</td>
+                            <td>@item.gradeName</td>
+                            <td>@item.gradeNumber</td>
+                            <td>@item.levelName</td>
+                            <td>@item.levelNumber</td>
+
+                            <td>
+                                <button type="button" class="btn btn-info mb-2 mr-2" data-toggle="modal" onclick="GetByID(@item.id)" data-target="#UpdateModel">تعديل</button>
+                                <button type="button" class="btn btn-trach mb-2 mr-2" onclick="Delete(@item.id)">حذف</button>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>الرمز</th>
+                        <th>الراتب الاساسي</th>
+                        <th>الرتبة</th>
+                        <th>رمز الرتبة</th>
+                        <th>اسم الدرجة</th>
+                        <th>رمز الرتبة</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="AddModel" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">إضافة  </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+
+                                <div class="col-lg-5">
+                                    <label>الراتب الرئيسي:</label>
+                                    <input type="number" id="basicSalary" class="form-control" placeholder="الراتب الرئيسي">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-lg-5">
+                                    <label>الرتبة</label>
+
+                                    <select class="form-control" id="gradeId">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>الدرجة</label>
+                                    <select class="form-control" id="levelId">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="Save()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="UpdateModel" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">تعديل </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div   style="display:none">
+                                    
+                                    <input type="number" id="id"  >
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الراتب الرئيسي:</label>
+                                    <input type="text" id="EbasicSalary" class="form-control" placeholder="الراتب الرئيسي">
+                                </div>
+
+
+
+                                <div class="col-lg-6">
+                                    <label>الرتبة</label>
+
+                                    <select class="form-control" id="EgradeId">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>الدرجة</label>
+                                    <select class="form-control" id="ElevelId">
+
+
+                                        <option>تحديد</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="Update()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/libs/jquery-3.1.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#min, #max').keyup(function () { table.draw(); });
+
+        // Add text input to the footer
+        $('#single-column-search tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control" placeholder="بحث ' + title + '" />');
+        });
+        // Generate Datatable
+        var table = $('#single-column-search').DataTable({
+            dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-primary' },
+                    { extend: 'csv', className: 'btn btn-primary' },
+                    { extend: 'excel', className: 'btn btn-primary' },
+                    { extend: 'pdf', className: 'btn btn-primary' },
+                    { extend: 'print', className: 'btn btn-primary' }
+                ]
+            },
+            "language": {
+                "paginate": {
+                    "previous": "<i class='las la-angle-left'></i>",
+                    "next": "<i class='las la-angle-right'></i>"
+                }
+            },
+            "lengthMenu": [5, 10, 15, 20],
+            "pageLength": 5
+        });
+        // Search
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
+        GetMaxAndMiniGrad();
+        GetAllLevel();
+    });
+
+    function GetAllLevel() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Level/GetAll',
+            success: function (msg) {
+                console.log(msg);
+
+                var s = '  <option> تحديد الدرجة  </option>';
+                for (i = 0; i < msg.length; i++) {
+
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("levelId").innerHTML = s;
+                document.getElementById("ElevelId").innerHTML = s;
+            },
+            error: function (data) {
+                console.log(data.error);
+            }
+        })
+    }
+
+    function GetMaxAndMiniGrad() {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Grade/GetAll',
+            success: function (msg) {
+
+
+                var s = '  <option> تحديد المرتبة</option>';
+                for (i = 0; i < msg.length; i++) {
+                    //console.log("max mini" + msg[i].name);
+                    s += '<option value=' + msg[i].id + '>' + msg[i].name + '</option>';
+                }
+                document.getElementById("gradeId").innerHTML = s;
+                document.getElementById("EgradeId").innerHTML = s;
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function Save() {
+
+
+
+        var SendInfo = {
+            "basicSalary": $("#basicSalary").val(),
+            "gradeId": $("#gradeId").val(),
+            "levelId": $("#levelId").val(),
+        }
+        console.log(SendInfo);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            contentType: "application/json",
+
+            data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/Salary',
+            success: function (msg) {
+                Swal.fire(
+                    'تم الحفظ!',
+                    '',
+                    'success',
+                ).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    window.location.reload();
+                })
+            },
+            error: function (data) {
+                Swal.fire(
+                    'لم يتم الحفظ!',
+                    data.responseText,
+                    'error'
+                )
+            }
+        });
+    }
+
+    function Delete(ID) {
+        Swal.fire({
+            title: 'هل انت متاكد من الحذف?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    async: false,
+                    url: 'http://192.168.100.154:8080/API/Salary/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم الحذف?',
+                            icon: 'error',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم الحذف!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+
+
+    }
+
+    function GetByID(ID) {
+
+        document.getElementById("id").value = ID;
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Salary/GetById/' + ID,
+            success: function (msg) {
+
+                document.getElementById("id").value = msg.id;
+                document.getElementById("EbasicSalary").value = msg.basicSalary;
+                document.getElementById("EgradeId").value = msg.gradeId;
+                document.getElementById("ElevelId").value = msg.levelId;
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function Update() {
+
+        var ID = $("#id").val();
+        var SendInfo = {
+            "basicSalary": $("#EbasicSalary").val(),
+            "gradeId": $("#EgradeId").val(),
+            "levelId": $("#ElevelId").val(),
+        }
+
+        Swal.fire({
+            title: 'هل انت متاكد من تعديل?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'PUT',
+                    async: false,
+                    contentType: "application/json",
+
+                    data: JSON.stringify(SendInfo),
+                    url: 'http://192.168.100.154:8080/API/Salary/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم التعديل?',
+                            icon: 'info',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        Swal.fire(
+                            'لم يتم التعديل!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        });
+    }
+
+
+</script>

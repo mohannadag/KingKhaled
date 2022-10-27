@@ -1,0 +1,370 @@
+﻿@model IEnumerable<WebUI.Models.DepartmentModel>
+
+@{
+    ViewData["Title"] = "Department";
+    Layout = "~/Views/Shared/_ControlPanelLayout.cshtml";
+}
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <h4 class="table-header">الاقسام</h4>
+        <a class="btn btn-success btn-rounded  btn-lg" style="float:left" data-toggle="modal" data-target="#DepartmentModel">اضافة قسم</a>
+        <div class="table-responsive mb-4">
+            <table id="single-column-search" class="table table-hover" >
+                <thead>
+                    <tr>
+                  
+                        <th>الإسم</th>
+                        <th>اسم مختصر</th>
+                        <th>Name</th>
+                        
+                        <th> Short Name</th>
+                        
+                        <th>  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.arabicName</td>
+                            <td>@item.shortArName</td>
+
+                            <td>@item.englishName</td>
+                            <td>@item.shortEnName</td>
+                            <td>
+                                <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#UpdateDepartmentModel" onclick="GetDepartment(@item.id)">تعديل</button>
+                                <button type="button" class="btn btn-primary mb-2 mr-2" onclick="Delete(@item.id)">حذف</button>
+                            </td>
+                        </tr>
+                    }
+                
+           
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>الإسم</th>
+                        <th>اسم مختصر</th>
+                        <th>Name</th>
+
+                        <th> Short Name</th>
+
+                        <th>  </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="DepartmentModel" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">بيانات القسم</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>الإسم:</label>
+                                    <input type="text" class="form-control" id="arabicName" placeholder="الإسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>اسم مختصر:</label>
+                                    <input type="text" class="form-control" id="shortArName" placeholder="اسم مختصر">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" id="englishName" placeholder="Name">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>Short Name:</label>
+                                    <input type="text" class="form-control" id="shortEnName" placeholder="Short Name">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+                        
+
+                        </div>
+
+                    </div>
+           
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="save()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="UpdateDepartmentModel" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel"> تعديل بيانات القسم</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <div class="form-group row">
+                                <div class="col-lg-4" style="Display:none">
+                                    <label>ID:</label>
+                                    <input type="text" class="form-control" id="ID" placeholder="الإسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>الإسم:</label>
+                                    <input type="text" class="form-control" id="EarabicName" placeholder="الإسم">
+                                    @*<span class="form-text text-muted">الرقم الوظيفي</span>*@
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>اسم مختصر:</label>
+                                    <input type="text" class="form-control" id="EshortArName" placeholder="اسم مختصر">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" id="EenglishName" placeholder="Name">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>Short Name:</label>
+                                    <input type="text" class="form-control" id="EshortEnName" placeholder="Short Name">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="Update()">تعديل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/libs/jquery-3.1.1.min.js"></script> 
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+
+    $(document).ready(function () {
+        
+        $('#min, #max').keyup(function () { table.draw(); });
+
+        // Add text input to the footer
+        $('#single-column-search tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" class="form-control" placeholder="بحث ' + title + '" />');
+        });
+        // Generate Datatable
+        var table = $('#single-column-search').DataTable({
+            dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-primary' },
+                    { extend: 'csv', className: 'btn btn-primary' },
+                    { extend: 'excel', className: 'btn btn-primary' },
+                    { extend: 'pdf', className: 'btn btn-primary' },
+                    { extend: 'print', className: 'btn btn-primary' }
+                ]
+            },
+            "language": {
+                "paginate": {
+                    "previous": "<i class='las la-angle-left'></i>",
+                    "next": "<i class='las la-angle-right'></i>"
+                }
+            },
+            "lengthMenu": [5, 10, 15, 20],
+            "pageLength": 5
+        });
+        // Search
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
+    });
+
+
+    function save() {
+         
+
+        var SendInfo = {
+            "arabicName": $("#arabicName").val(),
+            "shortArName": $("#shortArName").val(),
+            "englishName": $("#englishName").val(),
+            "shortEnName": $("#shortEnName").val(),
+
+        }
+        console.log(SendInfo);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            contentType: "application/json",
+
+            data: JSON.stringify(SendInfo),
+            url: 'http://192.168.100.154:8080/API/Department',
+            success: function (msg) {
+                Swal.fire(
+                    'تم الحفظ!',
+                    '',
+                    'success',
+                ).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    window.location.reload();
+                })
+            },
+            error: function (data) {
+                Swal.fire(
+                    'لم يتم الحفظ!',
+                    data.statusText,
+                    'error'
+                )
+            }
+        });
+    }
+
+    function Delete(ID) {
+        Swal.fire({
+            title: 'هل انت متاكد من الحذف?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'DELETE',
+                    async: false,
+                    url: 'http://192.168.100.154:8080/API/Department/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم الحذف?',
+                            icon: 'error',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم الحذف!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        })
+
+
+    }
+
+    function GetDepartment(ID) {
+        document.getElementById("ID").value = ID;
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: 'http://192.168.100.154:8080/API/Department/GetById/' + ID,
+            success: function (msg) {
+                console.log(msg);
+
+                document.getElementById("EarabicName").value = msg.arabicName;
+                document.getElementById("EshortArName").value = msg.shortArName;
+                document.getElementById("EenglishName").value = msg.englishName;
+                document.getElementById("EshortEnName").value = msg.shortEnName;
+
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function Update() {
+        var ID = $("#ID").val()
+        var SendInfo = {
+            "arabicName": $("#EarabicName").val(),
+            "shortArName": $("#EshortArName").val(),
+            "englishName": $("#EenglishName").val(),
+            "shortEnName": $("#EshortEnName").val(),
+        }
+
+     
+        Swal.fire({
+            title: 'هل انت متاكد من تعديل?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'PUT',
+                    async: false,
+                    contentType: "application/json",
+
+                    data: JSON.stringify(SendInfo),
+                    url: 'http://192.168.100.154:8080/API/Department/' + ID,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم التعديل?',
+                            icon: 'info',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم التعديل!',
+                            data.statusText,
+                            'error'
+                        )
+                    }
+                });
+            } else if (result.isDenied) {
+
+            }
+        });
+    }
+</script>
