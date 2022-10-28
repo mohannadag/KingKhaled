@@ -47,7 +47,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AllowanceTypes");
+                    b.ToTable("AllowanceTypes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -124,9 +124,6 @@ namespace Data.Migrations
                     b.Property<string>("Religion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("WorkType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GradeId");
@@ -140,7 +137,7 @@ namespace Data.Migrations
 
                     b.HasIndex("QualificationId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.EmployeeAccount", b =>
@@ -182,62 +179,7 @@ namespace Data.Migrations
                     b.HasIndex("EmployeeId", "BankId")
                         .IsUnique();
 
-                    b.ToTable("EmployeeAccounts");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.EntryCard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DepartmentExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DepartmentExpireDateHijri")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DepartmentNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SecurityExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SecurityExpireDateHijri")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SecurityIssueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SecurityIssueDateHijri")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecurityNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("EntryCards");
+                    b.ToTable("EmployeeAccounts", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
@@ -287,7 +229,7 @@ namespace Data.Migrations
 
                     b.HasIndex("JobVisaId");
 
-                    b.ToTable("Identities");
+                    b.ToTable("Identities", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Nationality", b =>
@@ -318,7 +260,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Nationalities");
+                    b.ToTable("Nationalities", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Passport", b =>
@@ -369,7 +311,7 @@ namespace Data.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Passports");
+                    b.ToTable("Passports", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
@@ -422,8 +364,8 @@ namespace Data.Migrations
                     b.Property<string>("Recommended")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Religion")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReligionID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ResidenceEndDate")
                         .HasColumnType("datetime2");
@@ -452,11 +394,9 @@ namespace Data.Migrations
 
                     b.HasIndex("JobVisaID");
 
-                    b.HasIndex("NationalityID");
-
                     b.HasIndex("QualificationID");
 
-                    b.ToTable("EmploymentApplications");
+                    b.ToTable("EmploymentApplications", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>
@@ -490,7 +430,7 @@ namespace Data.Migrations
                     b.HasIndex("GradeNumber")
                         .IsUnique();
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Level", b =>
@@ -524,7 +464,7 @@ namespace Data.Migrations
                     b.HasIndex("LevelNumber")
                         .IsUnique();
 
-                    b.ToTable("Levels");
+                    b.ToTable("Levels", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Salary", b =>
@@ -564,7 +504,7 @@ namespace Data.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Salaries");
+                    b.ToTable("Salaries", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.General.Bank", b =>
@@ -598,7 +538,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banks");
+                    b.ToTable("Banks", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.General.Branch", b =>
@@ -643,7 +583,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.General.Department", b =>
@@ -680,35 +620,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("Core.Models.General.RequestType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RequestTypes");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.Job", b =>
@@ -757,7 +669,7 @@ namespace Data.Migrations
 
                     b.HasIndex("MinGradeId");
 
-                    b.ToTable("Jobs");
+                    b.ToTable("Jobs", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobGrade", b =>
@@ -786,7 +698,7 @@ namespace Data.Migrations
 
                     b.HasIndex("GradeId");
 
-                    b.ToTable("JobGrade");
+                    b.ToTable("JobGrade", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobGroup", b =>
@@ -814,7 +726,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobGroups");
+                    b.ToTable("JobGroups", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>
@@ -847,7 +759,7 @@ namespace Data.Migrations
 
                     b.HasIndex("JobGroupId");
 
-                    b.ToTable("JobSubGroups");
+                    b.ToTable("JobSubGroups", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobVacancy", b =>
@@ -891,7 +803,7 @@ namespace Data.Migrations
                     b.HasIndex("VacantNumber")
                         .IsUnique();
 
-                    b.ToTable("JobVacancies");
+                    b.ToTable("JobVacancies", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobVisa", b =>
@@ -919,7 +831,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobVisas");
+                    b.ToTable("JobVisas", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.Qualification", b =>
@@ -947,7 +859,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Qualifications");
+                    b.ToTable("Qualifications", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -1012,17 +924,6 @@ namespace Data.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Core.Models.EmployeesInfo.EntryCard", b =>
-                {
-                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithOne("EntryCard")
-                        .HasForeignKey("Core.Models.EmployeesInfo.EntryCard", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
                 {
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
@@ -1067,12 +968,6 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Models.EmployeesInfo.Nationality", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.Jobs.Qualification", "Qualification")
                         .WithMany()
                         .HasForeignKey("QualificationID")
@@ -1082,8 +977,6 @@ namespace Data.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("JobVisa");
-
-                    b.Navigation("Nationality");
 
                     b.Navigation("Qualification");
                 });
@@ -1197,8 +1090,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
                 {
                     b.Navigation("EmployeeAccounts");
-
-                    b.Navigation("EntryCard");
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>

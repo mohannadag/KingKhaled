@@ -6,6 +6,7 @@ using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
 using Core.Models.Requests;
+using Core.Models.StaffShifts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,13 @@ namespace Data.Context
         //Employment Applications
         public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
 
-    protected override void OnModelCreating(ModelBuilder builder)
+        // Shifts
+        public DbSet<WorkShifts> WorkShifts { get; set; }
+        public DbSet<EmployeeShifts> EmpShifts { get; set; } 
+
+        //end Shifts
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             // ManyToMany [Full-Configurations] between Grade and Level [Salary]
             builder.Entity<Grade>()

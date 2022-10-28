@@ -18,6 +18,8 @@ using Data.Repositories.IRepository.IAllowances;
 using Data.Repositories.Repository.Allowances;
 using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.Repository.Requests;
+using Data.Repositories.IRepository.IStaffShifts;
+using Data.Repositories.Repository.StaffShifts;
 
 namespace Data.UnitOfWorks
 {
@@ -91,6 +93,14 @@ namespace Data.UnitOfWorks
 
         public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
             _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+
+        public IWorkShifts WorkShifts => new WorkShiftsRepository(
+            _dbContext, new Logger<WorkShiftsRepository>(new NullLoggerFactory()));
+
+        public IEmpShifts EmpShifts => new EmployeeShiftsRepository(
+            _dbContext, new Logger<EmployeeShiftsRepository>(new NullLoggerFactory()));
+        
+    
 
         public void Dispose()
         {

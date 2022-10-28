@@ -4,11 +4,13 @@ using API.ViewModels.Department;
 using API.ViewModels.EmploymentApplications;
 using API.ViewModels.Nationality;
 using API.ViewModels.Salary;
+using API.ViewModels.StaffShifts.WorkShift;
 using AutoMapper;
 using Core.Models.EmployeesInfo;
 using Core.Models.EmploymentApplications;
 using Core.Models.Financial;
 using Core.Models.General;
+using Core.Models.StaffShifts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +70,11 @@ namespace API.Profiles
             // Employment Applications
             CreateMap<EmploymentApplications, EmploymentApplicationsVM>()
                 .ReverseMap();
+
+            // WorkShifts
+            CreateMap<WorkShifts, WorkShiftsVM>()
+                .ReverseMap();
+            CreateMap<WorkShifts, UpdateWorkShiftVM>().ReverseMap();
         }
     }
 }
