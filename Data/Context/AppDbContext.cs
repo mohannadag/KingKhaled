@@ -60,7 +60,7 @@ namespace Data.Context
 
         // Shifts
         public DbSet<WorkShifts> WorkShifts { get; set; }
-        public DbSet<EmployeeShifts> EmpShifts { get; set; } 
+        public DbSet<EmployeeShifts> EmployeeShifts { get; set; } 
 
         //end Shifts
 

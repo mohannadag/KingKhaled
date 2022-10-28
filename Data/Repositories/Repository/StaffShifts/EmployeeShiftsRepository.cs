@@ -30,7 +30,7 @@ namespace Data.Repositories.Repository.StaffShifts
             {
                 _logger.LogInformation("GetByIdAsync for EmpShifts was Called");
 
-                return await _dbContext.EmpShifts.FirstOrDefaultAsync(x => x.Id == id);
+                return await _dbContext.EmployeeShifts.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace Data.Repositories.Repository.StaffShifts
             try
             {
                 _logger.LogInformation("IsValidIdAsync for Bank was Called");
-                return await _dbContext.EmpShifts.AnyAsync(x => x.Id == id);
+                return await _dbContext.EmployeeShifts.AnyAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace Data.Repositories.Repository.StaffShifts
             {
                 _logger.LogInformation("GetAllAsync for EmpShifts was Called");
 
-                return await _dbContext.EmpShifts.ToListAsync();
+                return await _dbContext.EmployeeShifts.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace Data.Repositories.Repository.StaffShifts
                     //bank.CreatedBy = "Anonymous";
                     //bank.CreatedDate = DateTime.Now;
 
-                    await _dbContext.EmpShifts.AddAsync(EmpShifts);
+                    await _dbContext.EmployeeShifts.AddAsync(EmpShifts);
                 }
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace Data.Repositories.Repository.StaffShifts
 
                 if (EmpShifts != null)
                 {
-                    _dbContext.EmpShifts.Remove(EmpShifts);
+                    _dbContext.EmployeeShifts.Remove(EmpShifts);
                 }
             }
             catch (Exception ex)
