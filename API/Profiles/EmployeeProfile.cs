@@ -1,4 +1,5 @@
-﻿using API.ViewModels.Employee;
+﻿using API.ViewModels.Contracts;
+using API.ViewModels.Employee;
 using API.ViewModels.EmployeeAccount;
 using API.ViewModels.EntryCard;
 using AutoMapper;
@@ -52,6 +53,25 @@ namespace API.Profiles
             CreateMap<EntryCard, CreateEmployeeVM>()
                 .ReverseMap();
             CreateMap<EntryCard, UpdateEntryCardVM>()
+                .ReverseMap();
+
+            // Contract
+            CreateMap<Contract, ContractVM>()
+                .ForMember(viewModel => viewModel.EmployeeName, model => model.MapFrom(x => x.Employee.ArabicName))
+                .ReverseMap();
+            CreateMap<Contract, CreateContractVM>()
+                .ReverseMap();
+            CreateMap<Contract, UpdateContractVM>()
+                .ReverseMap();
+
+            // ContractTransaction
+            CreateMap<ContractTransaction, ContractTransactionVM>()
+                .ForMember(viewModel => viewModel.ContractNumber, model => model.MapFrom(x => x.Contract.ContractNumber))
+                .ReverseMap();
+            CreateMap<ContractTransaction, CreateContractTransactionVM>()
+                .ReverseMap();
+
+            CreateMap<Contract, CreateContractTransactionVM>()
                 .ReverseMap();
         }
     }

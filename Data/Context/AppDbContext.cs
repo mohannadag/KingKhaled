@@ -22,11 +22,15 @@ namespace Data.Context
         {
 
         }
+
+        // Requests
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestType> RequestTypes { get; set; }
+
         // Allowances
         public DbSet<AllowanceType> AllowanceTypes { get; set; }
 
         // General
-        public DbSet<RequestType> RequestTypes { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -48,6 +52,8 @@ namespace Data.Context
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<Identity> Identities { get; set; }
         public DbSet<Passport> Passports { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
+        public DbSet<ContractTransaction> ContractTransactions { get; set; }
 
         //Employment Applications
         public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
@@ -118,6 +124,11 @@ namespace Data.Context
             //.HasIndex(x => new { x.Id })
             //.IsUnique(true);
 
+            // Set RequestNumber as Principle Key[Index].
+            builder.Entity<Request>()
+            .HasIndex(x => new { x.RequestNumber })
+            .IsUnique(true);
+
             // Set VacantNumber as Principle Key[Index].
             builder.Entity<JobVacancy>()
             .HasIndex(x => new { x.VacantNumber })
@@ -158,7 +169,17 @@ namespace Data.Context
             .WithOne(x => x.JobVacancy)
             .HasForeignKey<Employee>(x => x.JobVacancyId);
 
-            
+            // OneToOne between Contract and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.EntryCard)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<EntryCard>(x => x.EmployeeId);
+
+            // OneToOne between Contract and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Contract)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Contract>(x => x.EmployeeId);
         }
     }
 }

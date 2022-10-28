@@ -39,6 +39,10 @@ namespace Data.UnitOfWorks
         public IEntryCardRepository EntryCards { get; }
         public IWorkShifts WorkShifts { get; }
         public IEmpShifts EmpShifts { get; } 
+        public IRequestTypeRepository RequestTypes { get; }
+        public IRequestRepository Requests { get; }
+        public IContractRepository Contracts { get; }
+        public IContractTransactionRepository ContractTransactions { get; }
         Task<bool> SaveAsync();
     }
 }
