@@ -80,7 +80,7 @@ namespace API.Validators.Employee
                 {
                     RuleFor(x => x).MustAsync(async (value, canselToken) =>
                     {
-                        return await unitOfWork.Salaries.IsValidSalaryAsync(value.LevelId, value.GradeId);
+                        return await unitOfWork.Salaries.IsValidSalaryAsync(value.GradeId, value.LevelId);
                     })
                     .WithMessage("There is No Salary for this Grade and Level!");
                 });

@@ -86,11 +86,20 @@ namespace Data.UnitOfWorks
         public IEntryCardRepository EntryCards => new EntryCardRepository(
             _dbContext, new Logger<EntryCardRepository>(new NullLoggerFactory()));
 
+        public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
+            _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+
         public IRequestTypeRepository RequestTypes => new RequestTypeRepository(
             _dbContext, new Logger<RequestTypeRepository>(new NullLoggerFactory()));
 
-        public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
-            _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+        public IRequestRepository Requests => new RequestRepository(
+            _dbContext, new Logger<RequestRepository>(new NullLoggerFactory()));
+
+        public IContractRepository Contracts => new ContractRepository(
+            _dbContext, new Logger<ContractRepository>(new NullLoggerFactory()));
+
+        public IContractTransactionRepository ContractTransactions => new ContractTransactionRepository(
+            _dbContext, new Logger<ContractTransactionRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

@@ -36,6 +36,10 @@ namespace Data.UnitOfWorks
         public IAllowanceTypeRepository AllowanceTypes { get; }
         public IEmploymentApplications EmploymentApplications { get; }
         public IEntryCardRepository EntryCards { get; }
+        public IRequestTypeRepository RequestTypes { get; }
+        public IRequestRepository Requests { get; }
+        public IContractRepository Contracts { get; }
+        public IContractTransactionRepository ContractTransactions { get; }
         Task<bool> SaveAsync();
     }
 }
