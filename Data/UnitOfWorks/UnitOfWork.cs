@@ -20,6 +20,8 @@ using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.Repository.Requests;
 using Data.Repositories.IRepository.IStaffShifts;
 using Data.Repositories.Repository.StaffShifts;
+using Data.Repositories.IRepository.IVacations;
+using Data.Repositories.Repository.Vacations;
 
 namespace Data.UnitOfWorks
 {
@@ -117,8 +119,9 @@ namespace Data.UnitOfWorks
 
         public IEmpShifts EmpShifts => new EmployeeShiftsRepository(
             _dbContext, new Logger<EmployeeShiftsRepository>(new NullLoggerFactory()));
-        
-    
+
+        public IVacationTypeRepository VacationTypes => new VacationTypeRepository(
+            _dbContext, new Logger<VacationTypeRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

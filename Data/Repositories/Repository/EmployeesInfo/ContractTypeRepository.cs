@@ -54,7 +54,6 @@ namespace Data.Repositories.Repository.EmployeesInfo
             }
         }
 
-
         public async Task<bool> IsValidIdAsync(int id)
         {
             try

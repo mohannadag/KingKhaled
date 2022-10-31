@@ -7,6 +7,7 @@ using Core.Models.General;
 using Core.Models.Jobs;
 using Core.Models.Requests;
 using Core.Models.StaffShifts;
+using Core.Models.Vacations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,9 @@ namespace Data.Context
 
         // Allowances
         public DbSet<AllowanceType> AllowanceTypes { get; set; }
+
+        // Vacations
+        public DbSet<VacationType> VacationTypes { get; set; }
 
         // General
         public DbSet<Nationality> Nationalities { get; set; }

@@ -7,6 +7,7 @@ using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
 using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.IRepository.IStaffShifts;
+using Data.Repositories.IRepository.IVacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,7 @@ namespace Data.UnitOfWorks
         public IContractRepository Contracts { get; }
         public IContractTransactionRepository ContractTransactions { get; }
         public IContractTypeRepository ContractTypes { get; }
+        public IVacationTypeRepository VacationTypes { get; }
         Task<bool> SaveAsync();
     }
 }
