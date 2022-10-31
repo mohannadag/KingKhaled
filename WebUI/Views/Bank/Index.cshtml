@@ -20,7 +20,7 @@
             </div>
 
             <div class="float-right">
-                <a class="btn btn-primary my-3" asp-controller="bank" asp-action="create">
+                <a class="btn btn-primary my-3" @*asp-controller="bank" asp-action="create"*@ data-toggle="modal" data-target="#AddJobGroup" id="add-new">
                     <i class="far fa-plus-square"></i>
                     اضافة بنك
                 </a>
@@ -48,8 +48,9 @@
                             <td>@item.EnglishName</td>
                             <td>@item.Code</td>
                             <td>
-                                <a asp-controller="bank" asp-action="edit" asp-route-id="@item.Id"
-                               class="btn btn-outline-primary">@*<i class="fas fa-edit fa-sm"></i>*@تعديل</a>
+                                <a @*asp-controller="bank" asp-action="edit" asp-route-id="@item.Id"*@ data-toggle="modal" data-target="#AddJobGroup"
+                               data-id="@item.Id" data-arname="@item.ArabicName" data-code="@item.Code" data-enname="@item.EnglishName"
+                               class="open-Dialog btn btn-outline-primary">تعديل</a>
 
                                 @*<a class="btn btn-outline-danger delete"
                                     id="@item.Id" name="delete">حذف</a>*@
@@ -72,7 +73,48 @@
     </div>
 </div>
 
-
+<div id="AddJobGroup" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">إضافة  </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <input id="id" hidden />
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <label>كود  :</label>
+                                    <input type="text" id="code" class="form-control" placeholder="Code  ">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>اسم  :</label>
+                                    <input type="text" id="arName" class="form-control" placeholder="اسم  ">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Name:</label>
+                                    <input type="text" id="enName" class="form-control" placeholder="Name">
+                                    @*<span class="form-text text-muted">Please enter your email</span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="save()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts
@@ -85,6 +127,105 @@
             return Xsrf.GetAndStoreTokens(Context).RequestToken;
         }
         }
+
+        // testing add
+        $(document).on("click", ".open-Dialog", function () {
+            var Id = $(this).data('id');
+            var Code = $(this).data('code');
+            var ArName = $(this).data('arname');
+            var EnName = $(this).data('enname');
+            //console.log(Id);
+            //console.log(Code);
+            //console.log(ArName);
+            //console.log(EnName);
+            $(".modal-body #id").val(Id);
+            $(".modal-body #code").val(Code);
+            $(".modal-body #arName").val(ArName);
+            $(".modal-body #enName").val(ArName);
+        });
+
+    // add new button
+    $('#add-new').click(function () {
+        $(".modal-body #id").val('');
+        $(".modal-body #code").val('');
+        $(".modal-body #arName").val('');
+        $(".modal-body #enName").val('');
+    });
+
+    // add new
+    function save() {
+        var id = $('#id').val();
+        var arabicName = $("#arName").val();
+        var englishName = $("#enName").val();
+        var code = $("#code").val();
+        //var apiUrl = "@ViewBag.api.ToString()";
+        //console.log('@ViewBag.api.ToString()');
+        //console.log(apiUrl);
+
+        var SendInfo = {
+            "id": id,
+            "arabicName": arabicName,
+            "englishName": englishName,
+            "code": code
+        }
+
+        if (id == "") {
+            $.ajax({
+                type: 'POST',
+                async: false,
+                contentType: "application/json",
+
+                data: JSON.stringify(SendInfo),
+                url: '@ViewBag.api.ToString()' + 'API/Bank',
+                success: function (msg) {
+                    Swal.fire(
+                        'تم الحفظ!',
+                        '',
+                        'success',
+                    ).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        window.location.reload();
+                    })
+                },
+                error: function (data) {
+                    Swal.fire(
+                        'لم يتم الحفظ!',
+                        data.responseText,
+                        'error'
+                    )
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: 'PUT',
+                async: false,
+                contentType: "application/json",
+
+                data: JSON.stringify(SendInfo),
+                url: '@ViewBag.api.ToString()' + 'API/Bank/' + id,
+                success: function (msg) {
+                    Swal.fire({
+                        title: 'تم التعديل?',
+                        icon: 'info',
+
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        window.location.reload();
+                    })
+                },
+                error: function (data) {
+                    Swal.fire(
+                        'لم يتم التعديل!',
+                        data.responseText,
+                        'error'
+                    )
+                }
+            });
+        }
+
+
+    }
 
         $(document).ready(function () {
             $('#min, #max').keyup(function () { table.draw(); });
@@ -126,6 +267,60 @@
                     }
                 });
             });
+
+            
+
+            //// update
+            //function UpdateByID() {
+            //    var arabicName = $("#EarabicName").val();
+            //    var englishName = $("#EenglishName").val();
+            //    var code = $("#code").val();
+            //    var ID = $("#ID").val();
+            //    console.log("ID=" + ID);
+            //    var SendInfo = {
+            //        "arabicName": arabicName,
+            //        "englishName": englishName,
+            //        "code": code
+            //    }
+            //    console.log("ID=" + ID);
+            //    console.log("SendInfo=" + SendInfo);
+            //    Swal.fire({
+            //        title: 'هل انت متاكد من تعديل?',
+            //        icon: 'info',
+            //        showCancelButton: true,
+            //        confirmButtonText: 'Yes',
+            //    }).then((result) => {
+            //        /* Read more about isConfirmed, isDenied below */
+            //        if (result.isConfirmed) {
+            //            $.ajax({
+            //                type: 'PUT',
+            //                async: false,
+            //                contentType: "application/json",
+
+            //                data: JSON.stringify(SendInfo),
+            //                url: 'http://192.168.100.154:8080/API/Bank/' + ID,
+            //                success: function (msg) {
+            //                    Swal.fire({
+            //                        title: 'تم التعديل?',
+            //                        icon: 'info',
+
+            //                    }).then((result) => {
+            //                        /* Read more about isConfirmed, isDenied below */
+            //                        window.location.reload();
+            //                    })
+            //                },
+            //                error: function (data) {
+            //                    Swal.fire(
+            //                        'لم يتم التعديل!',
+            //                        data.statusText,
+            //                        'error'
+            //                    )
+            //                }
+            //            });
+            //        } else if (result.isDenied) {
+
+            //        }
+            //    });
 
 
             //delete button

@@ -27,6 +27,7 @@ namespace WebUI.Controllers.HR
             try
             {
                 List<Bank> bank = new();
+                ViewBag.api = _apiUrl;
 
                 var endpoint = _apiUrl + "API/bank/getall";
                 HttpClient client = new HttpClient();
