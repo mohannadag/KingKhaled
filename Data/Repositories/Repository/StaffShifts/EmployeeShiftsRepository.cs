@@ -38,10 +38,6 @@ namespace Data.Repositories.Repository.StaffShifts
                 return null;
             }
         }
-     
-
-       
-     
 
         public async Task<bool> IsValidIdAsync(int id)
         {
@@ -56,11 +52,6 @@ namespace Data.Repositories.Repository.StaffShifts
                 return false;
             }
         }
-      
-
-      
- 
-
         public async Task<IEnumerable<EmployeeShifts>> GetAllAsync()
         {
             try
@@ -84,10 +75,31 @@ namespace Data.Repositories.Repository.StaffShifts
 
                 if (EmpShifts != null)
                 {
-                    //bank.CreatedBy = "Anonymous";
-                    //bank.CreatedDate = DateTime.Now;
-
                     await _dbContext.EmployeeShifts.AddAsync(EmpShifts);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to AddAsync for EmpShifts: {ex.Message}");
+            }
+        }
+        public async Task AddListAsync(EmployeeShifts[] EmpShifts)
+        {
+            try
+            {
+                _logger.LogInformation("AddAsync for EmpShifts was Called");
+
+                if (EmpShifts != null)
+                {
+                    foreach (EmployeeShifts empShift in EmpShifts)
+                    {
+                        var result = _dbContext.EmployeeShifts.Where(e => e.Id == empShift.Id).ToList();
+                        if (result != null)
+                        {
+                            _dbContext.EmployeeShifts.RemoveRange(result);
+                        }
+                    }
+                    await _dbContext.EmployeeShifts.AddRangeAsync(EmpShifts);
                 }
             }
             catch (Exception ex)
@@ -127,6 +139,21 @@ namespace Data.Repositories.Repository.StaffShifts
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to Delete for EmpShifts: {ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<EmployeeShifts>> GetAllShiftForoneEmploymentByIDAsync(int EmpID)
+        {
+            try
+            {
+                _logger.LogInformation("GetByIdAsync for EmpShifts was Called");
+
+                return await _dbContext.EmployeeShifts.Where(x => x.EmployeeId == EmpID).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetByIdAsync for EmpShifts: {ex.Message}");
+                return null;
             }
         }
     }

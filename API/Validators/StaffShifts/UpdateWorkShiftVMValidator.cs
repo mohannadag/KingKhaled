@@ -1,15 +1,15 @@
-﻿using API.ViewModels.Salary;
-using API.ViewModels.StaffShifts.EmploymentShifts;
+﻿using API.ViewModels.StaffShifts.EmploymentShifts;
+using API.ViewModels.StaffShifts.WorkShift;
 using Data.UnitOfWorks;
 using FluentValidation;
 
 namespace API.Validators.StaffShifts
 {
-    public class EmploymentShiftsVMValidator : AbstractValidator<EmploymentShiftsVM>
+    public class UpdateWorkShiftVMValidator : AbstractValidator<UpdateEmploymentShiftsVM>
     {
-        public EmploymentShiftsVMValidator(IUnitOfWork unitOfWork)
+        public UpdateWorkShiftVMValidator(IUnitOfWork unitOfWork)
         {
-            RuleFor(x => x.WorkShiftsId).NotEmpty().MustAsync(async (value, cancelToken) => 
+            RuleFor(x => x.WorkShiftsId).NotEmpty().MustAsync(async (value, cancelToken) =>
             {
                 return (await unitOfWork.WorkShifts.IsValidIdAsync(value));
             });
@@ -29,3 +29,4 @@ namespace API.Validators.StaffShifts
         }
     }
 }
+
