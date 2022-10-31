@@ -109,7 +109,6 @@ namespace WebUI.Controllers.HR
         {
             try
             {
-                return View();
                 Passport passport = new();
                 HttpClient client = new HttpClient();
 

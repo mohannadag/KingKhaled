@@ -111,11 +111,11 @@ namespace WebUI.Controllers.HR
                     Employee model = new Employee
                     {
                         JobVacancyList = new SelectList(jobVacancies, "Id", "VacantNumber"),
-                        BranchList = new SelectList(jobVacancies, "Id", "ArabicName"),
-                        QualificationList = new SelectList(jobVacancies, "Id", "Name"),
-                        GradeList = new SelectList(jobVacancies, "Id", "Name"),
-                        LevelList = new SelectList(jobVacancies, "Id", "Name"),
-                        NationalityList = new SelectList(jobVacancies, "Id", "ArabicName"),
+                        BranchList = new SelectList(branches, "Id", "ArabicName"),
+                        QualificationList = new SelectList(qualifications, "Id", "Name"),
+                        GradeList = new SelectList(grades, "Id", "Name"),
+                        LevelList = new SelectList(levels, "Id", "Name"),
+                        NationalityList = new SelectList(nationalities, "Id", "ArabicName"),
 
                     };
                     return View(model);
@@ -232,11 +232,11 @@ namespace WebUI.Controllers.HR
 
 
                     employee.JobVacancyList = new SelectList(jobVacancies, "Id", "VacantNumber");
-                    employee.BranchList = new SelectList(jobVacancies, "Id", "ArabicName");
-                    employee.QualificationList = new SelectList(jobVacancies, "Id", "Name");
-                    employee.GradeList = new SelectList(jobVacancies, "Id", "Name");
-                    employee.LevelList = new SelectList(jobVacancies, "Id", "Name");
-                    employee.NationalityList = new SelectList(jobVacancies, "Id", "ArabicName");
+                    employee.BranchList = new SelectList(branches, "Id", "ArabicName");
+                    employee.QualificationList = new SelectList(qualifications, "Id", "Name");
+                    employee.GradeList = new SelectList(grades, "Id", "Name");
+                    employee.LevelList = new SelectList(levels, "Id", "Name");
+                    employee.NationalityList = new SelectList(nationalities, "Id", "ArabicName");
 
                     return View(employee);
                 }
