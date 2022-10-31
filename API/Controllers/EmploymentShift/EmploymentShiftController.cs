@@ -76,7 +76,7 @@ namespace API.Controllers.EmploymentShift
 
             return BadRequest(new ApiResponse(400, "Failed to Add Employee Shift!"));
         }
-        [HttpPost]
+        [HttpPost("Add-List")]
         public async Task<ActionResult<EmploymentShiftsVM[]>> PostAddListAsync(EmploymentShiftsVM[] EmploymentShiftsVM)
         {
             var empshift = _mapper.Map<EmployeeShifts[]>(EmploymentShiftsVM);
