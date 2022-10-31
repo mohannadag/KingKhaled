@@ -1,0 +1,115 @@
+﻿@using WebUI.Models.HR.Branches;
+@model Branch
+
+@{
+    //page title
+    ViewData["Title"] = "تعديل الفرع";
+}
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <form enctype="multipart/form-data" asp-controller="branch" asp-action="edit" method="post">
+            <div class="content-header clearfix pb-3">
+                <div class="float-left">
+                    <h1 style="display:inline;">
+                        تعديل الفرع
+                    </h1>
+                    <span>
+                        <i class="fas fa-arrow-circle-left"></i>
+                        <a asp-action="index" class="">الرجوع للخلف</a>
+                    </span>
+                </div>
+
+                <div class="float-right">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <i class="far fa-save"></i>
+                        حفظ
+                    </button>
+                </div>
+            </div>
+
+            @* info card *@
+            <div id="accordion3">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        بيانات الفرع
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion3">
+                        <div class="card-body">
+                            <input asp-for="Id" hidden />
+                            <div class="form-group row">
+                                <label asp-for="ArabicName" class="col-sm-2 col-form-label">الاسم عربي</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ArabicName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ArabicName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="EnglishName" class="col-sm-2 col-form-label">الاسم انكليزي</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="EnglishName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="EnglishName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="ShortArName" class="col-sm-2 col-form-label">الاسم عربي المختصر</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ShortArName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ShortArName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="ShortEnName" class="col-sm-2 col-form-label">الاسم انكليزي المختصر</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ShortEnName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ShortEnName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="NumberOfVacant" class="col-sm-2 col-form-label">رقم الشاغر</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="NumberOfVacant" class="form-control" placeholder="" />
+                                    <span asp-validation-for="NumberOfVacant" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="DepartmentId" class="col-sm-2 col-form-label">القسم</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="DepartmentId" asp-items="@Model.DepartmentsList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+} 

@@ -1,0 +1,149 @@
+﻿<div class="sidebar-wrapper sidebar-theme">
+    <nav id="sidebar">
+        <ul class="list-unstyled menu-categories" id="accordionExample">
+            <li class="menu">
+                <a href="#dashboard" data-active="true" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div>
+                        <i class="las la-home"></i>
+                        <span>HR</span>
+                    </div>
+                    <div>
+                        <i class="las la-angle-left sidemenu-right-icon"></i>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled collapse  " id="dashboard" data-parent="#accordionExample">
+                    <li>
+                        <a data-active="false" asp-controller="employee" asp-action="index"> الموظفين </a>
+                    </li>
+
+                    <li>
+                        <a data-active="false" asp-controller="nationality" asp-action="index"> الجنسيات </a>
+                    </li>
+
+                    <li>
+                        <a data-active="false" asp-controller="bank" asp-action="index"> البنوك </a>
+                    </li>
+
+                    <li>
+                        <a data-active="false" asp-controller="entrycard" asp-action="index"> بطاقات الدخول </a>
+                    </li>
+
+                    <li>
+                        <a data-active="false" asp-controller="allowancetype" asp-action="index"> البدلات </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="branch" asp-action="index"> الافرع </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="department" asp-action="index"> الاقسام </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="grade" asp-action="index"> الدرجات </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="identity" asp-action="index"> الهويات </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="job" asp-action="index"> الوظائف </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="jobgroup" asp-action="index"> مجموعات الوظائف </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="jobsubgroup" asp-action="index"> مجموعات الوظائف الفرعية </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="jobvacancy" asp-action="index"> الشواغر </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="jobvisa" asp-action="index"> فيز العمل </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="level" asp-action="index"> المراتب </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="nationality" asp-action="index"> الجنسيات </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="passport" asp-action="index"> جوازات السفر </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="qualification" asp-action="index"> المؤهلات </a>
+                    </li>
+                    <li>
+                        <a data-active="false" asp-controller="salary" asp-action="index"> الرواتب </a>
+                    </li>
+
+                    @*<li>
+                        <a data-active="false" asp-controller="employee" asp-action="index"> مناوبات الموظفين </a>
+                    </li>*@
+                </ul>
+                @*<a href="#dashboardEmp" data-toggle="collapse" class="dropdown-toggle">
+                    <div>
+                        <i class="las la-home"></i>
+                        <span>الوظائف</span>
+                    </div>
+                    <div>
+                        <i class="las la-angle-left sidemenu-right-icon"></i>
+                    </div>
+                </a>*@
+                @*<ul class="collapse submenu list-unstyled collapse" id="dashboardEmp" data-parent="#accordionExample">
+
+                    <li>
+                        <a data-active="false" href="@Url.Action("Job_Applications", "ControlPanel")"> طلبات التوظيف </a>
+                    </li>
+                    <li>
+                        <a data-active="false" href="@Url.Action("Job_Group", "ControlPanel")"> مجموعة الوظائف </a>
+                    </li>
+                    <li>
+                        <a data-active="false" href="@Url.Action("Job_Group_Kind", "ControlPanel")"> المجموعة النوعية </a>
+                    </li>
+                    <li>
+                        <a data-active="false" href="@Url.Action("Grade", "ControlPanel")"> المرتبة </a>
+                    </li>
+                    <li>
+                        <a data-active="true" href="@Url.Action("Levels", "ControlPanel")"> الدرجة </a>
+                    </li>
+
+                    <li>
+                        <a data-active="true" href="@Url.Action("Job", "ControlPanel")">  الوظيفة </a>
+                    </li>
+                    <li>
+                        <a data-active="true" href="@Url.Action("JobVisa", "ControlPanel")">  تاشيرة العمل </a>
+                    </li>
+
+                    <li>
+                        <a data-active="true" href="@Url.Action("Salary", "ControlPanel")">  الرواتب </a>
+                    </li>
+                    <li>
+                        <a data-active="true" href="@Url.Action("Qualification", "ControlPanel")">  المؤهلات الوظيفية </a>
+                    </li>
+
+                </ul>
+                <a href="#DepartmentAndBrunch" data-active="false" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <i class="las la-home"></i>
+                        <span>الفروع والاقسام</span>
+                    </div>
+                    <div>
+                        <i class="las la-angle-left sidemenu-right-icon"></i>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled collapse" id="DepartmentAndBrunch" data-parent="#accordionExample">
+
+                    <li>
+                        <a data-active="true" href="@Url.Action("Department", "ControlPanel")"> الاقسام </a>
+                    </li>
+                    <li>
+                        <a data-active="true" href="@Url.Action("Branch", "ControlPanel")"> الفروع </a>
+                    </li>
+                    <li>
+                        <a data-active="true" href="@Url.Action("JobVacancy", "ControlPanel")">  الميزانية </a>
+                    </li>
+                </ul>*@
+            </li>
+
+
+        </ul>
+    </nav>
+</div>
