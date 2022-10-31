@@ -74,7 +74,7 @@ namespace Data.Repositories.Repository.Financials
             try
             {
                 _logger.LogInformation("IsValidSalaryAsync for Salary was Called");
-
+                
                 return await _dbContext.Salaries.AnyAsync(x => x.GradeId == gradeId && x.LevelId == levelId);
             }
             catch (Exception ex)

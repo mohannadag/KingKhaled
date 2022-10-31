@@ -16,6 +16,7 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
 
         Task<bool> IsValidIdAsync(int id);
         Task<bool> AlreadyExistAsync(string passportNumber);
+        Task<bool> IsValidToExtendAsync(int passportId, DateTime startDate);
 
         Task<IEnumerable<Passport>> GetAllAsync();
         Task<IEnumerable<Passport>> GetAllExpiredAsync();

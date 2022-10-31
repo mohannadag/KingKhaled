@@ -6,6 +6,7 @@ using Data.Repositories.IRepository.IFinancials;
 using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
 using Data.Repositories.IRepository.IRequests;
+using Data.Repositories.IRepository.IStaffShifts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace Data.UnitOfWorks
     {
         public INationalityRepository Nationalities { get; }
         public IIdentityRepository Identities { get; }
+        public IIdentityTransactionRepository IdentityTransactions { get; }
         public IEmployeeRepository Employees { get; }
         public IPassportRepository Passports { get; }
+        public IPassportTransactionRepository PassportTransactions { get; }
         public IBankRepository Banks { get; }
         public IEmployeeAccountRepository EmployeeAccounts { get; }
         public IJobRepository Jobs { get; }
@@ -36,6 +39,13 @@ namespace Data.UnitOfWorks
         public IAllowanceTypeRepository AllowanceTypes { get; }
         public IEmploymentApplications EmploymentApplications { get; }
         public IEntryCardRepository EntryCards { get; }
+        public IWorkShifts WorkShifts { get; }
+        public IEmpShifts EmpShifts { get; } 
+        public IRequestTypeRepository RequestTypes { get; }
+        public IRequestRepository Requests { get; }
+        public IContractRepository Contracts { get; }
+        public IContractTransactionRepository ContractTransactions { get; }
+        public IContractTypeRepository ContractTypes { get; }
         Task<bool> SaveAsync();
     }
 }

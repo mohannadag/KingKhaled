@@ -18,6 +18,8 @@ using Data.Repositories.IRepository.IAllowances;
 using Data.Repositories.Repository.Allowances;
 using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.Repository.Requests;
+using Data.Repositories.IRepository.IStaffShifts;
+using Data.Repositories.Repository.StaffShifts;
 
 namespace Data.UnitOfWorks
 {
@@ -35,11 +37,17 @@ namespace Data.UnitOfWorks
         public IIdentityRepository Identities => new IdentityRepository(
             _dbContext, new Logger<IdentityRepository>(new NullLoggerFactory()));
 
+        public IIdentityTransactionRepository IdentityTransactions => new IdentityTransactionRepository(
+            _dbContext, new Logger<IdentityTransactionRepository>(new NullLoggerFactory()));
+
         public IEmployeeRepository Employees => new EmployeeRepository(
             _dbContext, new Logger<EmployeeRepository>(new NullLoggerFactory()));
 
         public IPassportRepository Passports => new PassportRepository(
             _dbContext, new Logger<PassportRepository>(new NullLoggerFactory()));
+
+        public IPassportTransactionRepository PassportTransactions => new PassportTransactionRepository(
+            _dbContext, new Logger<PassportTransactionRepository>(new NullLoggerFactory()));
 
         public IBankRepository Banks => new BankRepository(
             _dbContext, new Logger<BankRepository>(new NullLoggerFactory()));
@@ -86,11 +94,31 @@ namespace Data.UnitOfWorks
         public IEntryCardRepository EntryCards => new EntryCardRepository(
             _dbContext, new Logger<EntryCardRepository>(new NullLoggerFactory()));
 
+        public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
+            _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+
         public IRequestTypeRepository RequestTypes => new RequestTypeRepository(
             _dbContext, new Logger<RequestTypeRepository>(new NullLoggerFactory()));
 
-        public IEmploymentApplications EmploymentApplications => new EmploymentApplicationsRepository(
-            _dbContext, new Logger<EmploymentApplicationsRepository>(new NullLoggerFactory()));
+        public IRequestRepository Requests => new RequestRepository(
+            _dbContext, new Logger<RequestRepository>(new NullLoggerFactory()));
+
+        public IContractRepository Contracts => new ContractRepository(
+            _dbContext, new Logger<ContractRepository>(new NullLoggerFactory()));
+
+        public IContractTransactionRepository ContractTransactions => new ContractTransactionRepository(
+            _dbContext, new Logger<ContractTransactionRepository>(new NullLoggerFactory()));
+
+        public IContractTypeRepository ContractTypes => new ContractTypeRepository(
+            _dbContext, new Logger<ContractTypeRepository>(new NullLoggerFactory()));
+
+        public IWorkShifts WorkShifts => new WorkShiftsRepository(
+            _dbContext, new Logger<WorkShiftsRepository>(new NullLoggerFactory()));
+
+        public IEmpShifts EmpShifts => new EmployeeShiftsRepository(
+            _dbContext, new Logger<EmployeeShiftsRepository>(new NullLoggerFactory()));
+        
+    
 
         public void Dispose()
         {

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,6 +113,21 @@ namespace Data.Repositories.Repository.EmployeesInfo
             {
                 _logger.LogError($"Faild to AlreadyExistAsync for Identity: {ex.Message}");
                 return true;
+            }
+        }
+        public async Task<bool> IsValidToExtendAsync(int identityId, DateTime startDate)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidToExtendAsync for Identity was Called");
+                return await _dbContext.Identities.Where(x => x.Id == identityId &&
+                                                              x.ExpireDate < DateTime.Now && x.ExpireDate < startDate)
+                                                 .AnyAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidToExtendAsync for Identity: {ex.Message}");
+                return false;
             }
         }
 

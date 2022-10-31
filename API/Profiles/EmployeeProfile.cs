@@ -1,4 +1,5 @@
-﻿using API.ViewModels.Employee;
+﻿using API.ViewModels.Contracts;
+using API.ViewModels.Employee;
 using API.ViewModels.EmployeeAccount;
 using API.ViewModels.EntryCard;
 using AutoMapper;
@@ -20,7 +21,6 @@ namespace API.Profiles
                 .ForMember(viewModel => viewModel.NationalityAr, model => model.MapFrom(x => x.Nationality.ArabicName))
                 .ForMember(viewModel => viewModel.NationalityEn, model => model.MapFrom(x => x.Nationality.EnglishName))
                 .ForMember(viewModel => viewModel.QualificationName, model => model.MapFrom(x => x.Qualification.Name))
-                //.ForMember(viewModel => viewModel.BranchName, model => model.MapFrom(x => x.Branch.ArabicName))
                 .ForMember(viewModel => viewModel.GradeName, model => model.MapFrom(x => x.Grade.Name))
                 .ForMember(viewModel => viewModel.GradeNumber, model => model.MapFrom(x => x.Grade.GradeNumber))
                 .ForMember(viewModel => viewModel.LevelName, model => model.MapFrom(x => x.Level.Name))
@@ -52,6 +52,34 @@ namespace API.Profiles
             CreateMap<EntryCard, CreateEmployeeVM>()
                 .ReverseMap();
             CreateMap<EntryCard, UpdateEntryCardVM>()
+                .ReverseMap();
+
+            // Contract
+            CreateMap<Contract, ContractVM>()
+                .ForMember(viewModel => viewModel.EmployeeName, model => model.MapFrom(x => x.Employee.ArabicName))
+                .ForMember(viewModel => viewModel.ContractType, model => model.MapFrom(x => x.ContractType.ArabicName))
+                .ReverseMap();
+            CreateMap<Contract, CreateContractVM>()
+                .ReverseMap();
+            CreateMap<Contract, UpdateContractVM>()
+                .ReverseMap();
+
+            // ContractTransaction
+            CreateMap<ContractTransaction, ContractTransactionVM>()
+                .ForMember(viewModel => viewModel.ContractNumber, model => model.MapFrom(x => x.Contract.ContractNumber))
+                .ForMember(viewModel => viewModel.ContractType, model => model.MapFrom(x => x.ContractType.ArabicName))
+                .ReverseMap();
+            CreateMap<ContractTransaction, CreateContractTransactionVM>()
+                .ReverseMap();
+            CreateMap<Contract, CreateContractTransactionVM>()
+                .ReverseMap();
+
+            // ContractType
+            CreateMap<ContractType, ContractTypeVM>()
+                .ReverseMap();
+            CreateMap<ContractType, CreateContractTypeVM>()
+                .ReverseMap();
+            CreateMap<ContractType, UpdateContractTypeVM>()
                 .ReverseMap();
         }
     }

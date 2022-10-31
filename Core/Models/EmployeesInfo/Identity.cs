@@ -15,7 +15,8 @@ namespace Core.Models.EmployeesInfo
         public string Issuer { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        
+        public string Notes { get; set; }
+
         public int JobVisaId { get; set; }
         public JobVisa JobVisa { get; set; }
 
@@ -26,5 +27,7 @@ namespace Core.Models.EmployeesInfo
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
+
+        public ICollection<IdentityTransaction> IdentityTransactions { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
 using Core.Models.Requests;
+using Core.Models.StaffShifts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,15 @@ namespace Data.Context
         {
 
         }
+
+        // Requests
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestType> RequestTypes { get; set; }
+
         // Allowances
         public DbSet<AllowanceType> AllowanceTypes { get; set; }
 
         // General
-        public DbSet<RequestType> RequestTypes { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -46,12 +51,23 @@ namespace Data.Context
         public DbSet<EntryCard> EntryCards { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<Identity> Identities { get; set; }
+        public DbSet<IdentityTransaction> IdentityTransactions { get; set; }
         public DbSet<Passport> Passports { get; set; }
+        public DbSet<PassportTransaction> PassportTransactions { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
+        public DbSet<ContractTransaction> ContractTransactions { get; set; }
+        public DbSet<ContractType> ContractTypes { get; set; }
 
         //Employment Applications
         public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
 
-    protected override void OnModelCreating(ModelBuilder builder)
+        // Shifts
+        public DbSet<WorkShifts> WorkShifts { get; set; }
+        public DbSet<EmployeeShifts> EmployeeShifts { get; set; } 
+
+        //end Shifts
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             // ManyToMany [Full-Configurations] between Grade and Level [Salary]
             builder.Entity<Grade>()
@@ -111,6 +127,11 @@ namespace Data.Context
             //.HasIndex(x => new { x.Id })
             //.IsUnique(true);
 
+            // Set RequestNumber as Principle Key[Index].
+            builder.Entity<Request>()
+            .HasIndex(x => new { x.RequestNumber })
+            .IsUnique(true);
+
             // Set VacantNumber as Principle Key[Index].
             builder.Entity<JobVacancy>()
             .HasIndex(x => new { x.VacantNumber })
@@ -151,7 +172,43 @@ namespace Data.Context
             .WithOne(x => x.JobVacancy)
             .HasForeignKey<Employee>(x => x.JobVacancyId);
 
-            
+            // OneToOne between Contract and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.EntryCard)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<EntryCard>(x => x.EmployeeId);
+
+            // OneToOne between Contract and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Contract)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Contract>(x => x.EmployeeId);
+
+            // OneToOne between Identity and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Identity)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Identity>(x => x.EmployeeId);
+
+            // OneToOne between Passport and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Passport)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Passport>(x => x.EmployeeId);
+
+            // OneToMany between JobVisa and IdentityTransaction.
+            builder.Entity<IdentityTransaction>()
+            .HasOne(s => s.JobVisa)
+            .WithMany(g => g.IdentityTransactions)
+            .HasForeignKey(s => s.JobVisaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            // OneToMany between ContractType and ContractTransaction.
+            builder.Entity<ContractTransaction>()
+            .HasOne(s => s.ContractType)
+            .WithMany(g => g.ContractTransactions)
+            .HasForeignKey(s => s.ContractTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

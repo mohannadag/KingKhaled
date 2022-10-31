@@ -98,7 +98,7 @@ namespace Data.Repositories.Repository.General
             try
             {
                 _logger.LogInformation("AlreadyExistAsync for Bank was Called");
-                return await _dbContext.Banks.AnyAsync(x => x.ArabicName.ToLower().Trim() == arabicName.ToLower().Trim());
+                return await _dbContext.Banks.AnyAsync(x => x.ArabicName.Trim() == arabicName.Trim());
             }
             catch (Exception ex)
             {

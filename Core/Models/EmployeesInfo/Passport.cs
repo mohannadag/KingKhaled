@@ -24,5 +24,7 @@ namespace Core.Models.EmployeesInfo
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
+
+        public ICollection<PassportTransaction> PassportTransactions { get; set; }
     }
 }
