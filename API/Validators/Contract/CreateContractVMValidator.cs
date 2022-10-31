@@ -27,6 +27,13 @@ namespace API.Validators.Contract
                                           })
                                           .WithMessage("This Contract Number Already Exist!");
 
+            RuleFor(x => x.ContractTypeId).NotEmpty()
+                                          .MustAsync(async (value, cancelToken) =>
+                                          {
+                                              return (await unitOfWork.ContractTypes.IsValidIdAsync(value));
+                                          })
+                                          .WithMessage("ContractType Not Found!");
+
             RuleFor(x => x.EmployeeId).NotEmpty()
                                       .MustAsync(async (value, cancelToken) =>
                                       {

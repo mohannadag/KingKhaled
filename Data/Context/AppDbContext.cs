@@ -50,9 +50,12 @@ namespace Data.Context
         public DbSet<EntryCard> EntryCards { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<Identity> Identities { get; set; }
+        public DbSet<IdentityTransaction> IdentityTransactions { get; set; }
         public DbSet<Passport> Passports { get; set; }
+        public DbSet<PassportTransaction> PassportTransactions { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<ContractTransaction> ContractTransactions { get; set; }
+        public DbSet<ContractType> ContractTypes { get; set; }
 
         //Employment Applications
         public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
@@ -173,6 +176,32 @@ namespace Data.Context
             .HasOne(x => x.Contract)
             .WithOne(x => x.Employee)
             .HasForeignKey<Contract>(x => x.EmployeeId);
+
+            // OneToOne between Identity and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Identity)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Identity>(x => x.EmployeeId);
+
+            // OneToOne between Passport and Employee.
+            builder.Entity<Employee>()
+            .HasOne(x => x.Passport)
+            .WithOne(x => x.Employee)
+            .HasForeignKey<Passport>(x => x.EmployeeId);
+
+            // OneToMany between JobVisa and IdentityTransaction.
+            builder.Entity<IdentityTransaction>()
+            .HasOne(s => s.JobVisa)
+            .WithMany(g => g.IdentityTransactions)
+            .HasForeignKey(s => s.JobVisaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            // OneToMany between ContractType and ContractTransaction.
+            builder.Entity<ContractTransaction>()
+            .HasOne(s => s.ContractType)
+            .WithMany(g => g.ContractTransactions)
+            .HasForeignKey(s => s.ContractTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

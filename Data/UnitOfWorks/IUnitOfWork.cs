@@ -18,8 +18,10 @@ namespace Data.UnitOfWorks
     {
         public INationalityRepository Nationalities { get; }
         public IIdentityRepository Identities { get; }
+        public IIdentityTransactionRepository IdentityTransactions { get; }
         public IEmployeeRepository Employees { get; }
         public IPassportRepository Passports { get; }
+        public IPassportTransactionRepository PassportTransactions { get; }
         public IBankRepository Banks { get; }
         public IEmployeeAccountRepository EmployeeAccounts { get; }
         public IJobRepository Jobs { get; }
@@ -40,6 +42,7 @@ namespace Data.UnitOfWorks
         public IRequestRepository Requests { get; }
         public IContractRepository Contracts { get; }
         public IContractTransactionRepository ContractTransactions { get; }
+        public IContractTypeRepository ContractTypes { get; }
         Task<bool> SaveAsync();
     }
 }

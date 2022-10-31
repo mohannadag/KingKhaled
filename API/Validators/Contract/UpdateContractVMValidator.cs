@@ -28,6 +28,13 @@ namespace API.Validators.Contract
                                           return (await unitOfWork.Employees.IsValidIdAsync(value));
                                       })
                                       .WithMessage("Employee Not Found!");
+
+            RuleFor(x => x.ContractTypeId).NotEmpty()
+                                          .MustAsync(async (value, cancelToken) =>
+                                          {
+                                              return (await unitOfWork.ContractTypes.IsValidIdAsync(value));
+                                          })
+                                          .WithMessage("ContractType Not Found!");
         }
     }
 }

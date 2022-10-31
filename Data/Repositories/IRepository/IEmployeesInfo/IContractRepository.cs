@@ -20,6 +20,7 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
 
         Task<IEnumerable<Contract>> GetAllAsync();
         Task<IEnumerable<Contract>> GetAllExpiredAsync();
+        Task<IEnumerable<Contract>> GetAllByContractTypeIdAsync(int contractTypeId);
 
         Task AddAsync(Contract contract);
         void Update(Contract contract);

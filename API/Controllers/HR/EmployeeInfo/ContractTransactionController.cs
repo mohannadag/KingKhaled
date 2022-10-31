@@ -86,9 +86,7 @@ namespace API.Controllers.HR.EmployeeInfo
             }
 
             _mapper.Map(createContractTransactionVM, contract);
-            //contract.StartDate = createContractTransactionVM.StartDate;
-            //contract.EndDate = createContractTransactionVM.EndDate;
-            //contract.Notes = createContractTransactionVM.Notes;
+            
             contract.ModifiedBy = "CurrentUser";
             contract.LastModified = DateTime.Now;
 
@@ -103,9 +101,7 @@ namespace API.Controllers.HR.EmployeeInfo
                 return Created(location, _mapper.Map<ContractTransactionVM>(contractTransaction));
             }
 
-            return BadRequest(new ApiResponse(400, "Failed to Add Contract!"));
+            return BadRequest(new ApiResponse(400, "Failed to Add Transaction!"));
         }
-
-
     }
 }

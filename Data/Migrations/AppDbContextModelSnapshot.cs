@@ -61,6 +61,9 @@ namespace Data.Migrations
                     b.Property<string>("ContractNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ContractTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -87,6 +90,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContractTypeId");
+
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
@@ -102,6 +107,9 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ContractId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContractTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -129,7 +137,43 @@ namespace Data.Migrations
 
                     b.HasIndex("ContractId");
 
+                    b.HasIndex("ContractTypeId");
+
                     b.ToTable("ContractTransactions");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AnnualVacationPerDay")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ArabicName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContractTypes");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -363,13 +407,61 @@ namespace Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.HasIndex("JobVisaId");
 
                     b.ToTable("Identities");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.IdentityTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdentityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JobVisaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityId");
+
+                    b.HasIndex("JobVisaId");
+
+                    b.ToTable("IdentityTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Nationality", b =>
@@ -449,9 +541,55 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Passports");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.PassportTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireDateHijri")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IssueDateHijri")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PassportId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PassportId");
+
+                    b.ToTable("PassportTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
@@ -1094,11 +1232,19 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
                 {
+                    b.HasOne("Core.Models.EmployeesInfo.ContractType", "ContractType")
+                        .WithMany("Contracts")
+                        .HasForeignKey("ContractTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
                         .WithOne("Contract")
                         .HasForeignKey("Core.Models.EmployeesInfo.Contract", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ContractType");
 
                     b.Navigation("Employee");
                 });
@@ -1111,7 +1257,15 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Core.Models.EmployeesInfo.ContractType", "ContractType")
+                        .WithMany("ContractTransactions")
+                        .HasForeignKey("ContractTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Contract");
+
+                    b.Navigation("ContractType");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -1190,8 +1344,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
                 {
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .WithOne("Identity")
+                        .HasForeignKey("Core.Models.EmployeesInfo.Identity", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1206,15 +1360,45 @@ namespace Data.Migrations
                     b.Navigation("JobVisa");
                 });
 
+            modelBuilder.Entity("Core.Models.EmployeesInfo.IdentityTransaction", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Identity", "Identity")
+                        .WithMany("IdentityTransactions")
+                        .HasForeignKey("IdentityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Jobs.JobVisa", "JobVisa")
+                        .WithMany("IdentityTransactions")
+                        .HasForeignKey("JobVisaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Identity");
+
+                    b.Navigation("JobVisa");
+                });
+
             modelBuilder.Entity("Core.Models.EmployeesInfo.Passport", b =>
                 {
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .WithOne("Passport")
+                        .HasForeignKey("Core.Models.EmployeesInfo.Passport", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.PassportTransaction", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Passport", "Passport")
+                        .WithMany("PassportTransactions")
+                        .HasForeignKey("PassportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Passport");
                 });
 
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
@@ -1382,6 +1566,13 @@ namespace Data.Migrations
                     b.Navigation("ContractTransactions");
                 });
 
+            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractType", b =>
+                {
+                    b.Navigation("ContractTransactions");
+
+                    b.Navigation("Contracts");
+                });
+
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
                 {
                     b.Navigation("Contract");
@@ -1389,6 +1580,20 @@ namespace Data.Migrations
                     b.Navigation("EmployeeAccounts");
 
                     b.Navigation("EntryCard");
+
+                    b.Navigation("Identity");
+
+                    b.Navigation("Passport");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
+                {
+                    b.Navigation("IdentityTransactions");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.Passport", b =>
+                {
+                    b.Navigation("PassportTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>
@@ -1447,6 +1652,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Jobs.JobVisa", b =>
                 {
                     b.Navigation("Identities");
+
+                    b.Navigation("IdentityTransactions");
                 });
 #pragma warning restore 612, 618
         }

@@ -30,6 +30,8 @@ namespace Core.Models.EmployeesInfo
 
         public EntryCard EntryCard { get; set; }
         public Contract Contract { get; set; }
+        public Identity Identity { get; set; }
+        public Passport Passport { get; set; }
 
         public int NationalityId { get; set; }
         public Nationality Nationality { get; set; }

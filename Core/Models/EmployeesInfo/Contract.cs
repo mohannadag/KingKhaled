@@ -12,6 +12,9 @@ namespace Core.Models.EmployeesInfo
         public string ContractNumber { get; set; }
         public string Notes { get; set; }
 
+        public int ContractTypeId { get; set; }
+        public ContractType ContractType { get; set; }
+
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
@@ -23,6 +26,6 @@ namespace Core.Models.EmployeesInfo
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
 
-        public ICollection<ContractTransaction> ContractTransactions { get; set; } = new List<ContractTransaction>();
+        public ICollection<ContractTransaction> ContractTransactions { get; set; }
     }
 }

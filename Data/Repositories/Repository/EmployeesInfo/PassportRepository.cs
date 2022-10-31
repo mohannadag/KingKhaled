@@ -97,6 +97,21 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 return false;
             }
         }
+        public async Task<bool> IsValidToExtendAsync(int passportId, DateTime startDate)
+        {
+            try
+            {
+                _logger.LogInformation("IsValidToExtendAsync for Passport was Called");
+                return await _dbContext.Passports.Where(x => x.Id == passportId &&
+                                                             x.ExpireDate < DateTime.Now && x.ExpireDate < startDate)
+                                                 .AnyAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to IsValidToExtendAsync for Passport: {ex.Message}");
+                return false;
+            }
+        }
         public async Task<bool> AlreadyExistAsync(string passportNumber)
         {
             try

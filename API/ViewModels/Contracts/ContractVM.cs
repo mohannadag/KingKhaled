@@ -12,6 +12,9 @@ namespace API.ViewModels.Contracts
         public string ContractNumber { get; set; }
         public string Notes { get; set; }
 
+        public int ContractTypeId { get; set; }
+        public string ContractType { get; set; }
+
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
 

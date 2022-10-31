@@ -29,26 +29,12 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByIdAsync for Contract was Called");
 
                 return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
                                                  .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetByIdAsync for Contract: {ex.Message}");
-                return null;
-            }
-        }
-        public async Task<Contract> GetByContractNumberAsync(string contractNumber)
-        {
-            try
-            {
-                _logger.LogInformation("GetByContractNumberAsync for Contract was Called");
-
-                return await _dbContext.Contracts.Include(x => x.Employee)
-                                                 .FirstOrDefaultAsync(x => x.ContractNumber == contractNumber);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to GetByContractNumberAsync for Contract: {ex.Message}");
                 return null;
             }
         }
@@ -59,11 +45,28 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetByEmployeeId for Contract was Called");
 
                 return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
                                                  .FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetByEmployeeId for Contract: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<Contract> GetByContractNumberAsync(string contractNumber)
+        {
+            try
+            {
+                _logger.LogInformation("GetByContractNumberAsync for Contract was Called");
+
+                return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
+                                                 .FirstOrDefaultAsync(x => x.ContractNumber == contractNumber);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetByContractNumberAsync for Contract: {ex.Message}");
                 return null;
             }
         }
@@ -85,13 +88,14 @@ namespace Data.Repositories.Repository.EmployeesInfo
         {
             try
             {
-                _logger.LogInformation("IsValidIdAsync for Contract was Called");
-                return await _dbContext.Contracts.Where(x => x.EndDate < DateTime.Now && x.EndDate < startDate)
+                _logger.LogInformation("IsValidToExtendAsync for Contract was Called");
+                return await _dbContext.Contracts.Where(x => x.Id == contractId && 
+                                                             x.EndDate < DateTime.Now && x.EndDate < startDate)
                                                  .AnyAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to IsValidIdAsync for Contract: {ex.Message}");
+                _logger.LogError($"Faild to IsValidToExtendAsync for Contract: {ex.Message}");
                 return false;
             }
         }
@@ -129,11 +133,12 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllAsync for Contract was Called");
 
                 return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
                                                  .ToListAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to GetAllAsync for EntryCard: {ex.Message}");
+                _logger.LogError($"Faild to GetAllAsync for Contract: {ex.Message}");
                 return null;
             }
         }
@@ -144,13 +149,31 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogInformation("GetAllExpiredAsync for Contract was Called");
 
                 return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
                                                  .Include(x => x.ContractTransactions)
                                                  .Where(x => x.EndDate < DateTime.Now)
                                                  .ToListAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Faild to GetAllExpiredAsync for EntryCard: {ex.Message}");
+                _logger.LogError($"Faild to GetAllExpiredAsync for Contract: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<Contract>> GetAllByContractTypeIdAsync(int contractTypeId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByContractTypeIdAsync for Contract was Called");
+
+                return await _dbContext.Contracts.Include(x => x.Employee)
+                                                 .Include(x => x.ContractType)
+                                                 .Where(x => x.ContractTypeId == contractTypeId)
+                                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByContractTypeIdAsync for EntryCard: {ex.Message}");
                 return null;
             }
         }
@@ -208,7 +231,5 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 _logger.LogError($"Faild to Delete for Contract: {ex.Message}");
             }
         }
-
-        
     }
 }

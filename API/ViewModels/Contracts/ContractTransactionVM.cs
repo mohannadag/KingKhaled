@@ -13,6 +13,9 @@ namespace API.ViewModels.Contracts
         public int ContractId { get; set; }
         public string ContractNumber { get; set; }
 
+        public int ContractTypeId { get; set; }
+        public string ContractType { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

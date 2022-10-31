@@ -9,6 +9,7 @@ namespace API.ViewModels.Contracts
     public class CreateContractTransactionVM
     {
         public int ContractId { get; set; }
+        public int ContractTypeId { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

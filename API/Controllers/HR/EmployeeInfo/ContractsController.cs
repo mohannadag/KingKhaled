@@ -89,6 +89,18 @@ namespace API.Controllers.HR.EmployeeInfo
             return _mapper.Map<ContractVM[]>(result);
         }
 
+        [HttpGet("GetAllBy-ContractTypeId/{contractTypeId:int}")]
+        public async Task<ActionResult<ContractVM[]>> GetAllByContractTypeId(int contractTypeId)
+        {
+            var result = await _unitOfWork.Contracts.GetAllByContractTypeIdAsync(contractTypeId);
+            if (result == null)
+            {
+                return NotFound(new ApiResponse(404, "No Contract Found!"));
+            }
+
+            return _mapper.Map<ContractVM[]>(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<ContractVM>> Post(CreateContractVM createContractVM)
         {

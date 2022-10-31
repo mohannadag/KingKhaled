@@ -35,11 +35,17 @@ namespace Data.UnitOfWorks
         public IIdentityRepository Identities => new IdentityRepository(
             _dbContext, new Logger<IdentityRepository>(new NullLoggerFactory()));
 
+        public IIdentityTransactionRepository IdentityTransactions => new IdentityTransactionRepository(
+            _dbContext, new Logger<IdentityTransactionRepository>(new NullLoggerFactory()));
+
         public IEmployeeRepository Employees => new EmployeeRepository(
             _dbContext, new Logger<EmployeeRepository>(new NullLoggerFactory()));
 
         public IPassportRepository Passports => new PassportRepository(
             _dbContext, new Logger<PassportRepository>(new NullLoggerFactory()));
+
+        public IPassportTransactionRepository PassportTransactions => new PassportTransactionRepository(
+            _dbContext, new Logger<PassportTransactionRepository>(new NullLoggerFactory()));
 
         public IBankRepository Banks => new BankRepository(
             _dbContext, new Logger<BankRepository>(new NullLoggerFactory()));
@@ -100,6 +106,9 @@ namespace Data.UnitOfWorks
 
         public IContractTransactionRepository ContractTransactions => new ContractTransactionRepository(
             _dbContext, new Logger<ContractTransactionRepository>(new NullLoggerFactory()));
+
+        public IContractTypeRepository ContractTypes => new ContractTypeRepository(
+            _dbContext, new Logger<ContractTypeRepository>(new NullLoggerFactory()));
 
         public void Dispose()
         {

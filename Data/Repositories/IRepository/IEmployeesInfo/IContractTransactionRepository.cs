@@ -11,16 +11,10 @@ namespace Data.Repositories.IRepository.IEmployeesInfo
     {
         Task<ContractTransaction> GetByIdAsync(int id);
 
-        Task<bool> IsValidIdAsync(int id);
-        Task<bool> AlreadyExtendedAsync();
-
-        Task<IEnumerable<ContractTransaction>> GetAllAsync();
         Task<IEnumerable<ContractTransaction>> GetAllByContractIdAsync(int contractId);
         Task<IEnumerable<ContractTransaction>> GetAllByEmployeeIdAsync(int employeeId);
         Task<IEnumerable<ContractTransaction>> GetAllByContractNumberAsync(string contractNumber);
 
         Task AddAsync(ContractTransaction contractTransaction);
-        void Update(ContractTransaction contractTransaction);
-        void Delete(ContractTransaction contractTransaction);
     }
 }

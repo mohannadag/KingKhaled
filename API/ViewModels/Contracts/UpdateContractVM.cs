@@ -12,6 +12,7 @@ namespace API.ViewModels.Contracts
         public string Notes { get; set; }
 
         public int EmployeeId { get; set; }
+        public int ContractTypeId { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

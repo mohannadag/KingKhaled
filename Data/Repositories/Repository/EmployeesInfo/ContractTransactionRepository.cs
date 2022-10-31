@@ -39,50 +39,7 @@ namespace Data.Repositories.Repository.EmployeesInfo
                 return null;
             }
         }
-
-        public async Task<bool> IsValidIdAsync(int id)
-        {
-            try
-            {
-                _logger.LogInformation("IsValidIdAsync for ContractTransaction was Called");
-                return await _dbContext.ContractTransactions.AnyAsync(x => x.Id == id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to IsValidIdAsync for ContractTransaction: {ex.Message}");
-                return false;
-            }
-        }
-        public async Task<bool> AlreadyExtendedAsync()
-        {
-            try
-            {
-                _logger.LogInformation("AlreadyExtendedAsync for ContractTransaction was Called");
-                return await _dbContext.ContractTransactions.AnyAsync(x => x.EndDate > DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to AlreadyExtendedAsync for ContractTransaction: {ex.Message}");
-                return true;
-            }
-        }
-
-        public async Task<IEnumerable<ContractTransaction>> GetAllAsync()
-        {
-            try
-            {
-                _logger.LogInformation("GetAllAsync for ContractTransaction was Called");
-
-                return await _dbContext.ContractTransactions.Include(x => x.Contract)
-                                                            .ThenInclude(x => x.Employee)
-                                                            .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to GetAllAsync for ContractTransaction: {ex.Message}");
-                return null;
-            }
-        }
+        
         public async Task<IEnumerable<ContractTransaction>> GetAllByContractIdAsync(int contractId)
         {
             try
@@ -152,40 +109,6 @@ namespace Data.Repositories.Repository.EmployeesInfo
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to AddAsync for ContractTransaction: {ex.Message}");
-            }
-        }
-        public void Update(ContractTransaction contractTransaction)
-        {
-            try
-            {
-                _logger.LogInformation("Update for ContractTransaction was Called");
-                if (contractTransaction != null)
-                {
-                    contractTransaction.ModifiedBy = "Anonymous";
-                    contractTransaction.LastModified = DateTime.Now;
-
-                    _dbContext.Entry(contractTransaction).State = EntityState.Modified;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to Update for ContractTransaction: {ex.Message}");
-            }
-        }
-        public void Delete(ContractTransaction contractTransaction)
-        {
-            try
-            {
-                _logger.LogInformation("Delete for ContractTransaction was Called");
-
-                if (contractTransaction != null)
-                {
-                    _dbContext.ContractTransactions.Remove(contractTransaction);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Faild to Delete for ContractTransaction: {ex.Message}");
             }
         }
     }

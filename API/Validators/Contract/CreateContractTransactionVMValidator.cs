@@ -25,6 +25,13 @@ namespace API.Validators.Contract
                                       })
                                       .WithMessage("Contract Not Found!");
 
+            RuleFor(x => x.ContractTypeId).NotEmpty()
+                                          .MustAsync(async (value, cancelToken) =>
+                                          {
+                                              return (await unitOfWork.ContractTypes.IsValidIdAsync(value));
+                                          })
+                                          .WithMessage("ContractType Not Found!");
+
             When(x => (x.StartDate >= DateTime.Now),
                 () =>
                 {

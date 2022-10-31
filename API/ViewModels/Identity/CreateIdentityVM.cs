@@ -15,8 +15,8 @@ namespace API.ViewModels.Identity
         public string Issuer { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public string JobVisa { get; set; }
-
+        public string Notes { get; set; }
+        
         public int JobVisaId { get; set; }
         public int EmployeeId { get; set; }
     }
