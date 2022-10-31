@@ -38,10 +38,10 @@ namespace API.Controllers.EmploymentShift
 
             return _mapper.Map<EmploymentShiftsVM[]>(result);
         }
-        [HttpGet("GetAllShiftForoneEmploymentByIDAsync/{Employment ID:int}")]
-        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAllShiftForoneEmploymentByIDAsync(int EmpID)
+        [HttpGet("GetAllShiftForoneEmploymentByIDAsync/{EmploymentID:int}")]
+        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAllShiftForoneEmploymentByIDAsync(int EmploymentID)
         {
-            var result = await _unitOfWork.EmpShifts.GetAllShiftForoneEmploymentByIDAsync(EmpID);
+            var result = await _unitOfWork.EmpShifts.GetAllShiftForoneEmploymentByIDAsync(EmploymentID);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Shift  Found!"));
