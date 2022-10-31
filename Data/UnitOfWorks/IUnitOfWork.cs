@@ -6,6 +6,7 @@ using Data.Repositories.IRepository.IFinancials;
 using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
 using Data.Repositories.IRepository.IRequests;
+using Data.Repositories.IRepository.IStaffShifts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,8 @@ namespace Data.UnitOfWorks
         public IAllowanceTypeRepository AllowanceTypes { get; }
         public IEmploymentApplications EmploymentApplications { get; }
         public IEntryCardRepository EntryCards { get; }
+        public IWorkShifts WorkShifts { get; }
+        public IEmpShifts EmpShifts { get; } 
         public IRequestTypeRepository RequestTypes { get; }
         public IRequestRepository Requests { get; }
         public IContractRepository Contracts { get; }

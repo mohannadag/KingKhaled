@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221028152447_EmployeeShiftsAndWorkShift_add")]
+    partial class EmployeeShiftsAndWorkShift_add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,9 +63,6 @@ namespace Data.Migrations
                     b.Property<string>("ContractNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ContractTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -90,8 +89,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContractTypeId");
-
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
@@ -107,9 +104,6 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ContractId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContractTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -137,43 +131,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.HasIndex("ContractTypeId");
-
                     b.ToTable("ContractTransactions");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AnnualVacationPerDay")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ArabicName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContractTypes");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -407,61 +365,13 @@ namespace Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("JobVisaId");
 
                     b.ToTable("Identities");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.IdentityTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdentityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("JobVisaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityId");
-
-                    b.HasIndex("JobVisaId");
-
-                    b.ToTable("IdentityTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Nationality", b =>
@@ -541,55 +451,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Passports");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.PassportTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireDateHijri")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("IssueDateHijri")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PassportId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PassportId");
-
-                    b.ToTable("PassportTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
@@ -1241,9 +1105,6 @@ namespace Data.Migrations
                     b.Property<int>("DayNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("MonthDuration")
                         .HasColumnType("datetime2");
 
@@ -1254,8 +1115,6 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("WorkShiftsId");
 
@@ -1286,19 +1145,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
                 {
-                    b.HasOne("Core.Models.EmployeesInfo.ContractType", "ContractType")
-                        .WithMany("Contracts")
-                        .HasForeignKey("ContractTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
                         .WithOne("Contract")
                         .HasForeignKey("Core.Models.EmployeesInfo.Contract", "EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ContractType");
 
                     b.Navigation("Employee");
                 });
@@ -1311,15 +1162,7 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Models.EmployeesInfo.ContractType", "ContractType")
-                        .WithMany("ContractTransactions")
-                        .HasForeignKey("ContractTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Contract");
-
-                    b.Navigation("ContractType");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -1398,8 +1241,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
                 {
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithOne("Identity")
-                        .HasForeignKey("Core.Models.EmployeesInfo.Identity", "EmployeeId")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1414,45 +1257,15 @@ namespace Data.Migrations
                     b.Navigation("JobVisa");
                 });
 
-            modelBuilder.Entity("Core.Models.EmployeesInfo.IdentityTransaction", b =>
-                {
-                    b.HasOne("Core.Models.EmployeesInfo.Identity", "Identity")
-                        .WithMany("IdentityTransactions")
-                        .HasForeignKey("IdentityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Jobs.JobVisa", "JobVisa")
-                        .WithMany("IdentityTransactions")
-                        .HasForeignKey("JobVisaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Identity");
-
-                    b.Navigation("JobVisa");
-                });
-
             modelBuilder.Entity("Core.Models.EmployeesInfo.Passport", b =>
                 {
                     b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithOne("Passport")
-                        .HasForeignKey("Core.Models.EmployeesInfo.Passport", "EmployeeId")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.PassportTransaction", b =>
-                {
-                    b.HasOne("Core.Models.EmployeesInfo.Passport", "Passport")
-                        .WithMany("PassportTransactions")
-                        .HasForeignKey("PassportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Passport");
                 });
 
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
@@ -1617,19 +1430,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
                 {
-                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.StaffShifts.WorkShifts", "WorkShifts")
                         .WithMany()
                         .HasForeignKey("WorkShiftsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employee");
 
                     b.Navigation("WorkShifts");
                 });
@@ -1639,13 +1444,6 @@ namespace Data.Migrations
                     b.Navigation("ContractTransactions");
                 });
 
-            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractType", b =>
-                {
-                    b.Navigation("ContractTransactions");
-
-                    b.Navigation("Contracts");
-                });
-
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
                 {
                     b.Navigation("Contract");
@@ -1653,20 +1451,6 @@ namespace Data.Migrations
                     b.Navigation("EmployeeAccounts");
 
                     b.Navigation("EntryCard");
-
-                    b.Navigation("Identity");
-
-                    b.Navigation("Passport");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
-                {
-                    b.Navigation("IdentityTransactions");
-                });
-
-            modelBuilder.Entity("Core.Models.EmployeesInfo.Passport", b =>
-                {
-                    b.Navigation("PassportTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>
@@ -1725,8 +1509,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Jobs.JobVisa", b =>
                 {
                     b.Navigation("Identities");
-
-                    b.Navigation("IdentityTransactions");
                 });
 #pragma warning restore 612, 618
         }

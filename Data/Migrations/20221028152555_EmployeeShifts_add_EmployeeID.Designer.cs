@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221025152001_updateEmploymentApplicatoin1")]
-    partial class updateEmploymentApplicatoin1
+    [Migration("20221028152555_EmployeeShifts_add_EmployeeID")]
+    partial class EmployeeShifts_add_EmployeeID
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -50,6 +50,88 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AllowanceTypes");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContractNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.ToTable("Contracts");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ContractId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContractId");
+
+                    b.ToTable("ContractTransactions");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
@@ -126,6 +208,9 @@ namespace Data.Migrations
                     b.Property<string>("Religion")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("WorkType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GradeId");
@@ -182,6 +267,61 @@ namespace Data.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeAccounts");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.EntryCard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DepartmentExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentExpireDateHijri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DepartmentNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SecurityExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityExpireDateHijri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SecurityIssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SecurityIssueDateHijri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.ToTable("EntryCards");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Identity", b =>
@@ -866,6 +1006,170 @@ namespace Data.Migrations
                     b.ToTable("Qualifications");
                 });
 
+            modelBuilder.Entity("Core.Models.Requests.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ApprovedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Receiver")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RequestReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("RequestNumber")
+                        .IsUnique()
+                        .HasFilter("[RequestNumber] IS NOT NULL");
+
+                    b.HasIndex("RequestTypeId");
+
+                    b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("Core.Models.Requests.RequestType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestTypes");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DayNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MonthDuration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Presenceabsence")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("WorkShiftsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("WorkShiftsId");
+
+                    b.ToTable("EmployeeShifts");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffShifts.WorkShifts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("EndShift")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartShift")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkShifts");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
+                        .WithOne("Contract")
+                        .HasForeignKey("Core.Models.EmployeesInfo.Contract", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.ContractTransaction", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Contract", "Contract")
+                        .WithMany("ContractTransactions")
+                        .HasForeignKey("ContractId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contract");
+                });
+
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
                 {
                     b.HasOne("Core.Models.Financial.Grade", "Grade")
@@ -924,6 +1228,17 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Bank");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.EntryCard", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
+                        .WithOne("EntryCard")
+                        .HasForeignKey("Core.Models.EmployeesInfo.EntryCard", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });
@@ -1099,9 +1414,56 @@ namespace Data.Migrations
                     b.Navigation("Job");
                 });
 
+            modelBuilder.Entity("Core.Models.Requests.Request", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Requests.RequestType", "RequestType")
+                        .WithMany()
+                        .HasForeignKey("RequestTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("RequestType");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.StaffShifts.WorkShifts", "WorkShifts")
+                        .WithMany()
+                        .HasForeignKey("WorkShiftsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("WorkShifts");
+                });
+
+            modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
+                {
+                    b.Navigation("ContractTransactions");
+                });
+
             modelBuilder.Entity("Core.Models.EmployeesInfo.Employee", b =>
                 {
+                    b.Navigation("Contract");
+
                     b.Navigation("EmployeeAccounts");
+
+                    b.Navigation("EntryCard");
                 });
 
             modelBuilder.Entity("Core.Models.Financial.Grade", b =>

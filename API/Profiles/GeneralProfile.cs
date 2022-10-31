@@ -5,12 +5,13 @@ using API.ViewModels.EmploymentApplications;
 using API.ViewModels.Nationality;
 using API.ViewModels.Requests;
 using API.ViewModels.Salary;
+using API.ViewModels.StaffShifts.WorkShift;
 using AutoMapper;
 using Core.Models.EmployeesInfo;
 using Core.Models.EmploymentApplications;
 using Core.Models.Financial;
 using Core.Models.General;
-using Core.Models.Requests;
+using Core.Models.StaffShifts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,24 +71,6 @@ namespace API.Profiles
 
             // Employment Applications
             CreateMap<EmploymentApplications, EmploymentApplicationsVM>()
-                .ReverseMap();
-
-            // RequestType
-            CreateMap<RequestType, RequestTypeVM>()
-                .ReverseMap();
-            CreateMap<RequestType, CreateRequestTypeVM>()
-                .ReverseMap();
-            CreateMap<RequestType, UpdateRequestTypeVM>()
-                .ReverseMap();
-
-            // Request
-            CreateMap<Request, RequestVM>()
-                .ForMember(viewModel => viewModel.RequestType, model => model.MapFrom(x => x.RequestType.Name))
-                .ForMember(viewModel => viewModel.ArabicName, model => model.MapFrom(x => x.Employee.ArabicName))
-                .ReverseMap();
-            CreateMap<Request, CreateRequestVM>()
-                .ReverseMap();
-            CreateMap<Request, UpdateRequestVM>()
                 .ReverseMap();
         }
     }
