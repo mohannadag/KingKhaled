@@ -2,7 +2,7 @@
     <nav id="sidebar">
         <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">
-                <a href="#dashboard" data-active="true" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="#dashboard" data-active="true" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle" id="dashboard-btn">
                     <div>
                         <i class="las la-home"></i>
                         <span>HR</span>
@@ -11,7 +11,7 @@
                         <i class="las la-angle-left sidemenu-right-icon"></i>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled collapse  " id="dashboard" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled collapse show " id="dashboard" data-parent="#accordionExample">
                     <li>
                         <a data-active="false" asp-controller="employee" asp-action="index"> الموظفين </a>
                     </li>
@@ -147,3 +147,4 @@
         </ul>
     </nav>
 </div>
+
