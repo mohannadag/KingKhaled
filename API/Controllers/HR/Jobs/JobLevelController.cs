@@ -82,7 +82,7 @@ namespace API.Controllers.HR.Jobs
         }
 
         [HttpPut("{jobLevelId:int}")]
-        public async Task<ActionResult<JobLevelVM>> Put(int jobLevelId, UpdateJobVisaVM updateJobVisaVM)
+        public async Task<ActionResult<JobLevelVM>> Put(int jobLevelId, UpdateJobLevelVM updateJobLevelVM)
         {
             var jobLevel = await _unitOfWork.JobLevels.GetByIdAsync(jobLevelId);
             if (jobLevel == null)
@@ -90,7 +90,7 @@ namespace API.Controllers.HR.Jobs
                 return BadRequest(new ApiResponse(400, "JobLevel Not Found!"));
             }
 
-            _mapper.Map(updateJobVisaVM, jobLevel);
+            _mapper.Map(updateJobLevelVM, jobLevel);
 
             _unitOfWork.JobLevels.Update(jobLevel);
 

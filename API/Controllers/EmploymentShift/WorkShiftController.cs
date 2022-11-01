@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.EmploymentShift
 {
-    [Route("api/[controller]")]
-    [ApiController]
+  
     public class WorkShiftController : MainController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -27,19 +26,19 @@ namespace API.Controllers.EmploymentShift
             _mapper = mapper;
             _linkGenerator = linkGenerator;
         }
-        [HttpGet("GetById/{ShiftID:int}")]
-        public async Task<ActionResult<WorkShiftsVM[]>> GetAllAsync()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<WorkShiftsVM[]>> GetAll()
         {
             var result = await _unitOfWork.WorkShifts.GetAllAsync();
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Shift  Found!"));
             }
-            
+
             return _mapper.Map<WorkShiftsVM[]>(result);
         }
-        [HttpGet]
-        public async Task<ActionResult<WorkShiftsVM[]>> GetByIdAsync(int workShiftID)
+        [HttpGet("GetById/{workShiftID:int}")]
+        public async Task<ActionResult<WorkShiftsVM[]>> GetById(int workShiftID)
         {
             var result = await _unitOfWork.WorkShifts.GetByIdAsync(workShiftID);
             if (result == null)
@@ -87,7 +86,7 @@ namespace API.Controllers.EmploymentShift
             return BadRequest(new ApiResponse(400, "Failed to Update WorkShifts!"));
         }
 
-        [HttpDelete("{WorkShifts:int}")]
+        [HttpDelete("{employeeAccountId:int}")]
         public async Task<ActionResult> Delete(int employeeAccountId)
         {
             var employeeAccount = await _unitOfWork.WorkShifts.GetByIdAsync(employeeAccountId);

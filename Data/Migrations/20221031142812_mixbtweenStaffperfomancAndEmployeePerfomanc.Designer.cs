@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221031142812_mixbtweenStaffperfomancAndEmployeePerfomanc")]
+    partial class mixbtweenStaffperfomancAndEmployeePerfomanc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,9 +164,6 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeserveTicket")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -173,9 +172,6 @@ namespace Data.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfTicket")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -598,48 +594,6 @@ namespace Data.Migrations
                     b.ToTable("PassportTransactions");
                 });
 
-            modelBuilder.Entity("Core.Models.EmployeesInfo.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Arrival")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ContractId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Departure")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TicketNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContractId");
-
-                    b.ToTable("Tickets");
-                });
-
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
                 {
                     b.Property<int>("Id")
@@ -971,9 +925,6 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JobLevelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("JobSubGroupId")
                         .HasColumnType("int");
 
@@ -993,8 +944,6 @@ namespace Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobLevelId");
 
                     b.HasIndex("JobSubGroupId");
 
@@ -1060,34 +1009,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobGroups");
-                });
-
-            modelBuilder.Entity("Core.Models.Jobs.JobLevel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("JobLevels");
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>
@@ -1319,9 +1240,6 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("EmploymentPerformanceEvaluationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EvaluationId")
                         .HasColumnType("int");
 
@@ -1330,14 +1248,14 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmploymentPerformanceEvaluationId");
-
                     b.HasIndex("EvaluationId");
+
+                    b.HasIndex("StaffPerformanceEvaluationID");
 
                     b.ToTable("EmployeePerfomanc");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", b =>
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1345,13 +1263,37 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Approvitby")
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Evaluations");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("DirectionsAndRecommendations")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmployeeId1")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDateEvaluation")
@@ -1363,7 +1305,10 @@ namespace Data.Migrations
                     b.Property<DateTime>("EvaluationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EvaluationType")
+                    b.Property<string>("EvaluationKind")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("JobId")
                         .HasColumnType("int");
 
                     b.Property<string>("LoserPoint")
@@ -1389,34 +1334,11 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmploymentPerformanceEvaluation");
-                });
+                    b.HasIndex("EmployeeId1");
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasIndex("JobId");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EvaluationKind")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Evaluations");
+                    b.ToTable("StaffPerformanceEvaluation");
                 });
 
             modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
@@ -1471,37 +1393,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WorkShifts");
-                });
-
-            modelBuilder.Entity("Core.Models.Vacations.VacationType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ArabicName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DurationPerDay")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VacationTypes");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
@@ -1675,17 +1566,6 @@ namespace Data.Migrations
                     b.Navigation("Passport");
                 });
 
-            modelBuilder.Entity("Core.Models.EmployeesInfo.Ticket", b =>
-                {
-                    b.HasOne("Core.Models.EmployeesInfo.Contract", "Contract")
-                        .WithMany("Tickets")
-                        .HasForeignKey("ContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Contract");
-                });
-
             modelBuilder.Entity("Core.Models.EmploymentApplications.EmploymentApplications", b =>
                 {
                     b.HasOne("Core.Models.Jobs.Job", "Job")
@@ -1753,12 +1633,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Jobs.Job", b =>
                 {
-                    b.HasOne("Core.Models.Jobs.JobLevel", "JobLevel")
-                        .WithMany("Jobs")
-                        .HasForeignKey("JobLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.Jobs.JobSubGroup", "JobSubGroup")
                         .WithMany("Jobs")
                         .HasForeignKey("JobSubGroupId")
@@ -1776,8 +1650,6 @@ namespace Data.Migrations
                         .HasForeignKey("MinGradeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("JobLevel");
 
                     b.Navigation("JobSubGroup");
 
@@ -1856,19 +1728,21 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmployeePerfomanc", b =>
                 {
-                    b.HasOne("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", "EmploymentPerformanceEvaluation")
-                        .WithMany("EmployeePerfomanc")
-                        .HasForeignKey("EmploymentPerformanceEvaluationId");
-
                     b.HasOne("Core.Models.StaffPerformanceEvaluation.Evaluation", "Evaluation")
                         .WithMany()
                         .HasForeignKey("EvaluationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmploymentPerformanceEvaluation");
+                    b.HasOne("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", "StaffPerformanceEvaluation")
+                        .WithMany("EmployeePerfomanc")
+                        .HasForeignKey("StaffPerformanceEvaluationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Evaluation");
+
+                    b.Navigation("StaffPerformanceEvaluation");
                 });
 
             modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
@@ -1880,6 +1754,23 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
+                {
+                    b.HasOne("Core.Models.EmployeesInfo.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId1");
+
+                    b.HasOne("Core.Models.Jobs.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
@@ -1904,8 +1795,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.EmployeesInfo.Contract", b =>
                 {
                     b.Navigation("ContractTransactions");
-
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Core.Models.EmployeesInfo.ContractType", b =>
@@ -1981,11 +1870,6 @@ namespace Data.Migrations
                     b.Navigation("JobSubGroups");
                 });
 
-            modelBuilder.Entity("Core.Models.Jobs.JobLevel", b =>
-                {
-                    b.Navigation("Jobs");
-                });
-
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>
                 {
                     b.Navigation("Jobs");
@@ -2003,7 +1887,7 @@ namespace Data.Migrations
                     b.Navigation("IdentityTransactions");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", b =>
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
                 {
                     b.Navigation("EmployeePerfomanc");
                 });

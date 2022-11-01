@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.EmploymentShift
 {
-    [Route("api/[controller]")]
-    [ApiController]
+  
     public class EmploymentShiftController : MainController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -27,8 +26,8 @@ namespace API.Controllers.EmploymentShift
             _mapper = mapper;
             _linkGenerator = linkGenerator;
         }
-        [HttpGet("GetAllAsync")]
-        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAllAsync()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAll()
         {
             var result = await _unitOfWork.EmpShifts.GetAllAsync();
             if (result == null)
@@ -38,10 +37,10 @@ namespace API.Controllers.EmploymentShift
 
             return _mapper.Map<EmploymentShiftsVM[]>(result);
         }
-        [HttpGet("GetAllShiftForoneEmploymentByIDAsync/{Employment ID:int}")]
-        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAllShiftForoneEmploymentByIDAsync(int EmpID)
+        [HttpGet("GetAllShiftForoneEmploymentByIDAsync/{EmploymentID:int}")]
+        public async Task<ActionResult<EmploymentShiftsVM[]>> GetAllShiftForoneEmploymentByIDAsync(int EmploymentID)
         {
-            var result = await _unitOfWork.EmpShifts.GetAllShiftForoneEmploymentByIDAsync(EmpID);
+            var result = await _unitOfWork.EmpShifts.GetAllShiftForoneEmploymentByIDAsync(EmploymentID);
             if (result == null)
             {
                 return NotFound(new ApiResponse(404, "No Shift  Found!"));
@@ -49,8 +48,8 @@ namespace API.Controllers.EmploymentShift
 
             return _mapper.Map<EmploymentShiftsVM[]>(result);
         }
-        [HttpGet("GetByIdAsync/{workShiftID ID:int}")]
-        public async Task<ActionResult<EmploymentShiftsVM[]>> GetByIdAsync(int workShiftID)
+        [HttpGet("GetById/{workShiftID:int}")]
+        public async Task<ActionResult<EmploymentShiftsVM[]>> GetById(int workShiftID)
         {
             var result = await _unitOfWork.EmpShifts.GetByIdAsync(workShiftID);
             if (result == null)
@@ -76,8 +75,8 @@ namespace API.Controllers.EmploymentShift
 
             return BadRequest(new ApiResponse(400, "Failed to Add Employee Shift!"));
         }
-        [HttpPost("Add-List")]
-        public async Task<ActionResult<EmploymentShiftsVM[]>> PostAddListAsync(EmploymentShiftsVM[] EmploymentShiftsVM)
+        [HttpPost("PostAddList")]
+        public async Task<ActionResult<EmploymentShiftsVM[]>> PostAddList(EmploymentShiftsVM[] EmploymentShiftsVM)
         {
             var empshift = _mapper.Map<EmployeeShifts[]>(EmploymentShiftsVM);
 
@@ -93,7 +92,7 @@ namespace API.Controllers.EmploymentShift
             return BadRequest(new ApiResponse(400, "Failed to Add Employee Shift!"));
         }
 
-        [HttpPut]
+        [HttpPut("{ID:int}")]
         public async Task<ActionResult<UpdateEmploymentShiftsVM>> Put(int ID, UpdateEmploymentShiftsVM UpdateEmploymentShiftsVM)
         {
             var empshift = await _unitOfWork.EmpShifts.GetByIdAsync(ID);
@@ -114,7 +113,7 @@ namespace API.Controllers.EmploymentShift
             return BadRequest(new ApiResponse(400, "Failed to Update Employee Shift!"));
         }
 
-        [HttpDelete("{ShiftsID:int}")]
+        [HttpDelete("{EmpShiftsID:int}")]
         public async Task<ActionResult> Delete(int EmpShiftsID)
         {
             var EmpShifts = await _unitOfWork.EmpShifts.GetByIdAsync(EmpShiftsID);

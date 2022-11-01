@@ -6,6 +6,7 @@ using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
 using Core.Models.Requests;
+using Core.Models.StaffPerformanceEvaluation;
 using Core.Models.StaffShifts;
 using Core.Models.Vacations;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,11 @@ namespace Data.Context
 
         //end Shifts
 
+        //Evaluation
+        public DbSet<Evaluation> Evaluations { get; set; }
+        public DbSet<EmploymentPerformanceEvaluation> EmploymentPerformanceEvaluation { get; set; }
+
+        public DbSet<EmployeePerfomanc> EmployeePerfomanc { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // ManyToMany [Full-Configurations] between Grade and Level [Salary]
