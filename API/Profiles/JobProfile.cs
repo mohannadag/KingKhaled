@@ -91,6 +91,8 @@ namespace API.Profiles
                 .ForMember(viewModel => viewModel.DepartmentName, model => model.MapFrom(x => x.Branch.Department.ArabicName))
                 .ForMember(viewModel => viewModel.BranchName, model => model.MapFrom(x => x.Branch.ArabicName))
                 .ForMember(viewModel => viewModel.JobName, model => model.MapFrom(x => x.Job.ArabicName))
+                .ForMember(viewModel => viewModel.JobLevelId, model => model.MapFrom(x => x.Job.JobLevelId))
+                .ForMember(viewModel => viewModel.JobLevelName, model => model.MapFrom(x => x.Job.JobLevel.Name))
                 .ReverseMap();
             CreateMap<JobVacancy, CreateJobVacancyVM>()
                 .ReverseMap();

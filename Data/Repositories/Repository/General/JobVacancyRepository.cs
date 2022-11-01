@@ -33,6 +33,7 @@ namespace Data.Repositories.Repository.General
                 return await _dbContext.JobVacancies.Include(x => x.Branch)
                                                     .ThenInclude(x => x.Department)
                                                     .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
                                                     .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
@@ -50,6 +51,7 @@ namespace Data.Repositories.Repository.General
                 return await _dbContext.JobVacancies.Include(x => x.Branch)
                                                     .ThenInclude(x => x.Department)
                                                     .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
                                                     .FirstOrDefaultAsync(x => x.VacantNumber == vacantNumber);
             }
             catch (Exception ex)
@@ -147,6 +149,7 @@ namespace Data.Repositories.Repository.General
                 return await _dbContext.JobVacancies.Include(x => x.Branch)
                                                     .ThenInclude(x => x.Department)
                                                     .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
                                                     .Where(x => x.Branch.DepartmentId == departmentId)
                                                     .ToListAsync();
             }
@@ -165,6 +168,7 @@ namespace Data.Repositories.Repository.General
                 return await _dbContext.JobVacancies.Include(x => x.Branch)
                                                     .ThenInclude(x => x.Department)
                                                     .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
                                                     .Where(x => x.BranchId == branchId)
                                                     .ToListAsync();
             }
@@ -183,12 +187,32 @@ namespace Data.Repositories.Repository.General
                 return await _dbContext.JobVacancies.Include(x => x.Branch)
                                                     .ThenInclude(x => x.Department)
                                                     .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
                                                     .Where(x => x.JobId == jobId)
                                                     .ToListAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Faild to GetAllByJobIdAsync for JobVacancy: {ex.Message}");
+                return null;
+            }
+        }
+        public async Task<IEnumerable<JobVacancy>> GetAllByJobLevelIdAsync(int jobLevelId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByJobLevelIdAsync for JobVacancy was Called");
+
+                return await _dbContext.JobVacancies.Include(x => x.Branch)
+                                                    .ThenInclude(x => x.Department)
+                                                    .Include(x => x.Job)
+                                                    .ThenInclude(x => x.JobLevel)
+                                                    .Where(x => x.Job.JobLevelId == jobLevelId)
+                                                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByJobLevelIdAsync for JobVacancy: {ex.Message}");
                 return null;
             }
         }
