@@ -9,13 +9,17 @@ namespace API.Validators.StaffShifts
     {
         public EmploymentShiftsVMValidator(IUnitOfWork unitOfWork)
         {
-            RuleFor(x => x.EmpNumber).NotEmpty().GreaterThan(0).MustAsync(async (value, cancelToken) => {
-                return (await unitOfWork.Employees.AlreadyExistAsync(value));
+            RuleFor(x => x.WorkShiftsId).NotEmpty().MustAsync(async (value, cancelToken) => 
+            {
+                return (await unitOfWork.WorkShifts.IsValidIdAsync(value));
             });
+
 
             RuleFor(x => x.MonthDuration.Month).NotEmpty().GreaterThanOrEqualTo(DateTime.Now.Month)
                                    .WithMessage("Month Duration is not true value!");
+            RuleFor(x => x.DayNumber).NotEmpty().GreaterThan(0)
 
+                         .WithMessage("Month Duration is not true value!");
             RuleFor(x => x.EmployeeId).NotEmpty()
                                    .MustAsync(async (value, cancelToken) =>
                                    {

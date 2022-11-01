@@ -1,0 +1,179 @@
+﻿@using WebUI.Models.HR.JobVacancies;
+@model List<JobVacancy>
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    //page title
+    ViewData["Title"] = "البنوك";
+}
+
+
+<!-- Datatable single column searching -->
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <div>
+            <div class="float-left">
+                <h4 class="table-header my-3">
+                    البنوك
+                </h4>
+            </div>
+
+            <div class="float-right">
+                <a class="btn btn-primary my-3" asp-controller="jobvacancy" asp-action="create">
+                    <i class="far fa-plus-square"></i>
+                    اضافة بنك
+                </a>
+            </div>
+        </div>
+        
+
+        <div class="table-responsive mb-4">
+            <table id="single-column-search" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>الرقم</th>
+                        <th>القسم</th>
+                        <th>الفرع</th>
+                        <th>المسمى الوظيفي</th>
+                        <th>ملاحظات</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <tr href="#">
+                            <td>@item.VacantNumber</td>
+                            <td>@item.DepartmentName</td>
+                            <td>@item.BranchName</td>
+                            <td>@item.JobName</td>
+                            <td>@item.Notes</td>
+                            <td>
+                                <a asp-controller="jobvacancy" asp-action="edit" asp-route-id="@item.Id"
+                               class="btn btn-outline-primary">@*<i class="fas fa-edit fa-sm"></i>*@تعديل</a>
+
+                                @*<a class="btn btn-outline-danger delete"
+                                    id="@item.Id" name="delete">حذف</a>*@
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>الرقم</th>
+                        <th>القسم</th>
+                        <th>الفرع</th>
+                        <th>المسمى الوظيفي</th>
+                        <th>ملاحظات</th>
+                        <th>العمليات</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+
+        @functions {
+        public string GetAntiXsrfRequestToken()
+        {
+            return Xsrf.GetAndStoreTokens(Context).RequestToken;
+        }
+        }
+
+        $(document).ready(function () {
+            $('#min, #max').keyup(function () { table.draw(); });
+
+            // Add text input to the footer
+            $('#single-column-search tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control" placeholder="بحث ' + title + '" />');
+            });
+            // Generate Datatable
+            var table = $('#single-column-search').DataTable({
+                dom: '<"row"<"col-md-6"B><"col-md-6"f> ><""rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>>',
+                buttons: {
+                    buttons: [
+                        { extend: 'copy', className: 'btn btn-primary' },
+                        { extend: 'csv', className: 'btn btn-primary' },
+                        { extend: 'excel', className: 'btn btn-primary' },
+                        { extend: 'pdf', className: 'btn btn-primary' },
+                        { extend: 'print', className: 'btn btn-primary' }
+                    ]
+                },
+                "language": {
+                    "paginate": {
+                        "previous": "<i class='las la-angle-left'></i>",
+                        "next": "<i class='las la-angle-right'></i>"
+                    }
+                },
+                "lengthMenu": [5, 10, 15, 20],
+                "pageLength": 5
+            });
+            // Search
+            table.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+
+            //delete button
+            $('#single-column-search tbody').on("click", ".delete", function () {
+                console.log("test");
+                var id = this.id;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/jobvacancy/delete/" + id,
+                            method: "POST",
+                            headers: {
+                                "RequestVerificationToken": "@GetAntiXsrfRequestToken()"
+                            }
+                        }).fail(function () {
+                            Swal.fire(
+                                'Error!',
+                                'someting went wrong please try again later.',
+                                'error'
+                            )
+                        }).done(function () {
+                            Swal.fire(
+                                'done',
+                                'the item has been deleted',
+                                'success'
+                            )
+                        }).done(function () {
+                            window.location.href = '/jobvacancy';
+                        })
+                    }
+                })
+            });
+
+        });
+    </script>
+} 

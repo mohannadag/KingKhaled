@@ -5,6 +5,7 @@ using API.ViewModels.EmploymentApplications;
 using API.ViewModels.Nationality;
 using API.ViewModels.Requests;
 using API.ViewModels.Salary;
+using API.ViewModels.StaffShifts.EmploymentShifts;
 using API.ViewModels.StaffShifts.WorkShift;
 using AutoMapper;
 using Core.Models.EmployeesInfo;
@@ -72,6 +73,12 @@ namespace API.Profiles
             // Employment Applications
             CreateMap<EmploymentApplications, EmploymentApplicationsVM>()
                 .ReverseMap();
+
+            //shift
+            CreateMap<EmployeeShifts, EmploymentShiftsVM>().ReverseMap();
+            CreateMap<EmployeeShifts, UpdateEmploymentShiftsVM>().ReverseMap();
+            CreateMap<WorkShifts, WorkShiftsVM>().ReverseMap();
+            CreateMap<WorkShifts, UpdateWorkShiftVM>().ReverseMap();
         }
     }
 }
