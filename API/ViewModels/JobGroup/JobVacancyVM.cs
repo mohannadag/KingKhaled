@@ -20,5 +20,8 @@ namespace API.ViewModels.JobGroup
 
         public int JobId { get; set; }
         public string JobName { get; set; }
+
+        public int JobLevelId { get; set; }
+        public string JobLevelName { get; set; }
     }
 }
