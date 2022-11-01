@@ -1,5 +1,6 @@
 ﻿using Core.Models.EmployeesInfo;
 using Core.Models.EmploymentApplications;
+using Data.Repositories.IRepository.Evaluations;
 using Data.Repositories.IRepository.IAllowances;
 using Data.Repositories.IRepository.IEmployeesInfo;
 using Data.Repositories.IRepository.IFinancials;
@@ -7,6 +8,7 @@ using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
 using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.IRepository.IStaffShifts;
+using Data.Repositories.Repository.StaffPerformanceEvaluation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +48,8 @@ namespace Data.UnitOfWorks
         public IContractRepository Contracts { get; }
         public IContractTransactionRepository ContractTransactions { get; }
         public IContractTypeRepository ContractTypes { get; }
+        public IEvaluation Evaluation { get; }
+        public IEmploymentPerformanceEvaluation EmploymentPerformanceEvaluation { get; }
         Task<bool> SaveAsync();
     }
 }

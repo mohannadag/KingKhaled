@@ -70,7 +70,9 @@ namespace Data.Context
 
         //Evaluation
         public DbSet<Evaluation> Evaluations { get; set; }
-        public DbSet<StaffPerformanceEvaluation> StaffPerformanceEvaluation { get; set; }
+        public DbSet<EmploymentPerformanceEvaluation> EmploymentPerformanceEvaluation { get; set; }
+
+        public DbSet<EmployeePerfomanc> EmployeePerfomanc { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // ManyToMany [Full-Configurations] between Grade and Level [Salary]

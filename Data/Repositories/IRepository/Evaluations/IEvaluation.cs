@@ -12,11 +12,10 @@ namespace Data.Repositories.IRepository.Evaluations
     {
         Task<Evaluation> GetByIdAsync(int id); 
 
-        Task<bool> IsValidIdAsync(int id);
-        Task<bool> AlreadyExistArabicAsync(string arabicName);
+        Task<bool> IsValidIdAsync(int id); 
 
         Task<IEnumerable<Evaluation>> GetAllAsync();
-
+        Task<bool> IsValidToAddEvaluation(int DepartmentId, int EvaluationKind);
         Task AddAsync(Evaluation evaluation);
         void Update(Evaluation evaluation);
         void Delete(Evaluation evaluation);

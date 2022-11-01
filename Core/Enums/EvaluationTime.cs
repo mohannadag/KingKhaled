@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public enum EvaluationTime
+    public enum EvaluationType
     {
         ThreeMonth = 1,
         OneYear = 2,

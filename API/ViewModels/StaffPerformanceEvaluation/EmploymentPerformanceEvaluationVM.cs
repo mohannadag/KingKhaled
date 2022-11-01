@@ -1,28 +1,22 @@
 ﻿using Core.Enums;
-using Core.Models.EmployeesInfo;
 using Core.Models.Jobs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Models.StaffPerformanceEvaluation;
 
-namespace Core.Models.StaffPerformanceEvaluation
+namespace API.ViewModels.StaffPerformanceEvaluation
 {
-    public class StaffPerformanceEvaluation
+    
+    public class EmploymentPerformanceEvaluationVM
     {
         public int Id { get; set; }
-        public string EmployeeId { get; set; }
-        public Employee Employee { get; set; }
-        public string JobId { get; set; }
-        public Job Job { get; set; }
+        public int EmployeeId { get; set; } 
+        //public int JobId { get; set; } 
         public DateTime EvaluationDate { get; set; }
         public DateTime StartDateEvaluation { get; set; }
         public DateTime EndDateEvaluation { get; set; }
-        public string EvaluationKind { get; set; }
- 
-        public ICollection<Evaluation> Evaluations { get; set; }
-        public string StrongPoint { get; set; } 
+        public EvaluationType EvaluationType { get; set; }
+        public string Approvitby { get; set; }
+        public List<int> EvaluationsID { get; set; }
+        public string StrongPoint { get; set; }
         public string LoserPoint { get; set; }
         public string Recommendation { get; set; }
         public string DirectionsAndRecommendations { get; set; }

@@ -14,5 +14,6 @@ namespace Core.Models.StaffPerformanceEvaluation
         public int Score { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public int EvaluationKind { get; set; }
     }
 }

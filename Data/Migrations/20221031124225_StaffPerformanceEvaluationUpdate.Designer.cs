@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221031124225_StaffPerformanceEvaluationUpdate")]
+    partial class StaffPerformanceEvaluationUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1230,7 +1232,7 @@ namespace Data.Migrations
                     b.ToTable("RequestTypes");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmployeePerfomanc", b =>
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1238,25 +1240,28 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("EmploymentPerformanceEvaluationId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EvaluationId")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int>("StaffPerformanceEvaluationID")
+                    b.Property<int?>("StaffPerformanceEvaluationId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmploymentPerformanceEvaluationId");
+                    b.HasIndex("DepartmentId");
 
-                    b.HasIndex("EvaluationId");
+                    b.HasIndex("StaffPerformanceEvaluationId");
 
-                    b.ToTable("EmployeePerfomanc");
+                    b.ToTable("Evaluations");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", b =>
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1264,14 +1269,11 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Approvitby")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("DirectionsAndRecommendations")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDateEvaluation")
                         .HasColumnType("datetime2");
@@ -1282,7 +1284,13 @@ namespace Data.Migrations
                     b.Property<DateTime>("EvaluationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EvaluationType")
+                    b.Property<string>("EvaluationKind")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("JobId1")
                         .HasColumnType("int");
 
                     b.Property<string>("LoserPoint")
@@ -1308,34 +1316,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmploymentPerformanceEvaluation");
-                });
+                    b.HasIndex("JobId1");
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EvaluationKind")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Evaluations");
+                    b.ToTable("StaffPerformanceEvaluation");
                 });
 
             modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
@@ -1723,23 +1706,6 @@ namespace Data.Migrations
                     b.Navigation("RequestType");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmployeePerfomanc", b =>
-                {
-                    b.HasOne("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", "EmploymentPerformanceEvaluation")
-                        .WithMany("EmployeePerfomanc")
-                        .HasForeignKey("EmploymentPerformanceEvaluationId");
-
-                    b.HasOne("Core.Models.StaffPerformanceEvaluation.Evaluation", "Evaluation")
-                        .WithMany()
-                        .HasForeignKey("EvaluationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EmploymentPerformanceEvaluation");
-
-                    b.Navigation("Evaluation");
-                });
-
             modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.Evaluation", b =>
                 {
                     b.HasOne("Core.Models.General.Department", "Department")
@@ -1748,7 +1714,20 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", null)
+                        .WithMany("Evaluations")
+                        .HasForeignKey("StaffPerformanceEvaluationId");
+
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
+                {
+                    b.HasOne("Core.Models.Jobs.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId1");
+
+                    b.Navigation("Job");
                 });
 
             modelBuilder.Entity("Core.Models.StaffShifts.EmployeeShifts", b =>
@@ -1865,9 +1844,9 @@ namespace Data.Migrations
                     b.Navigation("IdentityTransactions");
                 });
 
-            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.EmploymentPerformanceEvaluation", b =>
+            modelBuilder.Entity("Core.Models.StaffPerformanceEvaluation.StaffPerformanceEvaluation", b =>
                 {
-                    b.Navigation("EmployeePerfomanc");
+                    b.Navigation("Evaluations");
                 });
 #pragma warning restore 612, 618
         }
