@@ -1,0 +1,126 @@
+﻿@using WebUI.Models.HR.EntryCards;
+@model EntryCard
+
+@{
+    //page title
+    ViewData["Title"] = "بيانات البطاقات";
+}
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <form enctype="multipart/form-data" asp-controller="entrycard" asp-action="create" method="post">
+            <div class="content-header clearfix pb-3">
+                <div class="float-left">
+                    <h1 style="display:inline;">
+                        بيانات البطاقات
+                    </h1>
+                    <span>
+                        <i class="fas fa-arrow-circle-left"></i>
+                        <a asp-action="index" class="">الرجوع للخلف</a>
+                    </span>
+                </div>
+
+                <div class="float-right">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <i class="far fa-save"></i>
+                        حفظ
+                    </button>
+                </div>
+            </div>
+
+            @* info card *@
+            <div id="accordion3">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        بيانات البطاقة
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion3">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label asp-for="SecurityNumber" class="col-sm-2 col-form-label">رقم الامني</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="SecurityNumber" class="form-control" placeholder="" />
+                                    <span asp-validation-for="SecurityNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="DepartmentNumber" class="col-sm-2 col-form-label">رقم القسم</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="DepartmentNumber" class="form-control" placeholder="" />
+                                    <span asp-validation-for="DepartmentNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="SecurityIssueDate" class="col-form-label">تاريخ الاصدار ميلادي</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityIssueDate" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="SecurityIssueDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="SecurityIssueDateHijri" class="col-form-label">تاريخ الاصدار هجري</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityIssueDateHijri" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="SecurityIssueDateHijri" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="SecurityExpireDate" class="col-form-label">تاريخ الانتهاء ميلادي</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityExpireDate" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="SecurityExpireDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="SecurityExpireDateHijri" class="col-form-label">تاريخ الانتهاء هجري</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="SecurityExpireDateHijri" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="SecurityExpireDateHijri" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="EmployeeId" class="col-sm-2 col-form-label">القسم</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="EmployeeId" asp-items="@Model.EmployeeList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+} 

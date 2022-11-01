@@ -109,7 +109,7 @@ namespace API.Controllers.HR.Jobs
             var jobVisa = await _unitOfWork.JobVisa.GetByIdAsync(jobVisaId);
             if (jobVisa == null)
             {
-                return BadRequest(new ApiResponse(400, "JobGroup Not Found!"));
+                return BadRequest(new ApiResponse(400, "JobVisa Not Found!"));
             }
 
             _unitOfWork.JobVisa.Delete(jobVisa);

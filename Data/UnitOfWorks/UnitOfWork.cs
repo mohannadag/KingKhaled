@@ -20,9 +20,6 @@ using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.Repository.Requests;
 using Data.Repositories.IRepository.IStaffShifts;
 using Data.Repositories.Repository.StaffShifts;
-using Data.Repositories.IRepository.Evaluations;
-using Core.Models.StaffPerformanceEvaluation;
-using Data.Repositories.Repository.StaffPerformanceEvaluation;
 
 namespace Data.UnitOfWorks
 {
@@ -85,6 +82,9 @@ namespace Data.UnitOfWorks
         public IQualificationRepository Qualifications => new QualificationRepository(
             _dbContext, new Logger<QualificationRepository>(new NullLoggerFactory()));
 
+        public IJobLevelRepository JobLevels => new JobLevelRepository(
+            _dbContext, new Logger<JobLevelRepository>(new NullLoggerFactory()));
+
         public IJobVisaRepository JobVisa => new JobVisaRepository(
             _dbContext, new Logger<JobVisaRepository>(new NullLoggerFactory()));
 
@@ -115,18 +115,16 @@ namespace Data.UnitOfWorks
         public IContractTypeRepository ContractTypes => new ContractTypeRepository(
             _dbContext, new Logger<ContractTypeRepository>(new NullLoggerFactory()));
 
+        public ITicketRepository Tickets => new TicketRepository(
+            _dbContext, new Logger<TicketRepository>(new NullLoggerFactory()));
+
         public IWorkShifts WorkShifts => new WorkShiftsRepository(
             _dbContext, new Logger<WorkShiftsRepository>(new NullLoggerFactory()));
 
         public IEmpShifts EmpShifts => new EmployeeShiftsRepository(
             _dbContext, new Logger<EmployeeShiftsRepository>(new NullLoggerFactory()));
-
-        public IEvaluation Evaluation => new EvaluationRepository(
-        _dbContext, new Logger<EvaluationRepository>(new NullLoggerFactory()));
-      
-
-        public IEmploymentPerformanceEvaluation EmploymentPerformanceEvaluation => new EmploymentPerformanceEvaluationRepository(
- _dbContext, new Logger<EmploymentPerformanceEvaluationRepository>(new NullLoggerFactory()));
+        
+    
 
         public void Dispose()
         {

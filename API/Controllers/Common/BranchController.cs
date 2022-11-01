@@ -99,7 +99,7 @@ namespace API.Controllers.Common
 
             return _mapper.Map<BranchVM[]>(result);
         }
-        [HttpGet("GetAll-by-DepartmentId/{departmentId:int}")]
+        [HttpGet("GetAllBy-DepartmentId/{departmentId:int}")]
         public async Task<ActionResult<BranchVM[]>> GetAllByDepartmentId(int departmentId)
         {
             var result = await _unitOfWork.Branches.GetAllByDepartmentIdAsync(departmentId);

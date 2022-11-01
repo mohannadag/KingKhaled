@@ -7,7 +7,7 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,7 +15,7 @@ namespace WebUI.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "ControlPanel");
+            return RedirectToAction("index", "employee");
         }
 
         public IActionResult Privacy()
@@ -28,7 +28,7 @@ namespace WebUI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
- 
+
 
 
 

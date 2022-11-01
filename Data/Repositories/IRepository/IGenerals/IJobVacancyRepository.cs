@@ -22,6 +22,7 @@ namespace Data.Repositories.IRepository.IGenerals
         Task<IEnumerable<JobVacancy>> GetAllByDepartmentIdAsync(int departmentId);
         Task<IEnumerable<JobVacancy>> GetAllByBranchIdAsync(int branchId);
         Task<IEnumerable<JobVacancy>> GetAllByJobIdAsync(int jobId);
+        Task<IEnumerable<JobVacancy>> GetAllByJobLevelIdAsync(int jobLevelId);
 
         Task AddAsync(JobVacancy jobVacancy);
         void Update(JobVacancy jobVacancy);

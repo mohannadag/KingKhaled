@@ -1,0 +1,141 @@
+﻿@using WebUI.Models.HR.Identities;
+@model Identity
+
+@{
+    //page title
+    ViewData["Title"] = "تعديل هوية";
+}
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <form enctype="multipart/form-data" asp-controller="identity" asp-action="edit" method="post">
+            <div class="content-header clearfix pb-3">
+                <div class="float-left">
+                    <h1 style="display:inline;">
+                        تعديل هوية
+                    </h1>
+                    <span>
+                        <i class="fas fa-arrow-circle-left"></i>
+                        <a asp-action="index" class="">الرجوع للخلف</a>
+                    </span>
+                </div>
+
+                <div class="float-right">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <i class="far fa-save"></i>
+                        حفظ
+                    </button>
+                </div>
+            </div>
+
+            @* info card *@
+            <div id="accordion3">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        بيانات هوية
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion3">
+                        <div class="card-body">
+                            <input asp-for="Id" hidden />
+                            <div class="form-group row">
+                                <label asp-for="ArabicName" class="col-sm-2 col-form-label">الاسم العربي</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ArabicName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ArabicName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="EnglishName" class="col-sm-2 col-form-label">الاسم الانكليزي</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="EnglishName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="EnglishName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="EmployeeNumber" class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="EmployeeNumber" class="form-control" placeholder="" />
+                                    <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="IdentityNumber" class="col-sm-2 col-form-label">رقم الهوية</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="IdentityNumber" class="form-control" placeholder="" />
+                                    <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Issuer" class="col-sm-2 col-form-label">المصدر</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Issuer" class="form-control" placeholder="" />
+                                    <span asp-validation-for="Issuer" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="IssueDate" class="col-sm-2 col-form-label">ناريخ الاصدار</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="IssueDate" class="form-control" placeholder="" />
+                                    <span asp-validation-for="IssueDate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="ExpireDate" class="col-sm-2 col-form-label">تاريخ الانتهاء</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ExpireDate" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label asp-for="JobVisaId" class="col-sm-2 col-form-label">القسم</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="JobVisaId" asp-items="@Model.JobVisaList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="JobVisaId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="EmployeeId" class="col-sm-2 col-form-label">القسم</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="EmployeeId" asp-items="@Model.EmployeeList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+} 

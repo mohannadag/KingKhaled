@@ -19,6 +19,9 @@ namespace API.ViewModels.JobGroup
         public int JobGroupId { get; set; }
         public string JobGroup { get; set; }
 
+        public int JobLevelId { get; set; }
+        public string JobLevelName { get; set; }
+
         public int MinGradeId { get; set; }
         public string MinGradeName { get; set; }
 

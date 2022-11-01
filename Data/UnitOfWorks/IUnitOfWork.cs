@@ -8,7 +8,6 @@ using Data.Repositories.IRepository.IGenerals;
 using Data.Repositories.IRepository.IJobs;
 using Data.Repositories.IRepository.IRequests;
 using Data.Repositories.IRepository.IStaffShifts;
-using Data.Repositories.Repository.StaffPerformanceEvaluation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +35,7 @@ namespace Data.UnitOfWorks
         public IDepartmentRepository Departments { get; }
         public IBranchRepository Branches { get; }
         public IQualificationRepository Qualifications { get; }
+        public IJobLevelRepository JobLevels { get; }
         public IJobVisaRepository JobVisa { get; }
         public IJobVacancyRepository JobVacancy { get; }
         public IAllowanceTypeRepository AllowanceTypes { get; }
@@ -48,8 +48,6 @@ namespace Data.UnitOfWorks
         public IContractRepository Contracts { get; }
         public IContractTransactionRepository ContractTransactions { get; }
         public IContractTypeRepository ContractTypes { get; }
-        public IEvaluation Evaluation { get; }
-        public IEmploymentPerformanceEvaluation EmploymentPerformanceEvaluation { get; }
         Task<bool> SaveAsync();
     }
 }

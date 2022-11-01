@@ -1,3 +1,5 @@
+using WebUI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddScoped<IHelper, Helper>();
 
 var app = builder.Build();
 

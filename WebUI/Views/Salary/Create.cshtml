@@ -1,0 +1,90 @@
+﻿@using WebUI.Models.HR.Salaries;
+@model Salary
+
+@{
+    //page title
+    ViewData["Title"] = "انشاء راتب جديد";
+}
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <form enctype="multipart/form-data" asp-controller="salary" asp-action="create" method="post">
+            <div class="content-header clearfix pb-3">
+                <div class="float-left">
+                    <h1 style="display:inline;">
+                        انشاء راتب جديد
+                    </h1>
+                    <span>
+                        <i class="fas fa-arrow-circle-left"></i>
+                        <a asp-action="index" class="">الرجوع للخلف</a>
+                    </span>
+                </div>
+
+                <div class="float-right">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <i class="far fa-save"></i>
+                        حفظ
+                    </button>
+                </div>
+            </div>
+
+            @* info card *@
+            <div id="accordion3">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        بيانات راتب
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion3">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label asp-for="BasicSalary" class="col-sm-2 col-form-label">الراتب الاساسي</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="BasicSalary" class="form-control" placeholder="" />
+                                    <span asp-validation-for="BasicSalary" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="GradeId" class="col-sm-2 col-form-label">الدرجة</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="GradeId" asp-items="@Model.GradeList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="GradeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="LevelId" class="col-sm-2 col-form-label">المرتبة</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="LevelId" asp-items="@Model.LevelList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="LevelId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+} 

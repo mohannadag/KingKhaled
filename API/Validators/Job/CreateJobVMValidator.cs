@@ -33,6 +33,13 @@ namespace API.Validators.Job
                                       })
                                       .WithMessage("This Job Name Already Exist!");
 
+            RuleFor(x => x.JobLevelId).NotEmpty()
+                                      .MustAsync(async (value, cancelToken) =>
+                                      {
+                                          return (await unitOfWork.JobLevels.IsValidIdAsync(value));
+                                      })
+                                      .WithMessage("Min JobLevel Not Found!");
+
             RuleFor(x => x.MinGradeId).NotEmpty()
                                       .MustAsync(async (value, cancelToken) =>
                                       {

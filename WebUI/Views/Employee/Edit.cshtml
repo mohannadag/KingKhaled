@@ -1,0 +1,249 @@
+﻿@using WebUI.Models.HR.Employees;
+@model Employee
+
+@{
+    //page title
+    ViewData["Title"] = "انشاء موظف";
+}
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+        <form enctype="multipart/form-data" asp-controller="employee" asp-action="editpassport" method="post">
+            <div class="content-header clearfix pb-3">
+                <div class="float-left">
+                    <h1 style="display:inline;">
+                        انشاء موظف
+                    </h1>
+                    <span>
+                        <i class="fas fa-arrow-circle-left"></i>
+                        <a asp-action="index" class="">الرجوع للخلف</a>
+                    </span>
+                </div>
+
+                <div class="float-right">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <i class="far fa-save"></i>
+                        حفظ
+                    </button>
+                </div>
+            </div>
+
+            @* info card *@
+            <div id="accordion3" class="pb-3">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        بيانات الموظف
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion3">
+                        <div class="card-body">
+                            <input asp-for="Id" hidden />
+                            <div class="form-group row">
+                                <label asp-for="EmployeeNumber" class="col-sm-2 col-form-label">رقم الموظف</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="EmployeeNumber" class="form-control" placeholder="" />
+                                    <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="ArabicName" class="col-form-label">الاسم العربي</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="ArabicName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="ArabicName" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="EnglishName" class="col-form-label">الاسم الانكليزي</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="EnglishName" class="form-control" placeholder="" />
+                                    <span asp-validation-for="EnglishName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="BirthDate" class="col-form-label">تاريخ الولادة</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="BirthDate" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="BirthDateHijri" class="col-form-label">تاريخ الولادة الهجري</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="BirthDateHijri" class="form-control" placeholder="" type="date" />
+                                    <span asp-validation-for="BirthDateHijri" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="PlaceOfBirth" class="col-sm-2 col-form-label">مكان الولادة</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="PlaceOfBirth" class="form-control" placeholder="" />
+                                    <span asp-validation-for="PlaceOfBirth" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="Religion" class="col-form-label">الديانة</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="Religion">
+                                        <option value="مسلم">مسلم</option>
+                                        <option value="مسيحي">مسيحي</option>
+                                    </select>
+                                    <span asp-validation-for="Religion" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="Religion" class="col-form-label">الجنس</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="Religion">
+                                        <option value="ذكر">ذكر</option>
+                                        <option value="انثى">انثى</option>
+                                    </select>
+                                    <span asp-validation-for="Religion" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="MarritalStatus" class="col-form-label">الحالة الاجتماعية</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="MarritalStatus">
+                                        <option value="اعذب">اعذب</option>
+                                        <option value="متزوج">متزوج</option>
+                                    </select>
+                                    <span asp-validation-for="MarritalStatus" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="NationalityId" class="col-form-label">الجنسية</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="NationalityId" asp-items="@Model.NationalityList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="NationalityId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="Phone" class="col-form-label">رقم الهاتف</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="Phone" class="form-control" placeholder="" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="Email" class="col-form-label">البريد الالكتروني</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input asp-for="Email" class="form-control" placeholder="" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Address" class="col-sm-2 col-form-label">العنوان</label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Address" class="form-control" placeholder="" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="accordion2">
+                <div class="card">
+                    <div class="card-header" id="heading2">
+                        معلومات الوظيفة
+                        <button type="button" class="btn btn-outline-dark float-right" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"></button>
+                    </div>
+                    <div id="collapse2" class="collapse show" aria-labelledby="heading2" data-parent="#accordion2">
+                        <div class="card-body">
+
+
+                            <div class="form-group row">
+                                <label asp-for="JobVacancyId" class="col-sm-2 col-form-label">رقم الميزانية</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="JobVacancyId" asp-items="@Model.JobVacancyList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="JobVacancyId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="QualificationId" class="col-sm-2 col-form-label">المؤهل الدراسي</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="QualificationId" asp-items="@Model.QualificationList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="QualificationId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label asp-for="GradeId" class="col-form-label">الدرجة</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="GradeId" asp-items="@Model.GradeList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="Religion" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label asp-for="LevelId" class="col-form-label">الرتبة</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select class="form-control" asp-for="LevelId" asp-items="@Model.LevelList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="Religion" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+} 

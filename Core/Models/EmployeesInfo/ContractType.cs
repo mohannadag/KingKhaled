@@ -12,6 +12,8 @@ namespace Core.Models.EmployeesInfo
         public string ArabicName { get; set; }
         public int AnnualVacationPerDay { get; set; }
         public string Notes { get; set; }
+        public bool IsDeserveTicket { get; set; }
+        public int NumberOfTicket { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }

@@ -27,5 +27,6 @@ namespace Core.Models.EmployeesInfo
         public string ModifiedBy { get; set; }
 
         public ICollection<ContractTransaction> ContractTransactions { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }

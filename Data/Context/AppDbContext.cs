@@ -8,6 +8,7 @@ using Core.Models.Jobs;
 using Core.Models.Requests;
 using Core.Models.StaffPerformanceEvaluation;
 using Core.Models.StaffShifts;
+using Core.Models.Vacations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,10 @@ namespace Data.Context
         // Allowances
         public DbSet<AllowanceType> AllowanceTypes { get; set; }
 
+        // Vacations
+        public DbSet<VacationType> VacationTypes { get; set; }
+        //public DbSet<Vacation> Vacations { get; set; }
+
         // General
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Bank> Banks { get; set; }
@@ -40,9 +45,11 @@ namespace Data.Context
         // Financial
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<JobVisa> JobVisas { get; set; }
+        public DbSet<JobLevel> JobLevels { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobGroup> JobGroups { get; set; }
         public DbSet<JobSubGroup> JobSubGroups { get; set; }
+        
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Salary> Salaries { get; set; }
@@ -58,6 +65,7 @@ namespace Data.Context
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<ContractTransaction> ContractTransactions { get; set; }
         public DbSet<ContractType> ContractTypes { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
         //Employment Applications
         public DbSet<EmploymentApplications> EmploymentApplications { get;set;}
