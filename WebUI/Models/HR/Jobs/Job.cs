@@ -15,9 +15,12 @@ namespace WebUI.Models.HR.Jobs
         public string MinGradeName { get; set; }
         public int MaxGradeId { get; set; }
         public string MaxGradeName { get; set; }
-        public int WorkNatureAllowance { get; set; }
+        public double WorkNatureAllowance { get; set; }
+        public int JobLevelId { get; set; }
+        public string JobLevelName { get; set; }
         public SelectList JobGroupList { get; set; }
         public SelectList JobSubGroupList { get; set; }
         public SelectList GradeList { get; set; }
+        public SelectList JobLevelList { get; set; }
     }
 }

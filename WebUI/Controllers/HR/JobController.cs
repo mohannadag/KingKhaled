@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Text;
 using WebUI.Models.HR.Grades;
 using WebUI.Models.HR.JobGroups;
+using WebUI.Models.HR.JobLevels;
 using WebUI.Models.HR.Jobs;
 using WebUI.Models.HR.JobSubGroups;
 using WebUI.Services;
@@ -71,6 +72,7 @@ namespace WebUI.Controllers.HR
                 List<JobGroup> jobGroups = new();
                 List<JobSubGroup> jobSubGroups = new();
                 List<Grade> grades = new();
+                List<JobLevel> jobLevels = new();
 
                 HttpClient client = new HttpClient();
                 var endpoint = _apiUrl + "API/jobgroup/getall";
@@ -82,16 +84,21 @@ namespace WebUI.Controllers.HR
 
                     var jobSubGroupsendpoint = _apiUrl + "API/jobsubgroup/getall";
                     var gradesendpoint = _apiUrl + "API/grade/getall";
+                    var jobLevelendpoint = _apiUrl + "API/JobLevel/GetAll";
                     HttpResponseMessage jobSubGroupsresponse = await client.GetAsync(jobSubGroupsendpoint);
                     HttpResponseMessage gradesresponse = await client.GetAsync(gradesendpoint);
+                    HttpResponseMessage jobLevelresponse = await client.GetAsync(jobLevelendpoint);
                     jobSubGroups = JsonConvert.DeserializeObject<List<JobSubGroup>>(jobSubGroupsresponse.Content.ReadAsStringAsync().Result);
                     grades = JsonConvert.DeserializeObject<List<Grade>>(gradesresponse.Content.ReadAsStringAsync().Result);
+                    jobLevels = JsonConvert.DeserializeObject<List<JobLevel>>(jobLevelresponse.Content.ReadAsStringAsync().Result);
                     Job model = new Job
                     {
                         JobGroupList = new SelectList(jobGroups, "Id", "ArabicName"),
                         JobSubGroupList = new SelectList(jobSubGroups, "Id", "ArabicName"),
-                        GradeList = new SelectList(grades, "Id", "ArabicName")
+                        GradeList = new SelectList(grades, "Id", "Name"),
+                        JobLevelList = new SelectList(jobLevels, "Id", "Name")
                     };
+                    
                     return View(model);
                 }
                 else
@@ -166,6 +173,7 @@ namespace WebUI.Controllers.HR
                 List<JobGroup> jobGroups = new();
                 List<JobSubGroup> jobSubGroups = new();
                 List<Grade> grades = new();
+                List<JobLevel> jobLevels = new();
 
                 HttpClient client = new HttpClient();
 
@@ -176,17 +184,21 @@ namespace WebUI.Controllers.HR
                     var jobGroupsendpoint = _apiUrl + "API/jobgroup/getall";
                     var jobSubGroupsendpoint = _apiUrl + "API/jobsubgroup/getall";
                     var gradesendpoint = _apiUrl + "API/grade/getall";
+                    var jobLevelendpoint = _apiUrl + "API/JobLevel/GetAll";
                     HttpResponseMessage jobSubGroupsresponse = await client.GetAsync(jobSubGroupsendpoint);
                     HttpResponseMessage gradesresponse = await client.GetAsync(gradesendpoint);
                     HttpResponseMessage jobGroupsresponse = await client.GetAsync(jobGroupsendpoint);
+                    HttpResponseMessage jobLevelresponse = await client.GetAsync(jobLevelendpoint);
                     jobSubGroups = JsonConvert.DeserializeObject<List<JobSubGroup>>(jobSubGroupsresponse.Content.ReadAsStringAsync().Result);
                     grades = JsonConvert.DeserializeObject<List<Grade>>(gradesresponse.Content.ReadAsStringAsync().Result);
                     jobGroups = JsonConvert.DeserializeObject<List<JobGroup>>(jobGroupsresponse.Content.ReadAsStringAsync().Result);
+                    jobLevels = JsonConvert.DeserializeObject<List<JobLevel>>(jobLevelresponse.Content.ReadAsStringAsync().Result);
 
                     job = JsonConvert.DeserializeObject<Job>(response.Content.ReadAsStringAsync().Result);
                     job.JobGroupList = new SelectList(jobGroups, "Id", "ArabicName");
                     job.JobSubGroupList = new SelectList(jobSubGroups, "Id", "ArabicName");
-                    job.GradeList = new SelectList(grades, "Id", "ArabicName");
+                    job.GradeList = new SelectList(grades, "Id", "Name");
+                    job.JobLevelList = new SelectList(jobLevels, "Id", "Name");
                     return View(job);
                 }
                 else
