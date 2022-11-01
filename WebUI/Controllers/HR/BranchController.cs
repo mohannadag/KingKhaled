@@ -64,6 +64,28 @@ namespace WebUI.Controllers.HR
             }
         }
 
+        public async Task<IActionResult> GetBranchesByDepartment(int departmentId)
+        {
+            try
+            {
+                List<Branch> branches = new();
+                HttpClient client = new HttpClient();
+                
+                var endpoint = _apiUrl + "API/Branch/GetAllby-DepartmentId/" + departmentId;
+                HttpResponseMessage response = await client.GetAsync(endpoint);
+                if (response.IsSuccessStatusCode)
+                {
+                    branches = JsonConvert.DeserializeObject<List<Branch>>(response.Content.ReadAsStringAsync().Result);
+                    return Json(new SelectList(branches, "Id", "ArabicName"));
+                }
+                else
+                {
+                    return Json("");
+                }
+            }
+            catch (Exception ex) { _logger.LogError($"Exception occured: {ex}"); return View("Error"); }
+        }
+
         public async Task<IActionResult> Create()
         {
             try

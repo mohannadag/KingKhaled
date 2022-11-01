@@ -177,6 +177,25 @@
                     <div id="collapse2" class="collapse show" aria-labelledby="heading2" data-parent="#accordion2">
                         <div class="card-body">
 
+                            <div class="form-group row">
+                                <label asp-for="DepartmentId" class="col-sm-2 col-form-label">القسم</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="DepartmentId" asp-items="@Model.DepartmentsList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="BranchId" class="col-sm-2 col-form-label">الفرع</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" asp-for="BranchId" asp-items="@Model.BranchList">
+                                        <option value="0">Please select one</option>
+                                    </select>
+                                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label asp-for="JobVacancyId" class="col-sm-2 col-form-label">رقم الميزانية</label>
@@ -243,6 +262,32 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
+
+            $('#DepartmentId').change(function () {
+                var url = '@Url.Content("~/")' + "branch/GetBranchesByDepartment";
+                var ddlsource = "#DepartmentId";
+                $.getJSON(url, { DepartmentId: $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $('#BranchId').empty();
+                    $.each(data, function (i, branch) {
+                        items += "<option value='" + branch.value + "'>" + branch.text + "</option>";
+                    });
+                    $('#BranchId').html(items);
+                });
+            });
+
+            $('#BranchId').change(function () {
+                var url = '@Url.Content("~/")' + "jobvacancy/GetVacancyByBranch";
+                var ddlsource = "#BranchId";
+                $.getJSON(url, { BranchId: $(ddlsource).val() }, function (data) {
+                    var items = '';
+                    $('#JobVacancyId').empty();
+                    $.each(data, function (i, branch) {
+                        items += "<option value='" + branch.value + "'>" + branch.text + "</option>";
+                    });
+                    $('#JobVacancyId').html(items);
+                });
+            });
 
         });
     </script>

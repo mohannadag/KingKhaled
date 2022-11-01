@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using WebUI.Models.Enums;
 
 namespace WebUI.Models.HR.Employees
 {
@@ -9,20 +11,25 @@ namespace WebUI.Models.HR.Employees
         public string GeneralNumber { get; set; }
         public string ArabicName { get; set; }
         public string EnglishName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; set; } = DateTime.UtcNow;
         public string BirthDateHijri { get; set; }
         public string PlaceOfBirth { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public string WorkType { get; set; }
+        [EnumDataType(typeof(Gender))]
         public string Gender { get; set; }
+        [EnumDataType(typeof(Religion))]
         public string Religion { get; set; }
+        [EnumDataType(typeof(MaritalStatus))]
         public string MarritalStatus { get; set; }
         public int JobVacancyId { get; set; }
         public string VacantNumber { get; set; }
         public int BranchId { get; set; }
         public string BranchName { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
         public int QualificationId { get; set; }
         public string QualificationName { get; set; }
         public int GradeId { get; set; }
@@ -41,6 +48,7 @@ namespace WebUI.Models.HR.Employees
         public SelectList GradeList { get; set; }
         public SelectList LevelList { get; set; }
         public SelectList NationalityList { get; set; }
+        public SelectList DepartmentsList { get; set; }
 
 
     }

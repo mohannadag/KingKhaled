@@ -64,6 +64,32 @@ namespace WebUI.Controllers.HR
             }
         }
 
+        public async Task<IActionResult> GetVacancyByBranch(int branchId)
+        {
+            try
+            {
+                List<JobVacancy> jobVacancies = new();
+                HttpClient client = new HttpClient();
+
+                var endpoint = _apiUrl + "API/JobVacancy/GetAllBy-BranchId/" + branchId;
+                HttpResponseMessage response = await client.GetAsync(endpoint);
+                if (response.IsSuccessStatusCode)
+                {
+                    jobVacancies = JsonConvert.DeserializeObject<List<JobVacancy>>(response.Content.ReadAsStringAsync().Result);
+                    foreach (var item in jobVacancies)
+                    {
+                        item.JobName = item.VacantNumber + " / " + item.JobName + " / " + item.JobLevelName;
+                    }
+                    return Json(new SelectList(jobVacancies, "Id", "JobName"));
+                }
+                else
+                {
+                    return Json("");
+                }
+            }
+            catch (Exception ex) { _logger.LogError($"Exception occured: {ex}"); return View("Error"); }
+        }
+
         public async Task<IActionResult> Create()
         {
             try

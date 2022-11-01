@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
+using WebUI.Models.Enums;
 using WebUI.Models.HR.Branches;
+using WebUI.Models.HR.Departments;
 using WebUI.Models.HR.Employees;
 using WebUI.Models.HR.Grades;
 using WebUI.Models.HR.JobVacancies;
@@ -69,73 +73,72 @@ namespace WebUI.Controllers.HR
             }
         }
 
+        private async Task<Employee> PopulateCreateView(Employee model)
+        {
+            //List<JobVacancy> jobVacancies = new();
+            //List<Branch> branches = new();
+            List<Qualification> qualifications = new();
+            List<Grade> grades = new();
+            List<Level> levels = new();
+            List<Nationality> nationalities = new();
+            List<Department> departments = new();
+
+            HttpClient client = new HttpClient();
+            //var jobVacanciesendpoint = _apiUrl + "API/JobVacancy/getall";
+            //HttpResponseMessage jobVacanciesresponse = await client.GetAsync(jobVacanciesendpoint);
+
+            //var branchesendpoint = _apiUrl + "API/Branch/getall";
+            //HttpResponseMessage branchesresponse = await client.GetAsync(jobVacanciesendpoint);
+
+            var qualificationendpoint = _apiUrl + "API/Qualification/getall";
+            HttpResponseMessage qualificationresponse = await client.GetAsync(qualificationendpoint);
+
+            var gradesendpoint = _apiUrl + "API/Grade/getall";
+            HttpResponseMessage gradesresponse = await client.GetAsync(gradesendpoint);
+
+            var levelsendpoint = _apiUrl + "API/Level/getall";
+            HttpResponseMessage levelsresponse = await client.GetAsync(levelsendpoint);
+
+            var nationalitiesendpoint = _apiUrl + "API/Nationality/getall";
+            HttpResponseMessage nationalitiesresponse = await client.GetAsync(nationalitiesendpoint);
+
+            var departmentsendpoint = _apiUrl + "API/Department/GetAll";
+            HttpResponseMessage departmentsresponse = await client.GetAsync(departmentsendpoint);
+
+            var type = typeof(Department);
+
+            if (qualificationresponse.IsSuccessStatusCode)
+            {
+                //jobVacancies = JsonConvert.DeserializeObject<List<JobVacancy>>(jobVacanciesresponse.Content.ReadAsStringAsync().Result);
+                //branches = JsonConvert.DeserializeObject<List<Branch>>(branchesresponse.Content.ReadAsStringAsync().Result);
+                qualifications = JsonConvert.DeserializeObject<List<Qualification>>(qualificationresponse.Content.ReadAsStringAsync().Result);
+                grades = JsonConvert.DeserializeObject<List<Grade>>(gradesresponse.Content.ReadAsStringAsync().Result);
+                levels = JsonConvert.DeserializeObject<List<Level>>(levelsresponse.Content.ReadAsStringAsync().Result);
+                nationalities = JsonConvert.DeserializeObject<List<Nationality>>(nationalitiesresponse.Content.ReadAsStringAsync().Result);
+                departments = JsonConvert.DeserializeObject<List<Department>>(departmentsresponse.Content.ReadAsStringAsync().Result);
+
+                //JobVacancyList = new SelectList(jobVacancies, "Id", "VacantNumber"),
+                //BranchList = new SelectList(branches, "Id", "ArabicName"),
+                model.QualificationList = new SelectList(qualifications, "Id", "Name");
+                model.GradeList = new SelectList(grades, "Id", "Name");
+                model.LevelList = new SelectList(levels, "Id", "Name");
+                model.NationalityList = new SelectList(nationalities, "Id", "ArabicName");
+                model.DepartmentsList = new SelectList(departments, "Id", "ArabicName");
+                
+            }
+            return model;
+
+        }
+
         public async Task<IActionResult> Create()
         {
             try
             {
-                List<JobVacancy> jobVacancies = new();
-                List<Branch> branches = new();
-                List<Qualification> qualifications = new();
-                List<Grade> grades = new();
-                List<Level> levels = new();
-                List<Nationality> nationalities = new();
-
-                HttpClient client = new HttpClient();
-                var jobVacanciesendpoint = _apiUrl + "API/JobVacancy/getall";
-                HttpResponseMessage jobVacanciesresponse = await client.GetAsync(jobVacanciesendpoint);
-
-                var branchesendpoint = _apiUrl + "API/Branch/getall";
-                HttpResponseMessage branchesresponse = await client.GetAsync(jobVacanciesendpoint);
-
-                var qualificationendpoint = _apiUrl + "API/Qualification/getall";
-                HttpResponseMessage qualificationresponse = await client.GetAsync(qualificationendpoint);
-
-                var gradesendpoint = _apiUrl + "API/Grade/getall";
-                HttpResponseMessage gradesresponse = await client.GetAsync(gradesendpoint);
-
-                var levelsendpoint = _apiUrl + "API/Level/getall";
-                HttpResponseMessage levelsresponse = await client.GetAsync(levelsendpoint);
-
-                var nationalitiesendpoint = _apiUrl + "API/Nationality/getall";
-                HttpResponseMessage nationalitiesresponse = await client.GetAsync(nationalitiesendpoint);
-
-                if (jobVacanciesresponse.IsSuccessStatusCode)
+                Employee model = new Employee
                 {
-                    jobVacancies = JsonConvert.DeserializeObject<List<JobVacancy>>(jobVacanciesresponse.Content.ReadAsStringAsync().Result);
-                    branches = JsonConvert.DeserializeObject<List<Branch>>(branchesresponse.Content.ReadAsStringAsync().Result);
-                    qualifications = JsonConvert.DeserializeObject<List<Qualification>>(qualificationresponse.Content.ReadAsStringAsync().Result);
-                    grades = JsonConvert.DeserializeObject<List<Grade>>(gradesresponse.Content.ReadAsStringAsync().Result);
-                    levels = JsonConvert.DeserializeObject<List<Level>>(levelsresponse.Content.ReadAsStringAsync().Result);
-                    nationalities = JsonConvert.DeserializeObject<List<Nationality>>(nationalitiesresponse.Content.ReadAsStringAsync().Result);
-
-                    Employee model = new Employee
-                    {
-                        JobVacancyList = new SelectList(jobVacancies, "Id", "VacantNumber"),
-                        BranchList = new SelectList(branches, "Id", "ArabicName"),
-                        QualificationList = new SelectList(qualifications, "Id", "Name"),
-                        GradeList = new SelectList(grades, "Id", "Name"),
-                        LevelList = new SelectList(levels, "Id", "Name"),
-                        NationalityList = new SelectList(nationalities, "Id", "ArabicName"),
-
-                    };
-                    return View(model);
-                }
-                else
-                {
-                    var result = _helper.HandleErrors(jobVacanciesresponse);
-                    result.TryGetValue("error", out string error);
-                    if (error != null)
-                    {
-                        ViewData["ErrorMessage"] = error;
-                        return View("Error");
-                    }
-                    else
-                    {
-                        result.TryGetValue("view", out string view);
-                        ViewData["ErrorMessage"] = "Server Error";
-                        return View(view);
-                    }
-                }
+                    BirthDate = DateTime.Now,
+                };
+                return View(await PopulateCreateView(model));
             }
             catch (Exception ex)
             {
@@ -154,6 +157,10 @@ namespace WebUI.Controllers.HR
             {
                 HttpClient client = new HttpClient();
 
+                model.Gender = Enum.GetName(typeof(Gender), Int32.Parse(model.Gender));
+                model.MarritalStatus = Enum.GetName(typeof(MaritalStatus), Int32.Parse(model.MarritalStatus));
+                model.Religion = Enum.GetName(typeof(Religion), Int32.Parse(model.Religion));
+
                 StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
                 string endpoint = _apiUrl + "API/employee";
                 HttpResponseMessage response = await client.PostAsync(endpoint, content);
@@ -169,7 +176,8 @@ namespace WebUI.Controllers.HR
                     if (error != null)
                     {
                         ModelState.TryAddModelError("", error);
-                        return View(model);
+                        return View(await PopulateCreateView(model));
+                        //return View(model);
                     }
                     else
                     {
