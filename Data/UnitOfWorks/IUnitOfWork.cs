@@ -35,6 +35,7 @@ namespace Data.UnitOfWorks
         public IDepartmentRepository Departments { get; }
         public IBranchRepository Branches { get; }
         public IQualificationRepository Qualifications { get; }
+        public IJobLevelRepository JobLevels { get; }
         public IJobVisaRepository JobVisa { get; }
         public IJobVacancyRepository JobVacancy { get; }
         public IAllowanceTypeRepository AllowanceTypes { get; }
@@ -47,6 +48,7 @@ namespace Data.UnitOfWorks
         public IContractRepository Contracts { get; }
         public IContractTransactionRepository ContractTransactions { get; }
         public IContractTypeRepository ContractTypes { get; }
+        public ITicketRepository Tickets { get; }
         public IVacationTypeRepository VacationTypes { get; }
         Task<bool> SaveAsync();
     }

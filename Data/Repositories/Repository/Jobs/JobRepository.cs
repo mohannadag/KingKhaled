@@ -30,9 +30,9 @@ namespace Data.Repositories.Repository.Jobs
             {
                 _logger.LogInformation("GetByIdAsync for Job was Called");
 
-                return await _dbContext.Jobs//.AsNoTracking()
-                                            .Include(x => x.JobSubGroup)
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -52,6 +52,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -71,6 +72,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -177,6 +179,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -198,6 +201,7 @@ namespace Data.Repositories.Repository.Jobs
                 {
                     return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                 .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.JobLevel)
                                                 .Include(x => x.JobGrades)
                                                 .Include(x => x.MaxGrade)
                                                 .Include(x => x.MinGrade)
@@ -219,6 +223,27 @@ namespace Data.Repositories.Repository.Jobs
                 return null;
             }
         }
+        public async Task<IEnumerable<Job>> GetAllByJobLevelIdAsync(int jobLevelId)
+        {
+            try
+            {
+                _logger.LogInformation("GetAllByJobLevelIdAsync for Job was Called");
+
+                return await _dbContext.Jobs.Include(x => x.JobSubGroup)
+                                            .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
+                                            .Include(x => x.JobGrades)
+                                            .Include(x => x.MaxGrade)
+                                            .Include(x => x.MinGrade)
+                                            .Where(x => x.JobLevelId == jobLevelId)
+                                            .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Faild to GetAllByJobLevelIdAsync for Job: {ex.Message}");
+                return null;
+            }
+        }
         public async Task<IEnumerable<Job>> GetAllByJobGroupIdAsync(int jobGroupId)
         {
             try
@@ -227,6 +252,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -247,6 +273,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -267,6 +294,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -287,6 +315,7 @@ namespace Data.Repositories.Repository.Jobs
 
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)
@@ -310,6 +339,7 @@ namespace Data.Repositories.Repository.Jobs
                     {
                         return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                     .ThenInclude(x => x.JobGroup)
+                                                    .Include(x => x.JobLevel)
                                                     .Include(x => x.JobGrades)
                                                     .Include(x => x.MaxGrade)
                                                     .Include(x => x.MinGrade)
@@ -318,6 +348,7 @@ namespace Data.Repositories.Repository.Jobs
                     }
                     return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                                 .ThenInclude(x => x.JobGroup)
+                                                .Include(x => x.JobLevel)
                                                 .Include(x => x.JobGrades)
                                                 .Include(x => x.MaxGrade)
                                                 .Include(x => x.MinGrade)
@@ -326,6 +357,7 @@ namespace Data.Repositories.Repository.Jobs
                 }
                 return await _dbContext.Jobs.Include(x => x.JobSubGroup)
                                             .ThenInclude(x => x.JobGroup)
+                                            .Include(x => x.JobLevel)
                                             .Include(x => x.JobGrades)
                                             .Include(x => x.MaxGrade)
                                             .Include(x => x.MinGrade)

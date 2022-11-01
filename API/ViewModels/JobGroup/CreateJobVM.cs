@@ -12,6 +12,7 @@ namespace API.ViewModels.JobGroup
         public string ArabicName { get; set; }
         public string Code { get; set; }
 
+        public int JobLevelId { get; set; }
         public int JobSubGroupId { get; set; }
 
         public int MinGradeId { get; set; }

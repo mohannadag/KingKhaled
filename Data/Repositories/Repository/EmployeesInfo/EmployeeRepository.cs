@@ -36,7 +36,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
@@ -55,7 +57,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.EmployeeNumber == employeeNumber);
             }
             catch (Exception ex)
@@ -75,6 +79,8 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
                                                  .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.JobVacancyId == jobVacancyId);
             }
             catch (Exception ex)
@@ -94,6 +100,8 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
                                                  .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.JobVacancy.VacantNumber == vacantNumber);
             }
             catch (Exception ex)
@@ -112,7 +120,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.GeneralNumber == generalNumber);
             }
             catch (Exception ex)
@@ -131,7 +141,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .FirstOrDefaultAsync(x => x.ArabicName.ToLower() == arabicName.ToLower());
             }
             catch (Exception ex)
@@ -236,7 +248,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .ToListAsync();
             }
             catch (Exception ex)
@@ -255,6 +269,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Include(x => x.JobVacancy)
                                                  .ThenInclude(x => x.Job)
                                                  .Where(x => x.JobVacancy.JobId == jobId)
@@ -276,6 +293,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.GradeId == gradeId)
                                                  .ToListAsync();
             }
@@ -295,7 +315,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.LevelId == levelId)
                                                  .ToListAsync();
             }
@@ -315,7 +337,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.GradeId == gradeId && x.LevelId == levelId)
                                                  .ToListAsync();
             }
@@ -335,7 +359,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.NationalityId == nationalityId)
                                                  .ToListAsync();
             }
@@ -357,6 +383,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Level)
                                                  .Include(x => x.JobVacancy)
                                                  .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
                                                  .Where(x => x.JobVacancy.BranchId == branchId)
                                                  .ToListAsync();
             }
@@ -376,7 +405,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.QualificationId == qualificationId)
                                                  .ToListAsync();
             }
@@ -397,7 +428,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.WorkType.ToLower() == workType.ToLower())
                                                  .ToListAsync();
             }
@@ -417,7 +450,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.Gender.ToLower() == gender.ToLower())
                                                  .ToListAsync();
             }
@@ -437,7 +472,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.Religion.ToLower() == religion.ToLower())
                                                  .ToListAsync();
             }
@@ -457,7 +494,9 @@ namespace Data.Repositories.Repository.EmployeesInfo
                                                  .Include(x => x.Qualification)
                                                  .Include(x => x.Grade)
                                                  .Include(x => x.Level)
-                                                 //.Include(x => x.Job)
+                                                 .Include(x => x.JobVacancy)
+                                                 .ThenInclude(x => x.Branch)
+                                                 .ThenInclude(x => x.Department)
                                                  .Where(x => x.MarritalStatus.ToLower() == marritalStatus.ToLower())
                                                  .ToListAsync();
             }

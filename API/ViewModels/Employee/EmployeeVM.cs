@@ -32,6 +32,9 @@ namespace API.ViewModels.Employee
         public int BranchId { get; set; }
         public string BranchName { get; set; }
 
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+
         public int QualificationId { get; set; }
         public string QualificationName { get; set; }
 

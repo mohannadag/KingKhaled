@@ -23,6 +23,9 @@ namespace Core.Models.Jobs
         public int MaxGradeId { get; set; }
         public Grade MaxGrade { get; set; }
 
+        public int JobLevelId { get; set; }
+        public JobLevel JobLevel { get; set; }
+
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }

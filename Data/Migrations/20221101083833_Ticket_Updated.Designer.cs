@@ -4,6 +4,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221101083833_Ticket_Updated")]
+    partial class Ticket_Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -971,9 +973,6 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JobLevelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("JobSubGroupId")
                         .HasColumnType("int");
 
@@ -993,8 +992,6 @@ namespace Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobLevelId");
 
                     b.HasIndex("JobSubGroupId");
 
@@ -1060,34 +1057,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobGroups");
-                });
-
-            modelBuilder.Entity("Core.Models.Jobs.JobLevel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("JobLevels");
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>
@@ -1645,12 +1614,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Jobs.Job", b =>
                 {
-                    b.HasOne("Core.Models.Jobs.JobLevel", "JobLevel")
-                        .WithMany("Jobs")
-                        .HasForeignKey("JobLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.Jobs.JobSubGroup", "JobSubGroup")
                         .WithMany("Jobs")
                         .HasForeignKey("JobSubGroupId")
@@ -1668,8 +1631,6 @@ namespace Data.Migrations
                         .HasForeignKey("MinGradeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("JobLevel");
 
                     b.Navigation("JobSubGroup");
 
@@ -1843,11 +1804,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Jobs.JobGroup", b =>
                 {
                     b.Navigation("JobSubGroups");
-                });
-
-            modelBuilder.Entity("Core.Models.Jobs.JobLevel", b =>
-                {
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Core.Models.Jobs.JobSubGroup", b =>

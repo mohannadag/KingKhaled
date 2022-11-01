@@ -22,6 +22,7 @@ namespace Data.Repositories.IRepository.IJobs
         Task<bool> AlreadyExistCodeAsync(string code);
 
         Task<IEnumerable<Job>> GetAllAsync();
+        Task<IEnumerable<Job>> GetAllByJobLevelIdAsync(int jobLevelId);
         Task<IEnumerable<Job>> GetAllByJobGroupIdAsync(int jobGroupId);
         Task<IEnumerable<Job>> GetAllByJobSubGroupIdAsync(int jobSubGroupId);
         Task<IEnumerable<Job>> GetAllByMinGradeIdAsync(int minGradeId);

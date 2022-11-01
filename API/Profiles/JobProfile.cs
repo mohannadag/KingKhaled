@@ -19,6 +19,7 @@ namespace API.Profiles
             CreateMap<Job, JobVM>()
                 .ForMember(viewModel => viewModel.MinGradeName, model => model.MapFrom(x => x.MinGrade.Name))
                 .ForMember(viewModel => viewModel.MaxGradeName, model => model.MapFrom(x => x.MaxGrade.Name))
+                .ForMember(viewModel => viewModel.JobLevelName, model => model.MapFrom(x => x.JobLevel.Name))
                 .ForMember(viewModel => viewModel.JobSubGroup, model => model.MapFrom(x => x.JobSubGroup.ArabicName))
                 .ForMember(viewModel => viewModel.JobGroup, model => model.MapFrom(x => x.JobSubGroup.JobGroup.ArabicName))
                 .ReverseMap();
@@ -74,6 +75,14 @@ namespace API.Profiles
             CreateMap<JobVisa, CreateJobVisaVM>()
                 .ReverseMap();
             CreateMap<JobVisa, UpdateJobVisaVM>()
+                .ReverseMap();
+
+            // JobLevel
+            CreateMap<JobLevel, JobLevelVM>()
+                .ReverseMap();
+            CreateMap<JobLevel, CreateJobLevelVM>()
+                .ReverseMap();
+            CreateMap<JobLevel, UpdateJobLevelVM>()
                 .ReverseMap();
 
             // JobVacancy

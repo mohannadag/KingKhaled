@@ -17,6 +17,13 @@ namespace API.Validators.Job
             RuleFor(x => x.Code).NotEmpty().MinimumLength(3).MaximumLength(50);
             RuleFor(x => x.WorkNatureAllowance).NotEmpty().GreaterThanOrEqualTo(0);
 
+            RuleFor(x => x.JobLevelId).NotEmpty()
+                                      .MustAsync(async (value, cancelToken) =>
+                                      {
+                                          return (await unitOfWork.JobLevels.IsValidIdAsync(value));
+                                      })
+                                      .WithMessage("Min JobLevel Not Found!");
+
             RuleFor(x => x.MinGradeId).NotEmpty()
                                       .MustAsync(async (value, cancelToken) =>
                                       {

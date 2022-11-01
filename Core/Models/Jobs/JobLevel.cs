@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Models.Vacations
+namespace Core.Models.Jobs
 {
-    public class VacationType
+    public class JobLevel
     {
         public int Id { get; set; }
-        public string ArabicName { get; set; }
-        public int DurationPerDay { get; set; }
+        public string Name { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string ModifiedBy { get; set; }
 
-        //public ICollection<Vacation> Vacations { get; set; }
+        public ICollection<Job> Jobs { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Core.Models.Financial;
 using Core.Models.General;
 using Core.Models.Jobs;
+using Core.Models.Vacations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,5 +55,6 @@ namespace Core.Models.EmployeesInfo
         public string ModifiedBy { get; set; }
 
         public ICollection<EmployeeAccount> EmployeeAccounts { get; set; }
+        //public ICollection<Vacation> Vacations { get; set; }
     }
 }
