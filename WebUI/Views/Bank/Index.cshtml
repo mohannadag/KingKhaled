@@ -20,7 +20,7 @@
             </div>
 
             <div class="float-right">
-                <a class="btn btn-primary my-3" @*asp-controller="bank" asp-action="create"*@ data-toggle="modal" data-target="#AddJobGroup" id="add-new">
+                <a class="btn btn-primary my-3" @*asp-controller="bank" asp-action="create"*@ data-toggle="modal" data-target="#AddModal" id="add-new">
                     <i class="far fa-plus-square"></i>
                     اضافة بنك
                 </a>
@@ -48,7 +48,7 @@
                             <td>@item.EnglishName</td>
                             <td>@item.Code</td>
                             <td>
-                                <a @*asp-controller="bank" asp-action="edit" asp-route-id="@item.Id"*@ data-toggle="modal" data-target="#AddJobGroup"
+                                <a @*asp-controller="bank" asp-action="edit" asp-route-id="@item.Id"*@ data-toggle="modal" data-target="#AddModal"
                                data-id="@item.Id" data-arname="@item.ArabicName" data-code="@item.Code" data-enname="@item.EnglishName"
                                class="open-Dialog btn btn-outline-primary">تعديل</a>
 
@@ -73,7 +73,7 @@
     </div>
 </div>
 
-<div id="AddJobGroup" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div id="AddModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-s" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,7 +99,7 @@
                                     @*<span class="form-text text-muted">Please enter your email</span>*@
                                 </div>
                                 <div class="col-lg-12">
-                                    <label>Name:</label>
+                                    <label>الاسم الانكليزي:</label>
                                     <input type="text" id="enName" class="form-control" placeholder="Name">
                                     @*<span class="form-text text-muted">Please enter your email</span>*@
                                 </div>
@@ -128,7 +128,7 @@
         }
         }
 
-        // testing add
+        // add
         $(document).on("click", ".open-Dialog", function () {
             var Id = $(this).data('id');
             var Code = $(this).data('code');

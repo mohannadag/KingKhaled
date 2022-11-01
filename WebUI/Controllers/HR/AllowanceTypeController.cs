@@ -25,6 +25,7 @@ namespace WebUI.Controllers.HR
         {
             try
             {
+                ViewBag.api = _apiUrl;
                 List<AllowanceType> allowanceType = new();
 
                 var endpoint = _apiUrl + "API/allowanceType/getall";

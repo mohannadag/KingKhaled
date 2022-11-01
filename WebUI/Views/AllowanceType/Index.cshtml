@@ -20,7 +20,7 @@
             </div>
 
             <div class="float-right">
-                <a class="btn btn-primary my-3" asp-controller="allowancetype" asp-action="create">
+                <a class="btn btn-primary my-3" @*asp-controller="allowancetype" asp-action="create"*@ data-toggle="modal" data-target="#AddModal" id="add-new">
                     <i class="far fa-plus-square"></i>
                     اضافة بدل
                 </a>
@@ -44,8 +44,9 @@
                         <tr href="#">
                             <td>@item.ArabicName</td>
                             <td>
-                                <a asp-controller="allowancetype" asp-action="edit" asp-route-id="@item.Id"
-                               class="btn btn-outline-primary">@*<i class="fas fa-edit fa-sm"></i>*@تعديل</a>
+                                <a @*asp-controller="allowancetype" asp-action="edit" asp-route-id="@item.Id"*@ data-toggle="modal" data-target="#AddModal"
+                               data-id="@item.Id" data-arname="@item.ArabicName"
+                               class="open-Dialog btn btn-outline-primary">@*<i class="fas fa-edit fa-sm"></i>*@تعديل</a>
 
                                 @*<a class="btn btn-outline-danger delete"
                                     id="@item.Id" name="delete">حذف</a>*@
@@ -67,6 +68,39 @@
 </div>
 
 
+<div id="AddModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-s" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">إضافة  </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="las la-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 layout-spacing">
+                    <div class="widget-content widget-content-area">
+                        <div class="w-100">
+                            <input id="id" hidden />
+                            <div class="form-group row">
+                                
+                                <label for="" class="col-sm-2 col-form-label">الاسم</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="arName" class="form-control" placeholder="" />
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> إلغاء</button>
+                    <button type="button" class="btn btn-primary" href="#" onclick="save()" id="btnSave">حفظ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts
@@ -78,6 +112,89 @@
         {
             return Xsrf.GetAndStoreTokens(Context).RequestToken;
         }
+        }
+
+        // add
+        $(document).on("click", ".open-Dialog", function () {
+            var Id = $(this).data('id');
+            var ArName = $(this).data('arname');
+
+            $(".modal-body #id").val(Id);
+            $(".modal-body #arName").val(ArName);
+        });
+
+        // add new button
+        $('#add-new').click(function () {
+            $(".modal-body #id").val('');
+            $(".modal-body #arName").val('');
+        });
+
+        // add new
+        function save() {
+            var id = $('#id').val();
+            var arabicName = $("#arName").val();
+
+            var SendInfo = {
+                "id": id,
+                "arabicName": arabicName,
+            }
+
+            if (id == "") {
+                $.ajax({
+                    type: 'POST',
+                    async: false,
+                    contentType: "application/json",
+
+                    data: JSON.stringify(SendInfo),
+                    url: '@ViewBag.api.ToString()' + 'API/allowancetype',
+                    success: function (msg) {
+                        Swal.fire(
+                            'تم الحفظ!',
+                            '',
+                            'success',
+                        ).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم الحفظ!',
+                            data.responseText,
+                            'error'
+                        )
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    type: 'PUT',
+                    async: false,
+                    contentType: "application/json",
+
+                    data: JSON.stringify(SendInfo),
+                    url: '@ViewBag.api.ToString()' + 'API/allowancetype/' + id,
+                    success: function (msg) {
+                        Swal.fire({
+                            title: 'تم التعديل?',
+                            icon: 'info',
+
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            window.location.reload();
+                        })
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            'لم يتم التعديل!',
+                            data.responseText,
+                            'error'
+                        )
+                    }
+                });
+            }
+
+
         }
 
         $(document).ready(function () {
@@ -120,6 +237,9 @@
                     }
                 });
             });
+
+
+            
 
 
             //delete button
